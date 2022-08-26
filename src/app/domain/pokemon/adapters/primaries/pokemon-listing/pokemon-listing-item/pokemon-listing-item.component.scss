@@ -1,0 +1,9 @@
+.card {
+  width: 300px;
+  flex: none;
+  margin-top: 10px;
+
+  .card-title:first-letter {
+    text-transform: uppercase;
+  }
+}

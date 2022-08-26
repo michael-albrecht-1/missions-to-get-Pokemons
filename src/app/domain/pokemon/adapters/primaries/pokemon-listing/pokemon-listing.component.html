@@ -1,0 +1,14 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Pokedex</h1>
+    <hr class="my-4" />
+
+    <div class="card-deck">
+      <pokemon-listing-item
+        *ngFor="let pokemon of pokemonList$ | async"
+        [pokemon]="pokemon"
+      >
+      </pokemon-listing-item>
+    </div>
+  </div>
+</div>

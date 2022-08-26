@@ -1,0 +1,14 @@
+<div class="card">
+  <img
+    class="card-img-top"
+    src="{{ pokemon.avatar }}"
+    alt="{{ pokemon.name }}"
+  />
+  <div class="card-body">
+    <h5 class="card-title">{{ pokemon.name }}</h5>
+    <p class="card-text">{{ pokemon.description }}</p>
+    <a [routerLink]="['/pokemons', pokemon.number]" class="btn btn-primary"
+      >Details</a
+    >
+  </div>
+</div>
