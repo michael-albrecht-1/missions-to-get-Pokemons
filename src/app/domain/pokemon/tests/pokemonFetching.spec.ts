@@ -12,7 +12,7 @@ describe('Pokemon handler fetches', () => {
   });
 
   describe('A list', () => {
-    it('With 0 pokemons in the source', (done) => {
+    it('With 0 pokemons if there is 0 pokemons in the source', (done) => {
       const pokemonHandler = createPokemonHandler([]);
       pokemonHandler
         .all()
@@ -23,18 +23,18 @@ describe('Pokemon handler fetches', () => {
         .unsubscribe();
     });
 
-    it('With 1 pokemon in the source', (done) => {
+    it('With 1 pokemon if there is 1 pokemons in the source', (done) => {
       const pokemonHandler = createPokemonHandler([pikachu]);
       pokemonHandler
         .all()
         .subscribe((pokemons: Pokemon[]) => {
-          expect(pokemons).toEqual([pikachu]);
+          verifyListOfPokemons(pokemons, [pikachu]);
           done();
         })
         .unsubscribe();
     });
 
-    it('With 2 pokemons in the source', (done) => {
+    it('With 2 pokemons if there is 2 pokemons in the source', (done) => {
       const salameche: Pokemon = new StubPokemonBuilder()
         .withName('salameche')
         .withNumber('2')
@@ -43,11 +43,23 @@ describe('Pokemon handler fetches', () => {
       pokemonHandler
         .all()
         .subscribe((pokemons: Pokemon[]) => {
-          expect(pokemons).toEqual([pikachu, salameche]);
+          verifyListOfPokemons(pokemons, [pikachu, salameche]);
           done();
         })
         .unsubscribe();
     });
+
+    function verifyListOfPokemons(
+      pokemons: Pokemon[],
+      expectedPokemons: Pokemon[]
+    ) {
+      expect(pokemons).toEqual(expectedPokemons);
+      expect(pokemons.length).toEqual(expectedPokemons.length);
+
+      pokemons.forEach((pokemon: Pokemon, indice: number) => {
+        verifyOnePokemon(pokemon, expectedPokemons[indice]);
+      });
+    }
   });
 
   it('A details of one pokemon', (done) => {

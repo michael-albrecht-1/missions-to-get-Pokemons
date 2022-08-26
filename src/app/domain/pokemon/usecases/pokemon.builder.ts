@@ -1,12 +1,12 @@
 import { Pokemon } from '../entity/pokemon';
 
 export class PokemonBuilder {
-  protected _number: string;
-  protected _name: string;
-  protected _description: string;
-  protected _weight: number;
-  protected _height: number;
-  protected _avatar: string;
+  protected _number!: string;
+  protected _name!: string;
+  protected _description!: string;
+  protected _weight!: number;
+  protected _height!: number;
+  protected _avatar!: string;
 
   withNumber(value: string): PokemonBuilder {
     this._number = value;
