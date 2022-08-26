@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { PokemonModule } from './domain/pokemon/adapters/primaries/pokemon.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,6 +16,7 @@ import { PokemonModule } from './domain/pokemon/adapters/primaries/pokemon.modul
     RouterModule.forRoot([
       { path: '', redirectTo: '/pokemons', pathMatch: 'full' },
     ]),
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
