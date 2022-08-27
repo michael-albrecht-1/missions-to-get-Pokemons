@@ -1,6 +1,6 @@
 import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
-import { Pokemon } from '../../entity/pokemon';
-import { PokemonLoader } from '../../loaders/PokemonLoader';
+import { Pokemon } from '../../../entity/pokemon';
+import { PokemonLoader } from '../../../loaders/PokemonLoader';
 
 export class InMemoryPokemonLoader implements PokemonLoader {
   #pokemons$: Subject<Pokemon[]> = new BehaviorSubject(this.pokemons);

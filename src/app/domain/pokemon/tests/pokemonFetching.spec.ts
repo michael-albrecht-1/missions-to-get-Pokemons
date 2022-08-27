@@ -1,4 +1,4 @@
-import { InMemoryPokemonLoader } from '../adapters/secondaries/inmemoryPokemon.loader';
+import { InMemoryPokemonLoader } from '../adapters/secondaries/inmemory/inmemoryPokemon.loader';
 import { Pokemon } from '../entity/pokemon';
 import { PokemonLoader } from '../loaders/PokemonLoader';
 import { PokemonHandler } from '../usecases/pokemon.handler';
