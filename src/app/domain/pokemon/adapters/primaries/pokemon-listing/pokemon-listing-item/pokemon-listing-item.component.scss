@@ -6,4 +6,14 @@
   .card-title:first-letter {
     text-transform: uppercase;
   }
+
+  &-text {
+    height: 4rem;
+  }
+
+  img {
+    height: 8rem;
+    object-fit: contain;
+    margin-top: 2rem;
+  }
 }

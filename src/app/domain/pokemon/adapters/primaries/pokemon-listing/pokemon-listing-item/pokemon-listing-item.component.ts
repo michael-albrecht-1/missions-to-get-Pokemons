@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Pokemon } from 'src/app/domain/pokemon/entity/pokemon';
 
 @Component({
@@ -6,6 +6,10 @@ import { Pokemon } from 'src/app/domain/pokemon/entity/pokemon';
   templateUrl: './pokemon-listing-item.component.html',
   styleUrls: ['./pokemon-listing-item.component.scss'],
 })
-export class PokemonListingItemComponent {
+export class PokemonListingItemComponent implements OnInit {
   @Input() pokemon!: Pokemon;
+
+  ngOnInit() {
+    console.warn(this.pokemon);
+  }
 }

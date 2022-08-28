@@ -4,11 +4,12 @@ import { RESTPokemonLoader } from '../adapters/secondaries/real/RESTPokemon.load
 import { Pokemon } from '../entity/pokemon';
 import { PokemonLoader } from '../loaders/PokemonLoader';
 import { InMemoryPokemonLoader } from '../adapters/secondaries/inmemory/inmemoryPokemon.loader';
+import { environment, SOURCES } from 'src/environments/environment';
 
 export class PokemonDIFactory {
   static pokemonLoader(http: HttpClient): PokemonLoader {
-    switch ('rest') {
-      case 'rest':
+    switch (environment.source) {
+      case SOURCES.rest:
         return new RESTPokemonLoader(http);
       default:
         const pickachu: Pokemon = new PokemonBuilder()

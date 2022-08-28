@@ -10,7 +10,7 @@ export class PokemonMapper {
       .withDescription(pokemon.description)
       .withHeight(pokemon.height)
       .withWeight(pokemon.weight)
-      .withAvatar(pokemon.picture_url)
+      .withAvatar(pokemon.avatar)
       .build();
   }
 }
