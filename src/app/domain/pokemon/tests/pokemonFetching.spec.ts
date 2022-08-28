@@ -90,5 +90,6 @@ describe('Pokemon handler fetches', () => {
     expect(pokemon.weight).toEqual(expected.weight);
     expect(pokemon.height).toEqual(expected.height);
     expect(pokemon.avatar).toEqual(expected.avatar);
+    expect(pokemon.types.length).toEqual(expected.types.length);
   }
 });

@@ -4,6 +4,8 @@ import { PokemonDTO } from './PokemonDTO';
 
 export class PokemonMapper {
   static mapToPokemon(pokemon: PokemonDTO): Pokemon {
+    console.warn(pokemon);
+
     return new PokemonBuilder()
       .withNumber(pokemon.id.toString())
       .withName(pokemon.name)
@@ -11,6 +13,7 @@ export class PokemonMapper {
       .withHeight(pokemon.height)
       .withWeight(pokemon.weight)
       .withAvatar(pokemon.sprites.front_default)
+      .withTypes(pokemon.types.map((type) => type?.type?.name))
       .build();
   }
 }

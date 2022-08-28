@@ -22,7 +22,7 @@ export class RESTPokeApiPokemonLoader implements PokemonLoader {
 
   all(): Observable<Pokemon[]> {
     return this.http
-      .get<PokeApiResponse>('https://pokeapi.co/api/v2/pokemon?limit=200')
+      .get<PokeApiResponse>('https://pokeapi.co/api/v2/pokemon')
       .pipe(
         map<PokeApiResponse, PokemonNameAndLink[]>((res) => res.results),
         switchMap<PokemonNameAndLink[], Observable<PokemonDTO[]>>(
@@ -40,7 +40,9 @@ export class RESTPokeApiPokemonLoader implements PokemonLoader {
   }
 
   get(number: string): Observable<Pokemon> {
-    return of();
+    return this.http
+      .get<PokemonDTO>(`https://pokeapi.co/api/v2/pokemon/${number}`)
+      .pipe(map<PokemonDTO, Pokemon>(PokemonMapper.mapToPokemon));
   }
 
   #getByLink = (

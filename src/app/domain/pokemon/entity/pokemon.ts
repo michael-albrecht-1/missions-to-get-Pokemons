@@ -5,7 +5,8 @@ export class Pokemon {
     private _description: string,
     private _weight: number,
     private _height: number,
-    private _avatar: string
+    private _avatar: string,
+    private _types: string[] = []
   ) {}
 
   get number(): string {
@@ -30,5 +31,9 @@ export class Pokemon {
 
   get avatar(): string {
     return this._avatar;
+  }
+
+  get types(): string[] {
+    return this._types;
   }
 }

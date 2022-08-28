@@ -7,6 +7,7 @@ export class PokemonBuilder {
   protected _weight!: number;
   protected _height!: number;
   protected _avatar!: string;
+  protected _types!: string[];
 
   withNumber(value: string): PokemonBuilder {
     this._number = value;
@@ -38,6 +39,11 @@ export class PokemonBuilder {
     return this;
   }
 
+  withTypes(value: string[]): PokemonBuilder {
+    this._types = value;
+    return this;
+  }
+
   build(): Pokemon {
     return new Pokemon(
       this._number,
@@ -45,7 +51,8 @@ export class PokemonBuilder {
       this._description,
       this._weight,
       this._height,
-      this._avatar
+      this._avatar,
+      this._types
     );
   }
 }
