@@ -1,16 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { PokemonBuilder } from '../usecases/pokemon.builder';
-import { RESTPokemonLoader } from '../adapters/secondaries/real/RESTPokemon.loader';
 import { Pokemon } from '../entity/pokemon';
 import { PokemonLoader } from '../loaders/PokemonLoader';
 import { InMemoryPokemonLoader } from '../adapters/secondaries/inmemory/inmemoryPokemon.loader';
 import { environment, SOURCES } from 'src/environments/environment';
+import { RESTPokeApiPokemonLoader } from '../adapters/secondaries/real/REST-poke-api/RESTPokeApiPokemon.loader';
+import { RESTMongoPokemonLoader } from '../adapters/secondaries/real/REST-mongo/RESTMongoPokemon.loader';
 
 export class PokemonDIFactory {
   static pokemonLoader(http: HttpClient): PokemonLoader {
     switch (environment.source) {
       case SOURCES.rest:
-        return new RESTPokemonLoader(http);
+        return new RESTMongoPokemonLoader(http);
+      case SOURCES.restPokeApi:
+        return new RESTPokeApiPokemonLoader(http);
       default:
         const pickachu: Pokemon = new PokemonBuilder()
           .withNumber('25')

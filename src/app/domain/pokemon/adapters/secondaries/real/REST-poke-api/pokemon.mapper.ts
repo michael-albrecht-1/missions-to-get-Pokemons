@@ -1,16 +1,16 @@
 import { Pokemon } from 'src/app/domain/pokemon/entity/pokemon';
 import { PokemonBuilder } from 'src/app/domain/pokemon/usecases/pokemon.builder';
-import { PokemonDTO } from '../DTO/PokemonDTO';
+import { PokemonDTO } from './PokemonDTO';
 
 export class PokemonMapper {
   static mapToPokemon(pokemon: PokemonDTO): Pokemon {
     return new PokemonBuilder()
-      .withNumber(pokemon.id)
+      .withNumber(pokemon.id.toString())
       .withName(pokemon.name)
-      .withDescription(pokemon.description)
+      .withDescription('')
       .withHeight(pokemon.height)
       .withWeight(pokemon.weight)
-      .withAvatar(pokemon.avatar)
+      .withAvatar(pokemon.sprites.front_default)
       .build();
   }
 }

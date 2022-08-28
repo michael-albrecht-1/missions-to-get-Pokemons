@@ -5,11 +5,12 @@
 export enum SOURCES {
   'inmemory',
   'rest',
+  'restPokeApi',
 }
 
 export const environment = {
   production: false,
-  source: SOURCES.rest,
+  source: SOURCES.restPokeApi,
 };
 
 /*

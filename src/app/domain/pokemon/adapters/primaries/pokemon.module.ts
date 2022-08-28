@@ -7,13 +7,9 @@ import { PokemonRoutes } from '../../configuration/pokemon.routes';
 
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { PokemonHandler } from '../../usecases/pokemon.handler';
-import { PokemonBuilder } from '../../usecases/pokemon.builder';
 import { PokemonListingComponent } from './pokemon-listing/pokemon-listing.component';
 import { PokemonListingItemComponent } from './pokemon-listing/pokemon-listing-item/pokemon-listing-item.component';
 import { PokemonDetailsComponent } from './pokemon-details/pokemon-details.component';
-import { Pokemon } from '../../entity/pokemon';
-import { InMemoryPokemonLoader } from '../secondaries/inmemory/inmemoryPokemon.loader';
-import { RESTPokemonLoader } from '../secondaries/real/RESTPokemon.loader';
 import { PokemonDIProvider } from '../../configuration/pokemonDI.provider';
 import { PokemonDIFactory } from '../../configuration/pokemonDI.factory';
 

@@ -6,10 +6,6 @@ import { Pokemon } from 'src/app/domain/pokemon/entity/pokemon';
   templateUrl: './pokemon-listing-item.component.html',
   styleUrls: ['./pokemon-listing-item.component.scss'],
 })
-export class PokemonListingItemComponent implements OnInit {
+export class PokemonListingItemComponent {
   @Input() pokemon!: Pokemon;
-
-  ngOnInit() {
-    console.warn(this.pokemon);
-  }
 }

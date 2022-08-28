@@ -1,4 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
+
+body {
+  background-color: #564138;
+  color: #f5f749;
+}
+
+.card {
+  background-color: #2e86ab;
+  color: #f6f5ae;
+}
+
+.btn {
+  background-color: #f24236;
+  border: none;
+  color: #f6f5ae;
+  &:hover {
+    background-color: lighten(#f24236, 10%);
+  }
+}
