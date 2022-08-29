@@ -17,7 +17,7 @@ type PokeApiResponse = {
   results: any[];
 };
 
-export class RESTPokeApiPokemonLoader implements PokemonLoader {
+export class PokeApiPokemonLoader implements PokemonLoader {
   constructor(private http: HttpClient) {}
 
   all(): Observable<Pokemon[]> {
@@ -32,7 +32,6 @@ export class RESTPokeApiPokemonLoader implements PokemonLoader {
             return combineLatest(pokemons);
           }
         ),
-        tap((a) => console.warn(a)),
         map<PokemonDTO[], Pokemon[]>((pokemons) =>
           pokemons.map(PokemonMapper.mapToPokemon)
         )

@@ -4,8 +4,6 @@ import { PokemonDTO } from './PokemonDTO';
 
 export class PokemonMapper {
   static mapToPokemon(pokemon: PokemonDTO): Pokemon {
-    console.warn(pokemon);
-
     return new PokemonBuilder()
       .withNumber(pokemon.id.toString())
       .withName(pokemon.name)

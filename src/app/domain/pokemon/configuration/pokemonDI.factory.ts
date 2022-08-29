@@ -4,8 +4,8 @@ import { Pokemon } from '../entity/pokemon';
 import { PokemonLoader } from '../loaders/PokemonLoader';
 import { InMemoryPokemonLoader } from '../adapters/secondaries/inmemory/inmemoryPokemon.loader';
 import { environment, SOURCES } from 'src/environments/environment';
-import { RESTPokeApiPokemonLoader } from '../adapters/secondaries/real/REST-poke-api/RESTPokeApiPokemon.loader';
 import { RESTMongoPokemonLoader } from '../adapters/secondaries/real/REST-mongo/RESTMongoPokemon.loader';
+import { PokeApiPokemonLoader } from '../adapters/secondaries/real/REST-poke-api/PokeApiPokemon.loader';
 
 export class PokemonDIFactory {
   static pokemonLoader(http: HttpClient): PokemonLoader {
@@ -13,7 +13,7 @@ export class PokemonDIFactory {
       case SOURCES.rest:
         return new RESTMongoPokemonLoader(http);
       case SOURCES.restPokeApi:
-        return new RESTPokeApiPokemonLoader(http);
+        return new PokeApiPokemonLoader(http);
       default:
         const pickachu: Pokemon = new PokemonBuilder()
           .withNumber('25')
