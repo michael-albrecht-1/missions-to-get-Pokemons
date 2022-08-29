@@ -7,9 +7,14 @@
   <div class="card-body">
     <h5 class="card-title">{{ pokemon.name }}</h5>
     <p class="card-text">{{ pokemon.description }}</p>
-    <ul>
-      <li *ngFor="let type of pokemon.types">{{ type }}</li>
-    </ul>
+    <p>
+      <span
+        *ngFor="let type of pokemon.types; let first = first; let last = last"
+      >
+        <span *ngIf="pokemon.types.length > 1 && last"> / </span>
+        <span>{{ type }}</span>
+      </span>
+    </p>
     <a [routerLink]="['/pokemons', pokemon.number]" class="btn btn-primary"
       >Details</a
     >
