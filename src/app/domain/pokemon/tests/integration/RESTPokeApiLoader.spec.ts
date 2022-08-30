@@ -52,4 +52,36 @@ describe('Integration | RestPokeApiLoader fetches', () => {
       done();
     });
   });
+
+  it('The detail of one pokemon', (done) => {
+    const fakeHttpClient = { get: () => of() } as unknown as HttpClient;
+    const fakePokemonResponsePokemons: PokemonDTO = pokeApiPokemonDTOMock;
+
+    const expectedPokemon: Pokemon = new PokemonBuilder()
+      .withNumber(fakePokemonResponsePokemons.id.toString())
+      .withName(fakePokemonResponsePokemons.name)
+      .withDescription('')
+      .withHeight(fakePokemonResponsePokemons.height)
+      .withWeight(fakePokemonResponsePokemons.weight)
+      .withAvatar(fakePokemonResponsePokemons.sprites.front_default)
+      .withTypes(fakePokemonResponsePokemons.types)
+      .build();
+
+    const pokemonLoader: PokemonLoader = new PokeApiPokemonLoader(
+      fakeHttpClient
+    );
+    const pokemonHandler: PokemonHandler = new PokemonHandler(pokemonLoader);
+
+    spyOn(fakeHttpClient, 'get').and.returnValue(
+      of(fakePokemonResponsePokemons)
+    );
+
+    pokemonHandler.get('1').subscribe((pokemon) => {
+      expect(pokemon).toEqual(expectedPokemon);
+      expect(fakeHttpClient.get).toHaveBeenCalledWith(
+        `https://pokeapi.co/api/v2/pokemon/1`
+      );
+      done();
+    });
+  });
 });
