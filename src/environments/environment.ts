@@ -2,11 +2,7 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export enum SOURCES {
-  'inmemory',
-  'rest',
-  'restPokeApi',
-}
+import { SOURCES } from 'src/config/sources';
 
 export const environment = {
   production: false,

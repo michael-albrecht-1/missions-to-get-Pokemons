@@ -4,8 +4,6 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start:inmemory": "webpack-dev-server --config ./config/webpack.inmemory.js --progress",
-    "start:dev:rest": "SOURCE=rest webpack-dev-server --config ./config/webpack.dev.js --progress",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

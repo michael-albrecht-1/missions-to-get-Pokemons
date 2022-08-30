@@ -3,9 +3,10 @@ import { PokemonBuilder } from '../usecases/pokemon.builder';
 import { Pokemon } from '../entity/pokemon';
 import { PokemonLoader } from '../loaders/PokemonLoader';
 import { InMemoryPokemonLoader } from '../adapters/secondaries/inmemory/inmemoryPokemon.loader';
-import { environment, SOURCES } from 'src/environments/environment';
+import { environment } from 'src/environments/environment';
 import { RESTMongoPokemonLoader } from '../adapters/secondaries/real/REST-mongo/RESTMongoPokemon.loader';
 import { PokeApiPokemonLoader } from '../adapters/secondaries/real/REST-poke-api/PokeApiPokemon.loader';
+import { SOURCES } from 'src/config/sources';
 
 export class PokemonDIFactory {
   static pokemonLoader(http: HttpClient): PokemonLoader {

@@ -1,3 +1,6 @@
+import { SOURCES } from 'src/config/sources';
+
 export const environment = {
-  production: true
+  production: false,
+  source: SOURCES.restPokeApi,
 };
