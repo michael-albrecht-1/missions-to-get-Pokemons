@@ -4,11 +4,8 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
+    "site": "missionstogetpokemons",
     "public": "public",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ]
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
   }
 }
