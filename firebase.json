@@ -5,7 +5,7 @@
   },
   "hosting": {
     "site": "missionstogetpokemons",
-    "public": "public",
+    "public": "dist/missionstogetpokemons",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
   }
 }

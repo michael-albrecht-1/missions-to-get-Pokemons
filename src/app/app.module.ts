@@ -7,9 +7,23 @@ import { AppComponent } from './app.component';
 import { PokemonModule } from './domain/pokemon/adapters/primaries/pokemon.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { environment } from 'src/environments/environment';
+
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
+
     BrowserModule,
     FormsModule,
     PokemonModule,
