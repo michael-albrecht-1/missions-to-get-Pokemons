@@ -86,10 +86,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "pokedex:build:production"
+              "browserTarget": "missionstogetpokemons:build:production"
             },
             "development": {
-              "browserTarget": "pokedex:build:development"
+              "browserTarget": "missionstogetpokemons:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -97,7 +97,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "pokedex:build"
+            "browserTarget": "missionstogetpokemons:build"
           }
         },
         "test": {
