@@ -6,7 +6,7 @@ import { Pokemon } from '../../entity/pokemon';
 import { PokemonLoader } from '../../loaders/PokemonLoader';
 import { PokemonBuilder } from '../../usecases/pokemon.builder';
 import { PokemonHandler } from '../../usecases/pokemon.handler';
-import { pokeApiPokemonDTOMock } from './mocks/PokeApiPokemonDTOMock';
+import { pokeApiPokemonDTOMock } from './mocks/RESTPokeApiPokemonDTOMock';
 
 type PokemonNameAndLink = {
   name: string;
