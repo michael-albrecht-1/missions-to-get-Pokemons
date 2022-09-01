@@ -3,21 +3,30 @@
 /* Importing Bootstrap SCSS file. */
 @import "~bootstrap/scss/bootstrap";
 
+:root {
+  --black: #2d2a32;
+  --yellow: #ddd92a;
+  --myellow: #eae151;
+  --blue: #8ea4d2;
+  --glaucous: #6279b8;
+}
+
 body {
-  background-color: #564138;
-  color: #f5f749;
+  background-color: var(--black);
+  color: var(--yellow);
 }
 
 .card {
-  background-color: #2e86ab;
-  color: #f6f5ae;
+  background-color: var(--black);
+  border: 1px solid var(--myellow);
 }
 
 .btn {
-  background-color: #f24236;
+  background-color: var(--yellow);
   border: none;
-  color: #f6f5ae;
+  color: var(--black);
   &:hover {
-    background-color: lighten(#f24236, 10%);
+    background-color: var(--myellow);
+    color: var(--black);
   }
 }
