@@ -1,9 +1,9 @@
-import { Pokemon } from 'src/app/domain/pokemon/entity/pokemon';
+import { PokemonSnapshotType } from 'src/app/domain/pokemon/entity/pokemon-snapshot';
 import { PokemonBuilder } from 'src/app/domain/pokemon/usecases/pokemon.builder';
 import { PokemonDTO } from './PokemonDTO';
 
 export class PokemonMapper {
-  static mapToPokemon(pokemon: PokemonDTO): Pokemon {
+  static mapToPokemon(pokemon: PokemonDTO): PokemonSnapshotType {
     return new PokemonBuilder()
       .withNumber(pokemon.id)
       .withName(pokemon.name)
@@ -11,6 +11,7 @@ export class PokemonMapper {
       .withHeight(pokemon.height)
       .withWeight(pokemon.weight)
       .withAvatar(pokemon.avatar)
-      .build();
+      .build()
+      .snapshot();
   }
 }

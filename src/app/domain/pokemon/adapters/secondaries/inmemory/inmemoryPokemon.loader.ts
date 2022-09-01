@@ -1,21 +1,25 @@
 import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
-import { Pokemon } from '../../../entity/pokemon';
+import { PokemonSnapshotType } from '../../../entity/pokemon-snapshot';
 import { PokemonLoader } from '../../../loaders/PokemonLoader';
 
 export class InMemoryPokemonLoader implements PokemonLoader {
-  #pokemons$: Subject<Pokemon[]> = new BehaviorSubject(this.pokemons);
+  #pokemons$: Subject<PokemonSnapshotType[]> = new BehaviorSubject(
+    this.pokemons
+  );
 
-  constructor(private pokemons: Pokemon[]) {}
+  constructor(private pokemons: PokemonSnapshotType[]) {}
 
-  all(): Observable<Pokemon[]> {
+  all(): Observable<PokemonSnapshotType[]> {
     return this.#pokemons$;
   }
 
-  get(number: string): Observable<Pokemon> {
+  get(number: string): Observable<PokemonSnapshotType> {
     return this.#pokemons$.pipe(
       map(
-        (pokemons: Pokemon[]): Pokemon =>
-          pokemons.filter((pokemon: Pokemon) => pokemon.number === number)[0]
+        (pokemons: PokemonSnapshotType[]): PokemonSnapshotType =>
+          pokemons.filter(
+            (pokemon: PokemonSnapshotType) => pokemon.number === number
+          )[0]
       )
     );
   }

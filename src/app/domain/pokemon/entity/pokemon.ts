@@ -1,39 +1,41 @@
+import { PokemonSnapshotType } from './pokemon-snapshot';
+
 export class Pokemon {
+  #number!: string;
+  #name!: string;
+  #description!: string;
+  #weight!: number;
+  #height!: number;
+  #avatar!: string;
+  #types: string[] = [];
+
   constructor(
-    private _number: string,
-    private _name: string,
-    private _description: string,
-    private _weight: number,
-    private _height: number,
-    private _avatar: string,
-    private _types: string[] = []
-  ) {}
-
-  get number(): string {
-    return this._number;
+    _number: string,
+    _name: string,
+    _description: string,
+    _weight: number,
+    _height: number,
+    _avatar: string,
+    _types: string[] = []
+  ) {
+    this.#number = _number;
+    this.#name = _name;
+    this.#description = _description;
+    this.#weight = _weight;
+    this.#height = _height;
+    this.#avatar = _avatar;
+    this.#types = _types;
   }
 
-  get name(): string {
-    return this._name;
-  }
-
-  get description(): string {
-    return this._description;
-  }
-
-  get weight(): number {
-    return this._weight;
-  }
-
-  get height(): number {
-    return this._height;
-  }
-
-  get avatar(): string {
-    return this._avatar;
-  }
-
-  get types(): string[] {
-    return this._types;
-  }
+  public snapshot = (): PokemonSnapshotType => {
+    return {
+      number: this.#number,
+      name: this.#name,
+      description: this.#description,
+      weight: this.#weight,
+      height: this.#height,
+      avatar: this.#avatar,
+      types: this.#types,
+    };
+  };
 }

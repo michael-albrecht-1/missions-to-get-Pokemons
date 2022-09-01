@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Pokemon } from 'src/app/domain/pokemon/entity/pokemon';
+import { Component, Input } from '@angular/core';
+import { PokemonSnapshotType } from 'src/app/domain/pokemon/entity/pokemon-snapshot';
 
 @Component({
   selector: 'pokemon-listing-item',
@@ -7,5 +7,5 @@ import { Pokemon } from 'src/app/domain/pokemon/entity/pokemon';
   styleUrls: ['./pokemon-listing-item.component.scss'],
 })
 export class PokemonListingItemComponent {
-  @Input() pokemon!: Pokemon;
+  @Input() pokemon!: PokemonSnapshotType;
 }

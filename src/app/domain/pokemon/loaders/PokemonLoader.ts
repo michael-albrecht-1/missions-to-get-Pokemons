@@ -1,8 +1,9 @@
 import { Observable } from 'rxjs';
 import { Pokemon } from '../entity/pokemon';
+import { PokemonSnapshotType } from '../entity/pokemon-snapshot';
 
 export interface PokemonLoader {
-  all(): Observable<Pokemon[]>;
+  all(): Observable<PokemonSnapshotType[]>;
 
-  get(number: string): Observable<Pokemon>;
+  get(number: string): Observable<PokemonSnapshotType>;
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { combineLatest, map, Observable, of, switchMap, tap } from 'rxjs';
-import { Pokemon } from '../../../../entity/pokemon';
+import { combineLatest, map, Observable, switchMap } from 'rxjs';
+import { PokemonSnapshotType } from 'src/app/domain/pokemon/entity/pokemon-snapshot';
 import { PokemonLoader } from '../../../../loaders/PokemonLoader';
 import { PokemonMapper } from './pokemon.mapper';
 import { PokemonDTO } from './PokemonDTO';
@@ -20,7 +20,7 @@ type PokeApiResponse = {
 export class PokeApiPokemonLoader implements PokemonLoader {
   constructor(private http: HttpClient) {}
 
-  all(): Observable<Pokemon[]> {
+  all(): Observable<PokemonSnapshotType[]> {
     return this.http
       .get<PokeApiResponse>('https://pokeapi.co/api/v2/pokemon')
       .pipe(
@@ -32,16 +32,16 @@ export class PokeApiPokemonLoader implements PokemonLoader {
             return combineLatest(pokemons);
           }
         ),
-        map<PokemonDTO[], Pokemon[]>((pokemons) =>
+        map<PokemonDTO[], PokemonSnapshotType[]>((pokemons) =>
           pokemons.map(PokemonMapper.mapToPokemon)
         )
       );
   }
 
-  get(number: string): Observable<Pokemon> {
+  get(number: string): Observable<PokemonSnapshotType> {
     return this.http
       .get<PokemonDTO>(`https://pokeapi.co/api/v2/pokemon/${number}`)
-      .pipe(map<PokemonDTO, Pokemon>(PokemonMapper.mapToPokemon));
+      .pipe(map<PokemonDTO, PokemonSnapshotType>(PokemonMapper.mapToPokemon));
   }
 
   #getByLink = (
