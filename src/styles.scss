@@ -25,8 +25,21 @@ body {
   background-color: var(--yellow);
   border: none;
   color: var(--black);
-  &:hover {
+  &:hover,
+  &:focus,
+  &:active,
+  &:disabled {
     background-color: var(--myellow);
+    border-color: var(--myellow);
+
     color: var(--black);
+    box-shadow: var(--myellow);
+  }
+
+  &:disabled,
+  .btn.disabled,
+  fieldset:disabled .btn {
+    pointer-events: none;
+    opacity: 0.4;
   }
 }

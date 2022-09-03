@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tap } from 'rxjs';
 import { ICreateAMission } from '../../../usecases/ICreateAMission';
 
@@ -8,18 +9,23 @@ import { ICreateAMission } from '../../../usecases/ICreateAMission';
   styleUrls: ['./mission-create.component.scss'],
 })
 export class MissionCreateComponent implements OnInit {
+  form!: FormGroup;
   constructor(
-    @Inject('ICreateAMission') private iCreateAMission: ICreateAMission
+    @Inject('ICreateAMission') private iCreateAMission: ICreateAMission,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.iCreateAMission
-      .execute(
-        "laver le coussin plein de crotte d'eliott la croote",
-        'lasrt',
-        []
-      )
-      .pipe(tap((r) => console.warn({ r })))
-      .subscribe();
+    this.form = this.fb.group({
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      rewards: [],
+    });
   }
+
+  onSubmit = () => {
+    const { name, description } = this.form.value;
+
+    this.iCreateAMission.execute(name, description, []).subscribe();
+  };
 }
