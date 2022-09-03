@@ -10,7 +10,7 @@ import { PokemonSnapshotType } from '../entity/pokemon-snapshot';
 
 export class PokemonDIFactory {
   static pokemonLoader(http: HttpClient): PokemonLoader {
-    switch (environment.source) {
+    switch (environment.pokemonSource) {
       case SOURCES.rest:
         return new RESTMongoPokemonLoader(http);
       case SOURCES.restPokeApi:

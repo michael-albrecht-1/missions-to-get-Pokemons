@@ -1,5 +1,5 @@
-import { uuid } from 'uuidv4';
-import { isUuid } from 'uuidv4';
+import { v4 as uuidv4 } from 'uuid';
+import { validate as uuidValidate } from 'uuid';
 import { InvalidArgumentError } from './invalidArgumentError';
 
 export class Uuid {
@@ -12,11 +12,11 @@ export class Uuid {
   }
 
   static random(): Uuid {
-    return new Uuid(uuid());
+    return new Uuid(uuidv4());
   }
 
   private ensureIsValidUuid(id: string): void {
-    if (!isUuid(id)) {
+    if (!uuidValidate(id)) {
       throw new InvalidArgumentError(
         `<${this.constructor.name}> does not allow the value <${id}>`
       );

@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { PokeApiPokemonLoader } from '../../adapters/secondaries/real/REST-poke-api/PokeApiPokemon.loader';
 import { PokemonDTO } from '../../adapters/secondaries/real/REST-poke-api/PokemonDTO';
 import { Pokemon } from '../../entity/pokemon';
+import { PokemonSnapshotType } from '../../entity/pokemon-snapshot';
 import { PokemonLoader } from '../../loaders/PokemonLoader';
 import { PokemonBuilder } from '../../usecases/pokemon.builder';
 import { PokemonHandler } from '../../usecases/pokemon.handler';
@@ -21,7 +22,7 @@ describe('Integration | RestPokeApiLoader fetches', () => {
     ];
     const fakePokemonResponsePokemons: PokemonDTO = pokeApiPokemonDTOMock;
 
-    const expectedPokemon: Pokemon = new PokemonBuilder()
+    const expectedPokemon: PokemonSnapshotType = new PokemonBuilder()
       .withNumber(fakePokemonResponsePokemons.id.toString())
       .withName(fakePokemonResponsePokemons.name)
       .withDescription('')
@@ -29,7 +30,8 @@ describe('Integration | RestPokeApiLoader fetches', () => {
       .withWeight(fakePokemonResponsePokemons.weight)
       .withAvatar(fakePokemonResponsePokemons.sprites.front_default)
       .withTypes(fakePokemonResponsePokemons.types)
-      .build();
+      .build()
+      .snapshot();
 
     const pokemonLoader: PokemonLoader = new PokeApiPokemonLoader(
       fakeHttpClient
@@ -57,7 +59,7 @@ describe('Integration | RestPokeApiLoader fetches', () => {
     const fakeHttpClient = { get: () => of() } as unknown as HttpClient;
     const fakePokemonResponsePokemons: PokemonDTO = pokeApiPokemonDTOMock;
 
-    const expectedPokemon: Pokemon = new PokemonBuilder()
+    const expectedPokemon: PokemonSnapshotType = new PokemonBuilder()
       .withNumber(fakePokemonResponsePokemons.id.toString())
       .withName(fakePokemonResponsePokemons.name)
       .withDescription('')
@@ -65,7 +67,8 @@ describe('Integration | RestPokeApiLoader fetches', () => {
       .withWeight(fakePokemonResponsePokemons.weight)
       .withAvatar(fakePokemonResponsePokemons.sprites.front_default)
       .withTypes(fakePokemonResponsePokemons.types)
-      .build();
+      .build()
+      .snapshot();
 
     const pokemonLoader: PokemonLoader = new PokeApiPokemonLoader(
       fakeHttpClient

@@ -10,8 +10,6 @@ export class PokemonHandler {
   }
 
   all(): Observable<PokemonSnapshotType[]> {
-    this.pokemonSource.all().subscribe(console.warn);
-
     return this.pokemonSource.all();
   }
 }
