@@ -1,12 +1,20 @@
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { MissionSnapshot } from '../../../entity/mission-snapshot';
 import { MissionLoader } from '../../../loaders/mission.loader';
+import { MongoMissionMapper } from './mission.mapper';
+import { MongoMissionDTO } from './mongoMissionDTO';
 
 export class MongoMissionLoader implements MissionLoader {
-  constructor(http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   post(mission: MissionSnapshot): Observable<MissionSnapshot> {
-    return of(mission);
+    const missionDTO = MongoMissionMapper.mapToMissionDTO(mission);
+
+    return this.http
+      .post<MongoMissionDTO>('http://localhost:5500' + '/missions', missionDTO)
+      .pipe(
+        map<MongoMissionDTO, MissionSnapshot>(MongoMissionMapper.mapToMission)
+      );
   }
 }

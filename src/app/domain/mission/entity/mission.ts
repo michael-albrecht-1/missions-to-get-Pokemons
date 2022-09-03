@@ -2,7 +2,7 @@ import { Uuid } from '../../shared/value-object/uuid';
 import { MissionSnapshot } from './mission-snapshot';
 
 export class Mission {
-  #uuid: Uuid = Uuid.random();
+  #uuid: string = Uuid.random().toString();
   #name!: string;
   #description!: string;
   #rewards!: any[];
