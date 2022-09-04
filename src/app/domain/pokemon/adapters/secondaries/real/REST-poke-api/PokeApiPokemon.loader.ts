@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { combineLatest, map, Observable, of, switchMap, tap } from 'rxjs';
 import { PokemonSnapshotType } from 'src/app/domain/pokemon/entity/pokemon-snapshot';
+import { PokemonSearchParams } from 'src/app/domain/pokemon/loaders/PokemonSearchParams';
 import { PokemonLoader } from '../../../../loaders/PokemonLoader';
 import { PokemonMapper } from './pokemon.mapper';
 import { PokemonDTO } from './PokemonDTO';
@@ -20,10 +21,19 @@ type PokeApiResponse = {
 export class PokeApiPokemonLoader implements PokemonLoader {
   constructor(private http: HttpClient) {}
 
-  all(): Observable<PokemonSnapshotType[]> {
+  all(
+    pokemonSearchParams?: PokemonSearchParams
+  ): Observable<PokemonSnapshotType[]> {
+    console.warn(pokemonSearchParams);
+
     const stringPokemons = localStorage.getItem('pokemons');
     if (stringPokemons) {
-      return of(JSON.parse(stringPokemons));
+      const pokemons: PokemonSnapshotType[] = JSON.parse(stringPokemons);
+      const filtredPokemons: PokemonSnapshotType[] = this.#filterPokemons(
+        pokemons,
+        pokemonSearchParams
+      );
+      return of(filtredPokemons);
     }
 
     return this.http
@@ -42,7 +52,10 @@ export class PokeApiPokemonLoader implements PokemonLoader {
         map<PokemonDTO[], PokemonSnapshotType[]>((pokemons) =>
           pokemons.map(PokemonMapper.mapToPokemon)
         ),
-        tap(this.#savePokemonsInStorage)
+        tap(this.#savePokemonsInStorage),
+        map<PokemonSnapshotType[], PokemonSnapshotType[]>((pokemons) =>
+          this.#filterPokemons(pokemons, pokemonSearchParams)
+        )
       );
   }
 
@@ -69,5 +82,19 @@ export class PokeApiPokemonLoader implements PokemonLoader {
 
   #savePokemonsInStorage = (pokemons: PokemonSnapshotType[]) => {
     localStorage.setItem('pokemons', JSON.stringify(pokemons));
+  };
+
+  #filterPokemons = (
+    pokemons: PokemonSnapshotType[],
+    pokemonSearchParams?: PokemonSearchParams
+  ): PokemonSnapshotType[] => {
+    if (!pokemonSearchParams?.types?.length) {
+      return pokemons;
+    }
+    const pokemonFilteredType = pokemonSearchParams.types[0];
+    return pokemons.filter(
+      (pokemon: PokemonSnapshotType) =>
+        !pokemon.types.every((t) => t !== pokemonFilteredType)
+    );
   };
 }

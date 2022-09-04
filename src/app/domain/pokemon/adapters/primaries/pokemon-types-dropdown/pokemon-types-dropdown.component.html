@@ -1,21 +1,12 @@
 <div class="dropdown" *ngIf="pokemonTypes.length">
-  <button
-    class="btn btn-secondary dropdown-toggle"
-    type="button"
-    data-bs-toggle="dropdown"
-    aria-expanded="false"
+  <select
+    class="form-select"
+    aria-label="Select a pokemon type"
+    [(ngModel)]="selectedType"
+    (ngModelChange)="handleSelectType()"
   >
-    --sélectionner par type
-  </button>
-  <ul class="dropdown-menu">
-    <li *ngFor="let type of pokemonTypes">
-      <a class="dropdown-item">{{ type.name }}</a>
-    </li>
-  </ul>
+    <option *ngFor="let type of pokemonTypes" [ngValue]="type">
+      {{ type.name }}
+    </option>
+  </select>
 </div>
-
-<ul class="dropdown-menu">
-  <li *ngFor="let type of pokemonTypes">
-    <a class="dropdown-item">{{ type.name }}</a>
-  </li>
-</ul>

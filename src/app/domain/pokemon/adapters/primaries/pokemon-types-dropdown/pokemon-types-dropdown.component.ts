@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { map, tap } from 'rxjs';
 import { PokemonType } from '../../../entity/pokemon-type';
 import { IGetPokemonsTypes } from '../../../usecases/IGetPokemonsTypes';
@@ -9,6 +9,9 @@ import { IGetPokemonsTypes } from '../../../usecases/IGetPokemonsTypes';
   styleUrls: ['./pokemon-types-dropdown.component.scss'],
 })
 export class PokemonTypesDropdownComponent implements OnInit {
+  selectedType!: PokemonType;
+  @Output() onSelectType: EventEmitter<string> = new EventEmitter();
+
   pokemonTypes: PokemonType[] = [];
 
   constructor(
@@ -20,8 +23,18 @@ export class PokemonTypesDropdownComponent implements OnInit {
       .execute()
       .pipe(
         map((types: PokemonType[]) => (this.pokemonTypes = types)),
-        tap((t) => console.warn(this.pokemonTypes[5].name))
+        tap(this.#generateRandomSelectedType),
+        tap(this.handleSelectType)
       )
       .subscribe();
   }
+
+  #generateRandomSelectedType = (): void => {
+    const randomType = Math.floor(Math.random() * this.pokemonTypes.length);
+    this.selectedType = this.pokemonTypes[randomType];
+  };
+
+  handleSelectType = () => {
+    return this.onSelectType.emit(this.selectedType.name);
+  };
 }

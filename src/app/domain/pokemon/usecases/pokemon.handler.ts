@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 import { PokemonSnapshotType } from '../entity/pokemon-snapshot';
 import { PokemonLoader } from '../loaders/PokemonLoader';
+import { PokemonSearchParams } from '../loaders/PokemonSearchParams';
 
 export class PokemonHandler {
   constructor(private pokemonSource: PokemonLoader) {}
@@ -9,7 +10,9 @@ export class PokemonHandler {
     return this.pokemonSource.get(number);
   }
 
-  all(): Observable<PokemonSnapshotType[]> {
-    return this.pokemonSource.all();
+  all(
+    pokemonSearchParams?: PokemonSearchParams
+  ): Observable<PokemonSnapshotType[]> {
+    return this.pokemonSource.all(pokemonSearchParams);
   }
 }
