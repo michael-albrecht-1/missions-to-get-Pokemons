@@ -24,8 +24,6 @@ export class PokeApiPokemonLoader implements PokemonLoader {
   all(
     pokemonSearchParams?: PokemonSearchParams
   ): Observable<PokemonSnapshotType[]> {
-    console.warn(pokemonSearchParams);
-
     const stringPokemons = localStorage.getItem('pokemons');
     if (stringPokemons) {
       const pokemons: PokemonSnapshotType[] = JSON.parse(stringPokemons);
