@@ -5,7 +5,7 @@ import { MongoMissionDTO } from '../../adapters/secondaries/real/mongoMissionDTO
 import { Mission } from '../../entity/mission';
 import { MissionSnapshot } from '../../entity/mission-snapshot';
 import { MissionLoader } from '../../loaders/mission.loader';
-import { MissionHandler } from '../../usecases/mission.handler';
+import { ICreateAMission } from '../../usecases/ICreateAMission';
 import { MongoMissionDTOMock } from './MongoMissionDTOMock';
 
 describe('Integration | MongoMissionLoader', () => {
@@ -20,11 +20,11 @@ describe('Integration | MongoMissionLoader', () => {
     ).snapshot();
 
     const missionLoader: MissionLoader = new MongoMissionLoader(fakeHttpClient);
-    const missionHandler: MissionHandler = new MissionHandler(missionLoader);
+    const iCreateMission: ICreateAMission = new ICreateAMission(missionLoader);
 
     spyOn(fakeHttpClient, 'post').and.returnValue(of(fakeMongoResponse));
 
-    missionHandler.post(expectedMission).subscribe((mission) => {
+    iCreateMission.execute('ti', 'desc', []).subscribe((mission) => {
       expect(mission).toEqual(expectedMission);
       expect(fakeHttpClient.get).toHaveBeenCalledWith(
         `https://pokeapi.co/api/v2/pokemon/1`

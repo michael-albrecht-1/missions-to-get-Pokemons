@@ -1,7 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { tap } from 'rxjs';
+import { catchError, EMPTY, map, tap } from 'rxjs';
 import { ICreateAMission } from '../../../usecases/ICreateAMission';
+
+enum AlertClass {
+  danger = 'alert-danger',
+  success = 'alert-success',
+}
 
 @Component({
   selector: 'app-mission-create',
@@ -10,6 +15,9 @@ import { ICreateAMission } from '../../../usecases/ICreateAMission';
 })
 export class MissionCreateComponent implements OnInit {
   form!: FormGroup;
+  alertClass: AlertClass | undefined;
+  alertMessage: string | undefined;
+
   constructor(
     @Inject('ICreateAMission') private iCreateAMission: ICreateAMission,
     private fb: FormBuilder
@@ -26,6 +34,21 @@ export class MissionCreateComponent implements OnInit {
   onSubmit = () => {
     const { name, description } = this.form.value;
 
-    this.iCreateAMission.execute(name, description, []).subscribe();
+    this.iCreateAMission
+      .execute(name, description, [])
+      .pipe(
+        map(() => {
+          this.form.reset();
+          this.alertClass = AlertClass.success;
+          this.alertMessage = 'Mission enregistréé !';
+        }),
+        catchError((e) => {
+          this.alertClass = AlertClass.danger;
+          this.alertMessage =
+            "L'enregistrement de cette mission est un échec !";
+          return EMPTY;
+        })
+      )
+      .subscribe();
   };
 }

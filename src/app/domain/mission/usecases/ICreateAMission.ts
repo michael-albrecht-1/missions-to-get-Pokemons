@@ -12,8 +12,6 @@ export class ICreateAMission {
     _rewards: any[]
   ): Observable<MissionSnapshot> {
     const mission = new Mission(_name, _description, _rewards).snapshot();
-    console.warn('execute i create mission');
-
     return this.missionSource.post(mission);
   }
 }

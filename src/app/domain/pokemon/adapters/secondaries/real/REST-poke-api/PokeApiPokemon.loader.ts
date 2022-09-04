@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { combineLatest, map, Observable, switchMap } from 'rxjs';
+import { combineLatest, map, Observable, shareReplay, switchMap } from 'rxjs';
 import { PokemonSnapshotType } from 'src/app/domain/pokemon/entity/pokemon-snapshot';
 import { PokemonLoader } from '../../../../loaders/PokemonLoader';
 import { PokemonMapper } from './pokemon.mapper';
@@ -22,7 +22,9 @@ export class PokeApiPokemonLoader implements PokemonLoader {
 
   all(): Observable<PokemonSnapshotType[]> {
     return this.http
-      .get<PokeApiResponse>('https://pokeapi.co/api/v2/pokemon')
+      .get<PokeApiResponse>(
+        'https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0'
+      )
       .pipe(
         map<PokeApiResponse, PokemonNameAndLink[]>((res) => res.results),
         switchMap<PokemonNameAndLink[], Observable<PokemonDTO[]>>(
@@ -34,7 +36,8 @@ export class PokeApiPokemonLoader implements PokemonLoader {
         ),
         map<PokemonDTO[], PokemonSnapshotType[]>((pokemons) =>
           pokemons.map(PokemonMapper.mapToPokemon)
-        )
+        ),
+        shareReplay(1)
       );
   }
 
