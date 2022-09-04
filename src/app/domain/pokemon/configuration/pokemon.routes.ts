@@ -4,7 +4,7 @@ import { PokemonListingComponent } from '../adapters/primaries/pokemon-listing/p
 
 export const PokemonRoutes: Routes = [
   {
-    path: '',
+    path: 'pokemons',
     children: [
       { path: '', component: PokemonListingComponent },
       { path: ':number', component: PokemonDetailsComponent },

@@ -3,7 +3,7 @@ import { MissionCreateComponent } from '../adapters/primaries/mission-create/mis
 
 export const MissionRoutes: Routes = [
   {
-    path: '',
+    path: 'mission',
     children: [{ path: '', component: MissionCreateComponent }],
   },
 ];

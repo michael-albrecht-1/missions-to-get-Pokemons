@@ -7,8 +7,7 @@ import { PokemonModule } from './domain/pokemon/adapters/primaries/pokemon.modul
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MissionModule } from './domain/mission/adapters/primaries/mission.module';
 import { MainLayoutModule } from './core/main-layout/main-layout.module';
-import { RouterModule } from '@angular/router';
-import { routes } from './routes';
+import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
 
 @NgModule({
@@ -19,7 +18,7 @@ import { PageNotFoundComponent } from './core/page-not-found/page-not-found.comp
     PokemonModule,
     MissionModule,
     MainLayoutModule,
-    RouterModule.forChild(routes),
+    AppRoutingModule,
     NgbModule,
   ],
   providers: [],
