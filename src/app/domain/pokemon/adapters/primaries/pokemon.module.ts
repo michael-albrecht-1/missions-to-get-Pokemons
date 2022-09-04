@@ -20,6 +20,7 @@ import { PokemonTypesDropdownComponent } from './pokemon-types-dropdown/pokemon-
   imports: [
     BrowserModule,
     FormsModule,
+    RouterModule,
     RouterModule.forChild(PokemonRoutes),
     HttpClientModule,
   ],
