@@ -1,0 +1,15 @@
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  &-route {
+    flex: 1;
+    margin-top: 50px;
+    height: calc(100% - 50px);
+  }
+  .header {
+    position: fixed !important;
+    left: 0px;
+    right: 0px;
+  }
+}

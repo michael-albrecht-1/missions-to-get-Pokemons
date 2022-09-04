@@ -3,9 +3,9 @@ import { PokemonType } from '../entity/pokemon-type';
 import { PokemonTypesLoader } from '../loaders/PokemonTypesLoader';
 
 export class IGetPokemonsTypes {
-  constructor(source: PokemonTypesLoader) {}
+  constructor(private source: PokemonTypesLoader) {}
 
   execute(): Observable<PokemonType[]> {
-    return of();
+    return this.source.all();
   }
 }

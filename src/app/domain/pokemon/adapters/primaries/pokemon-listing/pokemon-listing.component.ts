@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Pokemon } from '../../../entity/pokemon';
+import { Observable, of } from 'rxjs';
 import { PokemonSnapshotType } from '../../../entity/pokemon-snapshot';
 import { PokemonHandler } from '../../../usecases/pokemon.handler';
 
@@ -16,6 +15,7 @@ export class PokemonListingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.pokemonList$ = this.pokemonHandler.all();
+    // this.pokemonList$ = this.pokemonHandler.all();
+    this.pokemonList$ = of();
   }
 }

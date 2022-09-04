@@ -3,6 +3,11 @@ import { PokemonDetailsComponent } from '../adapters/primaries/pokemon-details/p
 import { PokemonListingComponent } from '../adapters/primaries/pokemon-listing/pokemon-listing.component';
 
 export const PokemonRoutes: Routes = [
-  { path: 'pokemons', component: PokemonListingComponent },
-  { path: 'pokemons/:number', component: PokemonDetailsComponent },
+  {
+    path: '',
+    children: [
+      { path: '', component: PokemonListingComponent },
+      { path: ':number', component: PokemonDetailsComponent },
+    ],
+  },
 ];
