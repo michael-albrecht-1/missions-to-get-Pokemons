@@ -15,7 +15,7 @@ export class PokemonListingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.pokemonList$ = this.pokemonHandler.all();
-    this.pokemonList$ = of();
+    this.pokemonList$ = this.pokemonHandler.all();
+    // this.pokemonList$ = of();
   }
 }
