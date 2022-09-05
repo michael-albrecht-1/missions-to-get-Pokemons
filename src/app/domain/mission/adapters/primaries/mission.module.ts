@@ -10,6 +10,7 @@ import { MissionRoutes } from '../../configuration/mission.routes';
 import { ICreateAMission } from '../../usecases/ICreateAMission';
 import { MissionDIProvider } from '../../configuration/pokemonDI.provider';
 import { MissionDIFactory } from '../../configuration/pokemonDI.factory';
+import { PokemonModule } from 'src/app/domain/pokemon/adapters/primaries/pokemon.module';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { MissionDIFactory } from '../../configuration/pokemonDI.factory';
     ReactiveFormsModule,
     RouterModule.forChild(MissionRoutes),
     HttpClientModule,
+    PokemonModule,
   ],
   declarations: [MissionCreateComponent],
   exports: [MissionCreateComponent],

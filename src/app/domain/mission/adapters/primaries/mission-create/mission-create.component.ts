@@ -27,15 +27,16 @@ export class MissionCreateComponent implements OnInit {
     this.form = this.fb.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      rewards: [],
+      reward: ['', [Validators.required]],
     });
+    this.form.valueChanges.subscribe((v) => console.warn(v));
   }
 
   onSubmit = () => {
-    const { name, description } = this.form.value;
+    const { name, description, reward } = this.form.value;
 
     this.iCreateAMission
-      .execute(name, description, [])
+      .execute(name, description, reward)
       .pipe(
         map(() => {
           this.form.reset();
@@ -50,5 +51,9 @@ export class MissionCreateComponent implements OnInit {
         })
       )
       .subscribe();
+  };
+
+  onSelectPokemon = (event: any) => {
+    console.warn('yess on est dans mission : ' + event);
   };
 }

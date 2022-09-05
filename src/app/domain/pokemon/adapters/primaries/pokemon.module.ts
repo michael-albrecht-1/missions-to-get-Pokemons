@@ -15,6 +15,7 @@ import { PokemonDIFactory } from '../../configuration/pokemonDI.factory';
 import { IGetPokemonsTypes } from '../../usecases/IGetPokemonsTypes';
 import { PokemonTypesDIFactory } from '../../configuration/pokemonTypesDI.factory';
 import { PokemonTypesDropdownComponent } from './pokemon-types-dropdown/pokemon-types-dropdown.component';
+import { FormControlSelectPokemonComponent } from './form-control-select-pokemon/form-control-select-pokemon.component';
 
 @NgModule({
   imports: [
@@ -29,8 +30,13 @@ import { PokemonTypesDropdownComponent } from './pokemon-types-dropdown/pokemon-
     PokemonListingItemComponent,
     PokemonDetailsComponent,
     PokemonTypesDropdownComponent,
+    FormControlSelectPokemonComponent,
   ],
-  exports: [PokemonListingComponent, PokemonDetailsComponent],
+  exports: [
+    PokemonListingComponent,
+    PokemonDetailsComponent,
+    FormControlSelectPokemonComponent,
+  ],
   providers: [
     {
       provide: PokemonDIProvider.pokemonHandler,

@@ -1,0 +1,16 @@
+<div class="dropdown mb-3">
+  <select
+    class="form-select"
+    aria-label="Select a pokemon"
+    [(ngModel)]="selectedPokemon"
+    (ngModelChange)="onSelectPokemon($event)"
+  >
+    <option *ngFor="let pokemon of pokemons" [ngValue]="pokemon">
+      <!-- <img
+        class="card-img-top"
+        src="{{ pokemon.avatar }}"
+        alt="{{ pokemon.name }}"
+      />{{ pokemon.name }} -->
+    </option>
+  </select>
+</div>
