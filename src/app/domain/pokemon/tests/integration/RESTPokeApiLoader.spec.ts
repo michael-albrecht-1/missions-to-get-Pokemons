@@ -38,10 +38,11 @@ describe('Integration | RestPokeApiLoader fetches', () => {
     );
     const pokemonHandler: PokemonHandler = new PokemonHandler(pokemonLoader);
 
+    spyOn(localStorage, 'getItem').and.returnValue('');
     spyOn(fakeHttpClient, 'get').and.callFake(function (
       arg: string
     ): Observable<any> {
-      if (arg === 'https://pokeapi.co/api/v2/pokemon') {
+      if (arg === 'https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0') {
         return of({ results: fakePokemonResponsePokemonsLinks });
       }
 
@@ -58,6 +59,7 @@ describe('Integration | RestPokeApiLoader fetches', () => {
   it('The detail of one pokemon', (done) => {
     const fakeHttpClient = { get: () => of() } as unknown as HttpClient;
     const fakePokemonResponsePokemons: PokemonDTO = pokeApiPokemonDTOMock;
+    // const fakeLocalStorageGetPokemons = {}
 
     const expectedPokemon: PokemonSnapshotType = new PokemonBuilder()
       .withNumber(fakePokemonResponsePokemons.id.toString())
@@ -74,6 +76,8 @@ describe('Integration | RestPokeApiLoader fetches', () => {
       fakeHttpClient
     );
     const pokemonHandler: PokemonHandler = new PokemonHandler(pokemonLoader);
+
+    spyOn(localStorage, 'getItem').and.returnValue('');
 
     spyOn(fakeHttpClient, 'get').and.returnValue(
       of(fakePokemonResponsePokemons)
