@@ -5,7 +5,7 @@ export class Mission {
   #uuid: string = Uuid.random().toString();
   #name!: string;
   #description!: string;
-  #rewards!: any[];
+  #rewards!: string[];
 
   constructor(_name: string, _description: string, _rewards: any[]) {
     this.#name = _name;
