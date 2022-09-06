@@ -5,7 +5,7 @@ describe('As a parent, I create a mission', () => {
   const expectedResult = {
     name: 'Make cookies !',
     description: 'Make delicious cookies with dad or mum.',
-    rewards: [],
+    rewards: ['togepi'],
   };
 
   beforeEach(() => {});

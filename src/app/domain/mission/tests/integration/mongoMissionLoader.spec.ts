@@ -16,7 +16,7 @@ describe('Integration | MongoMissionLoader', () => {
     const mission: MissionSnapshot = new Mission(
       MongoMissionDTOMock.title,
       MongoMissionDTOMock.description,
-      []
+      ['pikachu']
     ).snapshot();
 
     const expectedMission = MongoMissionMapper.mapToMissionDTO(mission);

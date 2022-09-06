@@ -1,8 +1,6 @@
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PokemonSnapshotType } from '../../../entity/pokemon-snapshot';
 import { PokemonSearchParams } from '../../../loaders/PokemonSearchParams';
-import { PokemonHandler } from '../../../usecases/pokemon.handler';
 
 @Component({
   selector: 'pokemon-listing',
@@ -10,23 +8,36 @@ import { PokemonHandler } from '../../../usecases/pokemon.handler';
   styleUrls: ['./pokemon-listing.component.scss'],
 })
 export class PokemonListingComponent {
+  @Input() pokemons: PokemonSnapshotType[] = [];
   @Input() isParent: boolean = false;
   @Output() addPokemon: EventEmitter<PokemonSnapshotType> = new EventEmitter();
 
-  pokemonList$!: Observable<PokemonSnapshotType[]>;
-
-  constructor(
-    @Inject('PokemonHandler') private pokemonHandler: PokemonHandler
-  ) {}
+  filteredPokemons: PokemonSnapshotType[] = [];
 
   onSelectPokemonType = (pokemonType: string) => {
-    const pokemonSearchParams: PokemonSearchParams = {
-      types: [pokemonType],
-    };
-    this.pokemonList$ = this.pokemonHandler.all(pokemonSearchParams);
+    const pokemonSearchParams: PokemonSearchParams = { types: [pokemonType] };
+
+    this.filteredPokemons = this.#filterPokemons(
+      this.pokemons,
+      pokemonSearchParams
+    );
   };
 
   onAddPokemon(event: any) {
     this.addPokemon.emit(event);
   }
+
+  #filterPokemons = (
+    pokemons: PokemonSnapshotType[],
+    pokemonSearchParams?: PokemonSearchParams
+  ): PokemonSnapshotType[] => {
+    if (!pokemonSearchParams?.types?.length) {
+      return pokemons;
+    }
+    const pokemonFilteredType = pokemonSearchParams.types[0];
+    return pokemons.filter(
+      (pokemon: PokemonSnapshotType) =>
+        !pokemon.types.every((t) => t !== pokemonFilteredType)
+    );
+  };
 }

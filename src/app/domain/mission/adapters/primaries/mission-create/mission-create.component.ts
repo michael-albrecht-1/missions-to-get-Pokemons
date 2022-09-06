@@ -28,7 +28,7 @@ export class MissionCreateComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       name: ['', [Validators.required]],
-      description: ['', [Validators.required]],
+      description: [''],
     });
     this.form.valueChanges.subscribe((v) => console.warn(v));
   }
@@ -50,6 +50,7 @@ export class MissionCreateComponent implements OnInit {
       .pipe(
         map(() => {
           this.form.reset();
+          this.selectedPokemons = [];
           this.alertClass = AlertClass.success;
           this.alertMessage = 'Mission enregistrée !';
         }),
@@ -61,9 +62,5 @@ export class MissionCreateComponent implements OnInit {
         })
       )
       .subscribe();
-  };
-
-  onSelectPokemon = (event: any) => {
-    console.warn('yess on est dans mission : ' + event);
   };
 }

@@ -3,6 +3,7 @@ import { PokemonBuilder } from '../usecases/pokemon.builder';
 import { PokemonLoader } from '../loaders/PokemonLoader';
 import { InMemoryPokemonLoader } from '../adapters/secondaries/inmemory/inmemoryPokemon.loader';
 import { environment } from 'src/environments/environment';
+import { RESTMongoPokemonLoader } from '../adapters/secondaries/real/REST-mongo/RESTMongoPokemon.loader';
 import { PokeApiPokemonLoader } from '../adapters/secondaries/real/REST-poke-api/PokeApiPokemon.loader';
 import { SOURCES } from 'src/config/sources';
 import { PokemonSnapshotType } from '../entity/pokemon-snapshot';
@@ -10,6 +11,8 @@ import { PokemonSnapshotType } from '../entity/pokemon-snapshot';
 export class PokemonDIFactory {
   static pokemonLoader(http: HttpClient): PokemonLoader {
     switch (environment.pokemonSource) {
+      case SOURCES.rest:
+        return new RESTMongoPokemonLoader(http);
       case SOURCES.restPokeApi:
         return new PokeApiPokemonLoader(http);
       default:

@@ -8,10 +8,12 @@ export class Mission {
   #rewards!: string[];
 
   constructor(_name: string, _description: string, _rewards: string[]) {
-    if (!_name || !_description || !_rewards.length) {
-      throw new Error("La mission n'est pas completement renseignée");
+    if (!_rewards.length) {
+      throw new Error('Mission creation failed, there is no reward');
     }
-
+    if (!_name) {
+      throw new Error('Mission creation failed, name is missing');
+    }
     this.#name = _name;
     this.#description = _description;
     this.#rewards = _rewards;
