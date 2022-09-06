@@ -16,7 +16,7 @@ export class MissionDIFactory {
         const mission1: MissionSnapshot = new Mission(
           'Make cookies !',
           'Make delicious cookies with dad or mum.',
-          'Mewto'
+          ['Mewto']
         ).snapshot();
         return new InMemoryMissionLoader([mission1]);
     }

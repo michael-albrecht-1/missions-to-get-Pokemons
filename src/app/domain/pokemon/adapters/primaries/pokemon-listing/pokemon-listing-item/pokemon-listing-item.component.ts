@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PokemonSnapshotType } from 'src/app/domain/pokemon/entity/pokemon-snapshot';
 
 @Component({
@@ -8,4 +8,10 @@ import { PokemonSnapshotType } from 'src/app/domain/pokemon/entity/pokemon-snaps
 })
 export class PokemonListingItemComponent {
   @Input() pokemon!: PokemonSnapshotType;
+  @Input() isParent: boolean = false;
+  @Output() addPokemon: EventEmitter<PokemonSnapshotType> = new EventEmitter();
+
+  onAddPokemonBtnClick() {
+    this.addPokemon.emit(this.pokemon);
+  }
 }

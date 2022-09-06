@@ -9,9 +9,9 @@ export class ICreateAMission {
   public execute(
     _name: string,
     _description: string,
-    _reward: string
+    _rewards: string[]
   ): Observable<MissionSnapshot> {
-    const mission = new Mission(_name, _description, _reward).snapshot();
+    const mission = new Mission(_name, _description, _rewards).snapshot();
     return this.missionSource.post(mission);
   }
 }

@@ -15,8 +15,14 @@
         <span>{{ type }}</span>
       </span>
     </p>
-    <a [routerLink]="['/pokemons', pokemon.number]" class="btn btn-primary"
+    <a
+      *ngIf="!isParent"
+      [routerLink]="['/pokemons', pokemon.number]"
+      class="btn btn-primary"
       >Details</a
     >
+    <button *ngIf="isParent" class="btn" (click)="onAddPokemonBtnClick()">
+      Ajouter a la mission
+    </button>
   </div>
 </div>

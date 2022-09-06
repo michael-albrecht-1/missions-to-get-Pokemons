@@ -11,6 +11,8 @@
         class="col-12 col-md-6 col-xl-4"
         *ngFor="let pokemon of pokemonList$ | async"
         [pokemon]="pokemon"
+        [isParent]="isParent"
+        (addPokemon)="onAddPokemon($event)"
       >
       </pokemon-listing-item>
     </div>

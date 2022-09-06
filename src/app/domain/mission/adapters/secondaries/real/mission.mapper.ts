@@ -7,7 +7,7 @@ export class MongoMissionMapper {
       uuid: mongoMissionDTO.uuid,
       name: mongoMissionDTO.title,
       description: mongoMissionDTO.description,
-      reward: mongoMissionDTO.reward,
+      rewards: mongoMissionDTO.rewards,
     };
   };
 
@@ -18,7 +18,7 @@ export class MongoMissionMapper {
       uuid: missionSnapshot.uuid,
       title: missionSnapshot.name,
       description: missionSnapshot.description,
-      reward: missionSnapshot.reward,
+      rewards: missionSnapshot.rewards,
     };
   };
 }

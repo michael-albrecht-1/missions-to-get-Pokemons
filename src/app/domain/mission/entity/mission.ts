@@ -5,16 +5,16 @@ export class Mission {
   #uuid: string = Uuid.random().toString();
   #name!: string;
   #description!: string;
-  #reward!: string;
+  #rewards!: string[];
 
-  constructor(_name: string, _description: string, _reward: string) {
-    if (!_name || !_description || !_reward) {
+  constructor(_name: string, _description: string, _rewards: string[]) {
+    if (!_name || !_description || !_rewards.length) {
       throw new Error("La mission n'est pas completement renseignée");
     }
 
     this.#name = _name;
     this.#description = _description;
-    this.#reward = _reward;
+    this.#rewards = _rewards;
   }
 
   public snapshot(): MissionSnapshot {
@@ -22,7 +22,7 @@ export class Mission {
       uuid: this.#uuid,
       name: this.#name,
       description: this.#description,
-      reward: this.#reward,
+      rewards: this.#rewards,
     };
   }
 }

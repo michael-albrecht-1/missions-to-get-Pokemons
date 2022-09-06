@@ -2,5 +2,5 @@ export interface MissionSnapshot {
   readonly uuid: string;
   readonly name: string;
   readonly description: string;
-  readonly reward: string;
+  readonly rewards: string[];
 }

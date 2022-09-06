@@ -14,10 +14,6 @@
     ></textarea>
   </div>
 
-  <form-control-select-pokemon
-    formControlName="reward"
-  ></form-control-select-pokemon>
-
   <div class="col-auto">
     <button
       type="submit"
@@ -29,3 +25,11 @@
     </button>
   </div>
 </form>
+<div class="d-flex w-100" *ngFor="let selectedPokemon of selectedPokemons">
+  <pokemon-listing-item [pokemon]="selectedPokemon"></pokemon-listing-item>
+</div>
+
+<pokemon-listing
+  [isParent]="true"
+  (addPokemon)="onAddPokemon($event)"
+></pokemon-listing>
