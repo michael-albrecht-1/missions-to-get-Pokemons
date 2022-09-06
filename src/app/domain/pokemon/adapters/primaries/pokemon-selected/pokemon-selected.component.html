@@ -1,0 +1,15 @@
+<div class="pokemonSelected">
+  <div class="pokemonSelected-remove" (click)="onRemovePokemonBtnClick()">
+    x
+  </div>
+  <div class="card">
+    <img
+      class="card-img-top"
+      src="{{ pokemon.avatar }}"
+      alt="{{ pokemon.name }}"
+    />
+    <div class="card-body">
+      <h5 class="card-title">{{ pokemon.name }}</h5>
+    </div>
+  </div>
+</div>

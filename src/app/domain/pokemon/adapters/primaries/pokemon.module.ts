@@ -15,6 +15,7 @@ import { PokemonDIFactory } from '../../configuration/pokemonDI.factory';
 import { IGetPokemonsTypes } from '../../usecases/IGetPokemonsTypes';
 import { PokemonTypesDIFactory } from '../../configuration/pokemonTypesDI.factory';
 import { PokemonTypesDropdownComponent } from './pokemon-types-dropdown/pokemon-types-dropdown.component';
+import { PokemonSelectedComponent } from './pokemon-selected/pokemon-selected.component';
 
 @NgModule({
   imports: [
@@ -29,11 +30,12 @@ import { PokemonTypesDropdownComponent } from './pokemon-types-dropdown/pokemon-
     PokemonListingItemComponent,
     PokemonDetailsComponent,
     PokemonTypesDropdownComponent,
+    PokemonSelectedComponent,
   ],
   exports: [
     PokemonListingComponent,
     PokemonDetailsComponent,
-    PokemonListingItemComponent,
+    PokemonSelectedComponent,
   ],
   providers: [
     {
