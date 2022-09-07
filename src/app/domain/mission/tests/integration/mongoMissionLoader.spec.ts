@@ -4,7 +4,7 @@ import { MongoMissionMapper } from '../../adapters/secondaries/real/mission.mapp
 import { MongoMissionLoader } from '../../adapters/secondaries/real/mongoMission.loader';
 import { MongoMissionDTO } from '../../adapters/secondaries/real/mongoMissionDTO';
 import { Mission } from '../../entity/mission';
-import { MissionSnapshot } from '../../entity/mission-snapshot';
+import { MissionSnapshot } from '../../entity/mission.snapshot';
 import { MissionLoader } from '../../loaders/mission.loader';
 import { MongoMissionDTOMock } from './MongoMissionDTOMock';
 

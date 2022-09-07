@@ -1,9 +1,10 @@
 import { Observable } from 'rxjs';
+import { Usecase } from 'src/app/base/usecase.interface';
 import { Mission } from '../entity/mission';
-import { MissionSnapshot } from '../entity/mission-snapshot';
+import { MissionSnapshot } from '../entity/mission.snapshot';
 import { MissionLoader } from '../loaders/mission.loader';
 
-export class ICreateAMission {
+export class ICreateAMission implements Usecase<Observable<MissionSnapshot>> {
   constructor(private missionSource: MissionLoader) {}
 
   public execute(

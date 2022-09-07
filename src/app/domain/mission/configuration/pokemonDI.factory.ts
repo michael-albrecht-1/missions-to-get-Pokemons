@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { MissionSnapshot } from '../entity/mission-snapshot';
+import { MissionSnapshot } from '../entity/mission.snapshot';
 import { Mission } from '../entity/mission';
 import { MissionLoader } from '../loaders/mission.loader';
 import { InMemoryMissionLoader } from '../adapters/secondaries/inmemory/inmemoryMission.loader';

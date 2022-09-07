@@ -5,11 +5,11 @@ import { PageNotFoundComponent } from '../page-not-found/page-not-found.componen
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/pokemons',
+    redirectTo: '/pokedex',
     pathMatch: 'full',
   },
   {
-    path: 'pokemons',
+    path: 'pokedex',
     loadChildren: () =>
       import('../../domain/pokemon/adapters/primaries/pokemon.module').then(
         (m) => m.PokemonModule

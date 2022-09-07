@@ -1,5 +1,5 @@
 import { Uuid } from '../../shared/value-object/uuid';
-import { MissionSnapshot } from './mission-snapshot';
+import { MissionSnapshot } from './mission.snapshot';
 
 export class Mission {
   #uuid: string = Uuid.random().toString();

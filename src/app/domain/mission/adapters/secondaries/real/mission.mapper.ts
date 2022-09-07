@@ -1,4 +1,4 @@
-import { MissionSnapshot } from '../../../entity/mission-snapshot';
+import { MissionSnapshot } from '../../../entity/mission.snapshot';
 import { MongoMissionDTO } from './mongoMissionDTO';
 
 export class MongoMissionMapper {
