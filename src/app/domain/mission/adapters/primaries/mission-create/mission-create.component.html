@@ -35,7 +35,10 @@
 
     <div class="d-flex">
       <div *ngFor="let selectedPokemon of selectedPokemons">
-        <pokemon-selected [pokemon]="selectedPokemon"></pokemon-selected>
+        <pokemon-selected
+          [pokemon]="selectedPokemon"
+          (removePokemon)="onRemovePokemon($event)"
+        ></pokemon-selected>
       </div>
     </div>
   </div>

@@ -36,7 +36,6 @@ export class PokemonPokedexComponent implements OnInit {
   }
 
   onAddPokemon(event: any) {
-    console.warn(event);
     this.addPokemon.emit(event);
   }
 }

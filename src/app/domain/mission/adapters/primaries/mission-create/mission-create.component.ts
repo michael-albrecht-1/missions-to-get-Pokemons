@@ -33,9 +33,25 @@ export class MissionCreateComponent implements OnInit {
     this.form.valueChanges.subscribe((v) => console.warn(v));
   }
 
-  onAddPokemon(event: any) {
-    console.warn(event);
-    this.selectedPokemons = [event, ...this.selectedPokemons];
+  onAddPokemon(selectedPokemon: PokemonSnapshotType) {
+    if (this.#pokemonAlreadySelected(selectedPokemon)) {
+      return;
+    }
+
+    this.selectedPokemons = [selectedPokemon, ...this.selectedPokemons];
+  }
+
+  onRemovePokemon(selectedPokemon: PokemonSnapshotType) {
+    const pokemonIndex = this.selectedPokemons.findIndex(
+      (pokemon: PokemonSnapshotType) =>
+        pokemon.number === selectedPokemon.number
+    );
+
+    if (pokemonIndex === null) {
+      throw new Error('Selected Pokemon not found !');
+    }
+
+    this.selectedPokemons.splice(pokemonIndex, 1);
   }
 
   onSubmit = () => {
@@ -63,4 +79,11 @@ export class MissionCreateComponent implements OnInit {
       )
       .subscribe();
   };
+
+  #pokemonAlreadySelected(selectedPokemon: PokemonSnapshotType): boolean {
+    const foundPokemon = this.selectedPokemons.find(
+      (pokemon) => pokemon.number === selectedPokemon.number
+    );
+    return !!foundPokemon ? true : false;
+  }
 }
