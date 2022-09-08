@@ -27,8 +27,41 @@ fdescribe('As a user, I search missions and', () => {
     new ISearchMissions(missionSource)
       .execute()
       .subscribe((missions: MissionSnapshot[]) => {
-        expect(missions.length).toEqual(1);
+        verifyMissions(missions, [mission1]);
+        done();
+      });
+  });
+
+  it('find 2 result', (done) => {
+    const mission2 = new MissionStub()
+      .withName('Faire un gateau !')
+      .build()
+      .snapshot();
+    const missionSource = new InMemoryMissionLoader([mission1, mission2]);
+
+    new ISearchMissions(missionSource)
+      .execute()
+      .subscribe((missions: MissionSnapshot[]) => {
+        verifyMissions(missions, [mission1, mission2]);
         done();
       });
   });
 });
+
+function verifyMissions(
+  missions: MissionSnapshot[],
+  expectedMissions: MissionSnapshot[]
+) {
+  expect(missions.length).toEqual(expectedMissions.length);
+  missions.forEach((mission, index) =>
+    verifyMission(mission, expectedMissions[index])
+  );
+}
+function verifyMission(
+  mission: MissionSnapshot,
+  expectedMission: MissionSnapshot
+) {
+  expect(mission.name).toBe(expectedMission.name);
+  expect(mission.description).toBe(expectedMission.description);
+  expect(mission.rewards.length).toBe(expectedMission.rewards.length);
+}

@@ -1,0 +1,9 @@
+<p>missions works!</p>
+
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let mission of missions$ | async">
+    <h3>{{ mission.name }}</h3>
+    <h4>{{ mission.description }}</h4>
+    <p>{{ mission.rewards[0] }}</p>
+  </li>
+</ul>

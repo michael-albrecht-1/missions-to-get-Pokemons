@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, of } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { MissionSnapshot } from '../../../entity/mission.snapshot';
 import { MissionLoader } from '../../../loaders/mission.loader';
 import { MongoMissionMapper } from './mission.mapper';
@@ -19,6 +19,12 @@ export class MongoMissionLoader implements MissionLoader {
   }
 
   search(): Observable<MissionSnapshot[]> {
-    return of();
+    return this.http
+      .get<MongoMissionDTO[]>('http://localhost:5500' + '/missions')
+      .pipe(
+        map<MongoMissionDTO[], MissionSnapshot[]>((missionsDTO) =>
+          missionsDTO.map(MongoMissionMapper.mapToMission)
+        )
+      );
   }
 }

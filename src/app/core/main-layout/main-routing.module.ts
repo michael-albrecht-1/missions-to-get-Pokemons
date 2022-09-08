@@ -16,7 +16,7 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'mission',
+    path: 'missions',
     loadChildren: () =>
       import('../../domain/mission/adapters/primaries/mission.module').then(
         (m) => m.MissionModule
