@@ -59,7 +59,7 @@ export const PokemonTypesDataFromPokeApi: PokemonTypeInMemoryDTO[] = [
     name: 'fire',
     url: 'https://pokeapi.co/api/v2/type/10/',
     logo: 'fire',
-    color: 'red',
+    color: '#e3462d',
   },
   {
     name: 'water',

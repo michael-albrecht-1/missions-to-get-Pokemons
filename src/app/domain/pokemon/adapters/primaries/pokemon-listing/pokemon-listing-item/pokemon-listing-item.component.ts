@@ -47,7 +47,6 @@ export class PokemonListingItemComponent implements OnInit {
       }
 
       this.currentPokemonTypes = [pokemonType, ...this.currentPokemonTypes];
-      console.warn(this.currentPokemonTypes);
     });
 
     return pokemonTypes;
