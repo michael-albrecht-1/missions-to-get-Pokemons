@@ -8,27 +8,13 @@
     <h5 class="card-title">{{ pokemon.name }}</h5>
     <p class="card-text">{{ pokemon.description }}</p>
     <p>
-      <span
-        *ngFor="let type of pokemon.types; let first = first; let last = last"
-      >
-        <span *ngIf="pokemon.types.length > 1 && last"> / </span>
-        <span>{{ type }}</span>
+      <span *ngFor="let pokemonType of currentPokemonTypes">
+        <i-bs
+          *ngIf="pokemonType.logo"
+          [ngStyle]="{ color: pokemonType.color }"
+          [name]="pokemonType.logo"
+        ></i-bs>
       </span>
-      <i-bs name="fire"></i-bs>
-      <i-bs name="flower2"></i-bs>
-      <i-bs name="lightning"></i-bs>
-      <i-bs name="droplet"></i-bs>
-      <i-bs name="globe"></i-bs>
-      <i-bs name="heart"></i-bs>
-      <i-bs name="hurricane"></i-bs>
-      <i-bs name="infinity"></i-bs>
-      <i-bs name="magic"></i-bs>
-      <i-bs name="magnet"></i-bs>
-      <i-bs name="moon"></i-bs>
-      <i-bs name="snow2"></i-bs>
-      <i-bs name="tornado"></i-bs>
-      <i-bs name="virus"></i-bs>
-      <i-bs name="wifi"></i-bs>
     </p>
     <a
       *ngIf="!isParent"

@@ -36,6 +36,8 @@ import {
   tornado,
   virus,
   wifi,
+  github,
+  discord,
 } from 'ngx-bootstrap-icons';
 
 // Select some icons (use an object, not an array)
@@ -55,6 +57,8 @@ const icons = {
   tornado,
   virus,
   wifi,
+  github,
+  discord,
 };
 
 @NgModule({
@@ -67,7 +71,6 @@ const icons = {
     NgxBootstrapIconsModule.pick(icons, {
       width: '2em',
       height: '2em',
-      theme: ColorTheme.Danger,
     }),
   ],
   declarations: [

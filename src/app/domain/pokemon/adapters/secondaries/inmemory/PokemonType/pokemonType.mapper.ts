@@ -1,3 +1,4 @@
+import { IconName } from 'ngx-bootstrap-icons';
 import { PokemonType } from 'src/app/domain/pokemon/entity/pokemon-type';
 import { PokemonTypeInMemoryDTO } from './PokemonTypeInMemoryDTO';
 
@@ -8,7 +9,8 @@ export class PokemonTypeMapper {
     return {
       name: pokemonTypeDTO.name,
       detailUrl: pokemonTypeDTO.url,
-      logo: pokemonTypeDTO.logo,
+      logo: pokemonTypeDTO.logo as IconName,
+      color: pokemonTypeDTO.color,
     };
   };
 }
