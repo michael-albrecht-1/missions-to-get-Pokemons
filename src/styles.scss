@@ -13,28 +13,28 @@
 
 body {
   background-color: var(--black);
-  color: var(--yellow);
+  color: var(--blue);
   padding: 2rem;
 }
 
 .card {
   background-color: var(--black);
-  border: 1px solid var(--myellow);
+  border: 1px solid var(--blue);
 }
 
 .btn {
-  background-color: var(--yellow);
+  background-color: var(--blue);
   border: none;
   color: var(--black);
   &:hover,
   &:focus,
   &:active,
   &:disabled {
-    background-color: var(--myellow);
-    border-color: var(--myellow);
+    background-color: var(--glaucous);
+    border-color: var(--blue);
 
     color: var(--black);
-    box-shadow: var(--myellow);
+    box-shadow: var(--blue);
   }
 
   &:disabled,
@@ -46,7 +46,19 @@ body {
 }
 
 .form-select {
-  background-color: var(--yellow);
+  background-color: var(--blue);
   border: none;
   color: var(--black);
+}
+
+.list-group {
+  &-item {
+    background-color: var(--black);
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+}
+
+i-bs {
+  margin-right: 0.5rem;
 }

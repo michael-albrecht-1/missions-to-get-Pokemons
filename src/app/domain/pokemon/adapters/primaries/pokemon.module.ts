@@ -19,6 +19,44 @@ import { PokemonSelectedComponent } from './pokemon-selected/pokemon-selected.co
 import { PokemonPokedexComponent } from './pokemon-pokedex/pokemon-pokedex.component';
 import { PokemonsCaughtComponent } from './pokemons-caught/pokemons-caught.component';
 
+import { NgxBootstrapIconsModule, ColorTheme } from 'ngx-bootstrap-icons';
+import {
+  fire,
+  heart,
+  globe,
+  flower2,
+  droplet,
+  lightning,
+  hurricane,
+  infinity,
+  magic,
+  magnet,
+  moon,
+  snow2,
+  tornado,
+  virus,
+  wifi,
+} from 'ngx-bootstrap-icons';
+
+// Select some icons (use an object, not an array)
+const icons = {
+  fire,
+  flower2,
+  droplet,
+  lightning,
+  globe,
+  heart,
+  moon,
+  hurricane,
+  infinity,
+  magic,
+  magnet,
+  snow2,
+  tornado,
+  virus,
+  wifi,
+};
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -26,6 +64,11 @@ import { PokemonsCaughtComponent } from './pokemons-caught/pokemons-caught.compo
     RouterModule,
     RouterModule.forChild(PokemonRoutes),
     HttpClientModule,
+    NgxBootstrapIconsModule.pick(icons, {
+      width: '2em',
+      height: '2em',
+      theme: ColorTheme.Danger,
+    }),
   ],
   declarations: [
     PokemonListingComponent,
