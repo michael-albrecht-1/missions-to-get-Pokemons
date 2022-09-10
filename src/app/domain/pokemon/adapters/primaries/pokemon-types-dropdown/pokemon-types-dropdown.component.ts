@@ -23,18 +23,19 @@ export class PokemonTypesDropdownComponent implements OnInit {
       .execute()
       .pipe(
         map((types: PokemonType[]) => (this.pokemonTypes = types)),
-        tap(this.#generateRandomSelectedType),
+        map(this.#generateRandomSelectedType),
         tap(this.handleSelectType)
       )
       .subscribe();
   }
 
-  #generateRandomSelectedType = (): void => {
+  #generateRandomSelectedType = (): PokemonType => {
     const randomType = Math.floor(Math.random() * this.pokemonTypes.length);
-    this.selectedType = this.pokemonTypes[randomType];
+    return (this.selectedType = this.pokemonTypes[randomType]);
   };
 
-  handleSelectType = () => {
-    return this.onSelectType.emit(this.selectedType.name);
+  handleSelectType = (type: PokemonType) => {
+    this.selectedType = type;
+    return this.onSelectType.emit(type.name);
   };
 }

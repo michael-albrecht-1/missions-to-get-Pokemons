@@ -1,4 +1,4 @@
-<div class="dropdown" *ngIf="pokemonTypes.length">
+<!-- <div class="dropdown" *ngIf="pokemonTypes.length">
   <select
     class="form-select"
     aria-label="Select a pokemon type"
@@ -9,4 +9,34 @@
       {{ type.name }}
     </option>
   </select>
+</div> -->
+
+<div class="dropdown">
+  <button
+    class="dropdown-toggle btn btn-secondary"
+    type="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    <i-bs
+      *ngIf="selectedType.logo"
+      [ngStyle]="{ color: selectedType.color }"
+      [name]="selectedType.logo"
+    ></i-bs>
+    {{ selectedType.name }}
+  </button>
+  <ul class="dropdown-menu dropdown-menu-dark">
+    <li
+      *ngFor="let type of pokemonTypes"
+      (click)="handleSelectType(type)"
+      [ngClass]="{ active: type.name === selectedType.name }"
+    >
+      <i-bs
+        *ngIf="type.logo"
+        [ngStyle]="{ color: type.color }"
+        [name]="type.logo"
+      ></i-bs
+      >{{ type.name }}
+    </li>
+  </ul>
 </div>

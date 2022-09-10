@@ -23,6 +23,15 @@ body {
 }
 
 .btn {
+  &:disabled,
+  .btn.disabled,
+  fieldset:disabled .btn {
+    pointer-events: none;
+    opacity: 0.4;
+  }
+}
+
+.btn-primary {
   background-color: var(--blue);
   border: none;
   color: var(--black);
@@ -36,12 +45,18 @@ body {
     color: var(--black);
     box-shadow: var(--blue);
   }
+}
 
-  &:disabled,
-  .btn.disabled,
-  fieldset:disabled .btn {
-    pointer-events: none;
-    opacity: 0.4;
+.btn-secondary {
+  background-color: transparent;
+  border: var(--blue) solid 2px;
+  color: var(--blue);
+  &:hover,
+  &:focus,
+  &:active,
+  &:disabled {
+    background-color: transparent;
+    box-shadow: var(--blue);
   }
 }
 
