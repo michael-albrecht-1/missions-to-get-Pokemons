@@ -5,5 +5,8 @@
     <h3>{{ mission.name }}</h3>
     <h4>{{ mission.description }}</h4>
     <p>{{ mission.rewards[0] }}</p>
+    <p>
+      {{ mission.status }} le {{ mission.dateCreation | date: "dd MMMM yyyy" }}
+    </p>
   </li>
 </ul>

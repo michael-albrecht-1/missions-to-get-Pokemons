@@ -8,6 +8,8 @@ export class MongoMissionMapper {
       name: mongoMissionDTO.title,
       description: mongoMissionDTO.description,
       rewards: mongoMissionDTO.rewards,
+      status: mongoMissionDTO.status,
+      dateCreation: mongoMissionDTO.dateCreation,
     };
   };
 
@@ -19,6 +21,8 @@ export class MongoMissionMapper {
       title: missionSnapshot.name,
       description: missionSnapshot.description,
       rewards: missionSnapshot.rewards,
+      status: missionSnapshot.status,
+      dateCreation: missionSnapshot.dateCreation,
     };
   };
 }
