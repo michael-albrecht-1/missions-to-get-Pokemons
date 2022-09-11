@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { catchError, EMPTY, map, tap } from 'rxjs';
 import { PokemonSnapshotType } from 'src/app/domain/pokemon/entity/pokemon-snapshot';
+import { MissionReward } from '../../../shared/MissionReward';
 import { ICreateAMission } from '../../../usecases/ICreateAMission';
 
 enum AlertClass {
@@ -57,8 +58,11 @@ export class MissionCreateComponent implements OnInit {
   onSubmit = () => {
     const { name, description } = this.form.value;
 
-    const rewards: string[] = this.selectedPokemons?.map(
-      (pokemon: PokemonSnapshotType) => pokemon.name
+    const rewards: MissionReward[] = this.selectedPokemons?.map(
+      (pokemon: PokemonSnapshotType) => ({
+        name: pokemon.name,
+        number: pokemon.number,
+      })
     );
 
     this.iCreateAMission

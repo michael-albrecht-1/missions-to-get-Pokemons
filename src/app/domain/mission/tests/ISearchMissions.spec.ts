@@ -3,7 +3,7 @@ import { MissionSnapshot } from '../entity/mission.snapshot';
 import { ISearchMissions } from '../usecases/ISearchMissions';
 import { MissionStub } from './mission.stub';
 
-fdescribe('As a user, I search missions and', () => {
+describe('As a user, I search missions and', () => {
   let mission1: MissionSnapshot;
 
   beforeEach(() => {

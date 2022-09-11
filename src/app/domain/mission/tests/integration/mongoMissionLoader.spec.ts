@@ -3,9 +3,9 @@ import { of } from 'rxjs';
 import { MongoMissionMapper } from '../../adapters/secondaries/real/mission.mapper';
 import { MongoMissionLoader } from '../../adapters/secondaries/real/mongoMission.loader';
 import { MongoMissionDTO } from '../../adapters/secondaries/real/mongoMissionDTO';
-import { Mission } from '../../entity/mission';
 import { MissionSnapshot } from '../../entity/mission.snapshot';
 import { MissionLoader } from '../../loaders/mission.loader';
+import { MissionStub } from '../mission.stub';
 import { MongoMissionDTOMock } from './MongoMissionDTOMock';
 
 describe('Integration | MongoMissionLoader', () => {
@@ -13,11 +13,7 @@ describe('Integration | MongoMissionLoader', () => {
     const fakeHttpClient = { post: () => of() } as unknown as HttpClient;
     const fakeMongoResponse: MongoMissionDTO = MongoMissionDTOMock;
 
-    const mission: MissionSnapshot = new Mission(
-      MongoMissionDTOMock.title,
-      MongoMissionDTOMock.description,
-      ['pikachu']
-    ).snapshot();
+    const mission: MissionSnapshot = new MissionStub().build().snapshot();
 
     const expectedMission = MongoMissionMapper.mapToMissionDTO(mission);
 

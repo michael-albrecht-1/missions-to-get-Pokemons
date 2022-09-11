@@ -1,4 +1,3 @@
 export const PokemonDIProvider = {
-  pokemonHandler: 'PokemonHandler',
-  iGetPokemonTypes: 'IGetPokemonTypes',
+  iSearchCaughtPokemons: 'iSearchCaughtPokemons',
 };

@@ -15,4 +15,8 @@ export class MissionsComponent implements OnInit {
 
   missions$: Observable<MissionSnapshot[]> = this.iSearchMissions.execute();
   ngOnInit(): void {}
+
+  onCompleteMissionBtnClick() {
+    console.warn('onCompleteMissionBtnClick');
+  }
 }

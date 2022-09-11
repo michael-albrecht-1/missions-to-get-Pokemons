@@ -1,10 +1,11 @@
+import { MissionReward } from '../shared/MissionReward';
 import { Mission } from './mission';
 
 export class MissionBuilder {
   protected _uuid!: string;
   protected _name!: string;
   protected _description!: string;
-  protected _rewards!: string[];
+  protected _rewards!: MissionReward[];
 
   withUuid(value: string): MissionBuilder {
     this._uuid = value;
@@ -21,7 +22,7 @@ export class MissionBuilder {
     return this;
   }
 
-  withRewards(value: string[]): MissionBuilder {
+  withRewards(value: MissionReward[]): MissionBuilder {
     this._rewards = value;
     return this;
   }

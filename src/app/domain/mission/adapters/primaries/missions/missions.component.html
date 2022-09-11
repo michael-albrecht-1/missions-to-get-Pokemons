@@ -4,9 +4,12 @@
   <li class="list-group-item" *ngFor="let mission of missions$ | async">
     <h3>{{ mission.name }}</h3>
     <h4>{{ mission.description }}</h4>
-    <p>{{ mission.rewards[0] }}</p>
+    <p>{{ mission.rewards[0].name }}</p>
     <p>
       {{ mission.status }} le {{ mission.dateCreation | date: "dd MMMM yyyy" }}
     </p>
+    <button class="btn btn-success" (click)="(onCompleteMissionBtnClick)">
+      Valider la mission
+    </button>
   </li>
 </ul>

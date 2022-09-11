@@ -1,13 +1,10 @@
 import { InMemoryMissionLoader } from '../adapters/secondaries/inmemory/inmemoryMission.loader';
 import { MissionSnapshot } from '../entity/mission.snapshot';
 import { ICreateAMission } from '../usecases/ICreateAMission';
+import { MissionStub } from './mission.stub';
 
 describe('As a parent, I create a mission', () => {
-  const expectedResult = {
-    name: 'Make cookies !',
-    description: 'Make delicious cookies with dad or mum.',
-    rewards: ['togepi'],
-  };
+  const expectedResult = new MissionStub().build().snapshot();
 
   beforeEach(() => {});
 

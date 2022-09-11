@@ -1,13 +1,14 @@
 import { Uuid } from '../../shared/value-object/uuid';
+import { MissionReward } from '../shared/MissionReward';
 import { MissionSnapshot } from './mission.snapshot';
 
 export class Mission {
   #uuid: string = Uuid.random().toString();
   #name!: string;
   #description!: string;
-  #rewards!: string[];
+  #rewards!: MissionReward[];
 
-  constructor(_name: string, _description: string, _rewards: string[]) {
+  constructor(_name: string, _description: string, _rewards: MissionReward[]) {
     if (!_rewards.length) {
       throw new Error('Mission creation failed, there is no reward');
     }
