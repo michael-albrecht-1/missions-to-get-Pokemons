@@ -5,6 +5,7 @@ import { MongoMissionLoader } from '../../adapters/secondaries/real/mongoMission
 import { MongoMissionDTO } from '../../adapters/secondaries/real/mongoMissionDTO';
 import { MissionSnapshot } from '../../entity/mission.snapshot';
 import { MissionLoader } from '../../loaders/mission.loader';
+import { MissionStatus } from '../../shared/MissionStatus';
 import { MissionStub } from '../mission.stub';
 import { MongoMissionDTOMock } from './MongoMissionDTOMock';
 
@@ -27,6 +28,35 @@ describe('Integration | MongoMissionLoader', () => {
       expect(fakeHttpClient.post).toHaveBeenCalledWith(
         `http://localhost:5500/missions`,
         expectedMission
+      );
+      done();
+    });
+  });
+
+  it('complete a mission', (done) => {
+    const mission: MissionSnapshot = new MissionStub().build().snapshot();
+    const missionResponse: MissionSnapshot = {
+      ...mission,
+      status: MissionStatus.done,
+    };
+
+    const fakeHttpClient = { patch: () => of() } as unknown as HttpClient;
+
+    const fakeMongoResponse: MongoMissionDTO = {
+      ...MongoMissionMapper.mapToMissionDTO(missionResponse),
+      status: MissionStatus.done,
+    };
+
+    const missionLoader: MissionLoader = new MongoMissionLoader(fakeHttpClient);
+
+    spyOn(fakeHttpClient, 'patch').and.returnValue(of(fakeMongoResponse));
+
+    missionLoader.complete(mission).subscribe((mission) => {
+      expect(mission.name).toEqual(missionResponse.name);
+      expect(mission.description).toEqual(missionResponse.description);
+      expect(fakeHttpClient.patch).toHaveBeenCalledWith(
+        `http://localhost:5500/missions/complete/${mission.uuid}`,
+        mission
       );
       done();
     });

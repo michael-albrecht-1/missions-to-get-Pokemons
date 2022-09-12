@@ -1,9 +1,12 @@
 import { Observable, of } from 'rxjs';
 import { Usecase } from 'src/app/base/usecase.interface';
 import { MissionSnapshot } from '../entity/mission.snapshot';
+import { MissionLoader } from '../loaders/mission.loader';
 
 export class ICompleteAMission implements Usecase<Observable<MissionSnapshot>> {
-  execute(): Observable<MissionSnapshot> {
-    return of();
+  constructor(private missionSource: MissionLoader) {}
+
+  execute(mission: MissionSnapshot): Observable<MissionSnapshot> {
+    return this.missionSource.complete(mission);
   }
 }

@@ -8,7 +8,10 @@
     <p>
       {{ mission.status }} le {{ mission.dateCreation | date: "dd MMMM yyyy" }}
     </p>
-    <button class="btn btn-success" (click)="(onCompleteMissionBtnClick)">
+    <button
+      class="btn btn-primary"
+      (click)="onCompleteMissionBtnClick(mission)"
+    >
       Valider la mission
     </button>
   </li>

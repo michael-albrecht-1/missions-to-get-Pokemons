@@ -1,6 +1,7 @@
 import { Uuid } from '../../shared/value-object/uuid';
 import { MissionBuilder } from '../entity/mission.builder';
 import { MissionReward } from '../shared/MissionReward';
+import { MissionStatus } from '../shared/MissionStatus';
 
 export class MissionStub extends MissionBuilder {
   protected override _uuid: string = Uuid.random().value;

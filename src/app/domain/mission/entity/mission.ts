@@ -1,5 +1,6 @@
 import { Uuid } from '../../shared/value-object/uuid';
 import { MissionReward } from '../shared/MissionReward';
+import { MissionStatus } from '../shared/MissionStatus';
 import { MissionSnapshot } from './mission.snapshot';
 
 export class Mission {

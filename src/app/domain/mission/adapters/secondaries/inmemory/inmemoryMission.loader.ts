@@ -1,6 +1,16 @@
-import { BehaviorSubject, map, Observable, of, Subject } from 'rxjs';
+import {
+  BehaviorSubject,
+  EMPTY,
+  map,
+  Observable,
+  of,
+  Subject,
+  switchMap,
+} from 'rxjs';
 import { MissionSnapshot } from '../../../entity/mission.snapshot';
 import { MissionLoader } from '../../../loaders/mission.loader';
+import { MissionStatus } from '../../../shared/MissionStatus';
+import { MissionNotFoundError } from './missionNotFound.error';
 
 export class InMemoryMissionLoader implements MissionLoader {
   #missions$: Subject<MissionSnapshot[]> = new BehaviorSubject(this.missions);
@@ -20,5 +30,22 @@ export class InMemoryMissionLoader implements MissionLoader {
 
   search(): Observable<MissionSnapshot[]> {
     return this.#missions$;
+  }
+
+  complete(mission: MissionSnapshot): Observable<MissionSnapshot> {
+    return this.#missions$.pipe(
+      switchMap((missions: MissionSnapshot[]): Observable<MissionSnapshot> => {
+        const foundMission = missions?.find(
+          (missionMemory) => missionMemory.uuid === mission.uuid
+        );
+        if (!foundMission) {
+          throw new MissionNotFoundError(mission.uuid);
+        }
+        return of({
+          ...foundMission,
+          status: MissionStatus.done,
+        });
+      })
+    );
   }
 }

@@ -13,6 +13,7 @@ import { MissionDIFactory } from '../../configuration/missionDI.factory';
 import { PokemonModule } from 'src/app/domain/pokemon/adapters/primaries/pokemon.module';
 import { ISearchMissions } from '../../usecases/ISearchMissions';
 import { MissionsComponent } from './missions/missions.component';
+import { ICompleteAMission } from '../../usecases/ICompleteAMission';
 
 @NgModule({
   imports: [
@@ -36,6 +37,12 @@ import { MissionsComponent } from './missions/missions.component';
       provide: MissionDIProvider.ISearchMissions,
       useFactory: (http: HttpClient) =>
         new ISearchMissions(MissionDIFactory.missionLoader(http)),
+      deps: [HttpClient],
+    },
+    {
+      provide: MissionDIProvider.ICompleteAMission,
+      useFactory: (http: HttpClient) =>
+        new ICompleteAMission(MissionDIFactory.missionLoader(http)),
       deps: [HttpClient],
     },
   ],
