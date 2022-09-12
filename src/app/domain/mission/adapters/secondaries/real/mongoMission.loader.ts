@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, of } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { MissionSnapshot } from '../../../entity/mission.snapshot';
 import { MissionLoader } from '../../../loaders/mission.loader';
 import { MongoMissionMapper } from './mission.mapper';

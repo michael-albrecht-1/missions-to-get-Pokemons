@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { catchError, EMPTY, map, Observable } from 'rxjs';
+import { catchError, EMPTY, first, map, Observable, switchMap } from 'rxjs';
 import { MissionSnapshot } from '../../../entity/mission.snapshot';
+import { MissionStatus } from '../../../shared/MissionStatus';
 import { ICompleteAMission } from '../../../usecases/ICompleteAMission';
 import { ISearchMissions } from '../../../usecases/ISearchMissions';
 
@@ -10,25 +11,43 @@ import { ISearchMissions } from '../../../usecases/ISearchMissions';
   styleUrls: ['./missions.component.scss'],
 })
 export class MissionsComponent implements OnInit {
+  public missions!: MissionSnapshot[];
+  public missionStatuscreated = MissionStatus.created;
+
   constructor(
     @Inject('ISearchMissions') private iSearchMissions: ISearchMissions,
     @Inject('ICompleteAMission') private iCompleteAMission: ICompleteAMission
   ) {}
 
-  missions$: Observable<MissionSnapshot[]> = this.iSearchMissions.execute();
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.iSearchMissions
+      .execute()
+      .pipe(
+        first(),
+        map(
+          (missions: MissionSnapshot[]): MissionSnapshot[] =>
+            (this.missions = missions)
+        )
+      )
+      .subscribe();
+  }
 
   onCompleteMissionBtnClick(mission: MissionSnapshot) {
-    console.warn('onCompleteMissionBtnClick');
     this.iCompleteAMission
       .execute(mission)
       .pipe(
-        map((mission: MissionSnapshot) => console.log(mission)),
-        catchError((e) => {
+        map(this.#updateMissions),
+        catchError((_e) => {
           console.error('mission completion failed');
           return EMPTY;
         })
       )
       .subscribe();
   }
+
+  #updateMissions = (mission: MissionSnapshot): MissionSnapshot[] => {
+    return (this.missions = this.missions.map((m) =>
+      m.uuid === mission.uuid ? mission : m
+    ));
+  };
 }
