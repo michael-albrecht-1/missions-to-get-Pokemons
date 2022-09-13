@@ -51,9 +51,9 @@ describe('Integration | MongoMissionLoader', () => {
 
     spyOn(fakeHttpClient, 'patch').and.returnValue(of(fakeMongoResponse));
 
-    missionLoader.complete(mission).subscribe((mission) => {
-      expect(mission.name).toEqual(missionResponse.name);
-      expect(mission.description).toEqual(missionResponse.description);
+    missionLoader.complete(mission).subscribe((missionApiResponse) => {
+      expect(missionApiResponse.name).toEqual(missionResponse.name);
+      expect(missionApiResponse.status).toEqual(missionResponse.status);
       expect(fakeHttpClient.patch).toHaveBeenCalledWith(
         `http://localhost:5500/missions/complete/${mission.uuid}`,
         mission
