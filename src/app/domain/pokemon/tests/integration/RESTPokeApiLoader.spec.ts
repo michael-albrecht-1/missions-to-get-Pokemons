@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { PokeApiPokemonLoader } from '../../adapters/secondaries/real/REST-poke-api/PokeApiPokemon.loader';
 import { PokemonDTO } from '../../adapters/secondaries/real/REST-poke-api/PokemonDTO';
-import { Pokemon } from '../../entity/pokemon';
 import { PokemonSnapshotType } from '../../entity/pokemon-snapshot';
 import { PokemonLoader } from '../../loaders/PokemonLoader';
 import { PokemonBuilder } from '../../usecases/pokemon.builder';
