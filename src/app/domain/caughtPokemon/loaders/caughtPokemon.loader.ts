@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
-import { CaughtPokemonSnapshot } from '../entity/caughtPokemon.snapshot';
+import { CaughtPokemon } from '../entity/caughtPokemon';
 
 export interface CaughtPokemonLoader {
-  get(): Observable<CaughtPokemonSnapshot[]>;
+  get(): Observable<CaughtPokemon[]>;
 }

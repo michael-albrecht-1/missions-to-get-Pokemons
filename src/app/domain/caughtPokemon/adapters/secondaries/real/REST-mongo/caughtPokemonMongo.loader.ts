@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, of } from 'rxjs';
-import { CaughtPokemonSnapshot } from 'src/app/domain/caughtPokemon/entity/caughtPokemon.snapshot';
+import { map, Observable } from 'rxjs';
+import { CaughtPokemon } from 'src/app/domain/caughtPokemon/entity/caughtPokemon';
 import { CaughtPokemonLoader } from 'src/app/domain/caughtPokemon/loaders/caughtPokemon.loader';
 import { CaughtPokemonMongoDTO } from './caughtPokemonMongo.DTO';
 import { CaughtPokemonMongoMapper } from './caughtPokemonMongo.mapper';
@@ -10,11 +10,11 @@ export class CaughtPokemonMongoLoader implements CaughtPokemonLoader {
 
   constructor(private http: HttpClient) {}
 
-  get(): Observable<CaughtPokemonSnapshot[]> {
+  get(): Observable<CaughtPokemon[]> {
     return this.http
       .get<CaughtPokemonMongoDTO[]>(`${this.#baseUrl}/caughtPokemons`)
       .pipe(
-        map<CaughtPokemonMongoDTO[], CaughtPokemonSnapshot[]>((missionsDTO) =>
+        map<CaughtPokemonMongoDTO[], CaughtPokemon[]>((missionsDTO) =>
           missionsDTO.map(CaughtPokemonMongoMapper.toCaughtPokemon)
         )
       );
