@@ -1,11 +1,9 @@
 import { Observable } from 'rxjs';
-import { PokemonSnapshotType } from '../entity/pokemon-snapshot';
+import { Pokemon } from '../entity/pokemon';
 import { PokemonSearchParams } from './PokemonSearchParams';
 
 export interface PokemonLoader {
-  all(
-    pokemonSearchParams?: PokemonSearchParams
-  ): Observable<PokemonSnapshotType[]>;
+  all(pokemonSearchParams?: PokemonSearchParams): Observable<Pokemon[]>;
 
-  get(number: string): Observable<PokemonSnapshotType>;
+  get(number: string): Observable<Pokemon>;
 }

@@ -1,16 +1,24 @@
 <div class="pokemonListing">
-  <app-pokemon-types-dropdown
-    (onSelectType)="onSelectPokemonType($event)"
-  ></app-pokemon-types-dropdown>
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">{{ title }}</h1>
+      <hr class="my-4" />
 
-  <div class="row">
-    <pokemon-listing-item
-      class="col-12 col-md-6 col-xl-4"
-      *ngFor="let pokemon of filteredPokemons"
-      [pokemon]="pokemon"
-      [isParent]="isParent"
-      (addPokemon)="onAddPokemon($event)"
-    >
-    </pokemon-listing-item>
+      <app-pokemon-types-dropdown
+        (onSelectType)="onSelectPokemonType($event)"
+      ></app-pokemon-types-dropdown>
+
+      <div class="row">
+        <pokemon-listing-item
+          class="col-12 col-md-6 col-xl-4"
+          *ngFor="let pokemon of filteredPokemons"
+          [pokemon]="pokemon"
+          [caughtPokemons]="caughtPokemons"
+          [isParent]="isParent"
+          (addPokemon)="onAddPokemon($event)"
+        >
+        </pokemon-listing-item>
+      </div>
+    </div>
   </div>
 </div>

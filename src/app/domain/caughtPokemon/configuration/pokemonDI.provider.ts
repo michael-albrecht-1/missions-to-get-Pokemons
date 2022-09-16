@@ -1,3 +1,3 @@
-export const PokemonDIProvider = {
-  iSearchCaughtPokemons: 'iSearchCaughtPokemons',
+export const PokemonCaughtDIProvider = {
+  iGetCaughtPokemons: 'IGetCaughtPokemons',
 };

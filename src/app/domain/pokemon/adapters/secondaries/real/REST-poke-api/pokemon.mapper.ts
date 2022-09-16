@@ -1,18 +1,17 @@
-import { PokemonSnapshotType } from 'src/app/domain/pokemon/entity/pokemon-snapshot';
+import { Pokemon } from 'src/app/domain/pokemon/entity/pokemon';
 import { PokemonBuilder } from 'src/app/domain/pokemon/usecases/pokemon.builder';
 import { PokemonDTO } from './PokemonDTO';
 
 export class PokemonMapper {
-  static mapToPokemon(pokemon: PokemonDTO): PokemonSnapshotType {
+  static mapToPokemon(pokemonDTO: PokemonDTO): Pokemon {
     return new PokemonBuilder()
-      .withNumber(pokemon.id.toString())
-      .withName(pokemon.name)
+      .withNumber(pokemonDTO.id.toString())
+      .withName(pokemonDTO.name)
       .withDescription('')
-      .withHeight(pokemon.height)
-      .withWeight(pokemon.weight)
-      .withAvatar(pokemon.sprites.front_default)
-      .withTypes(pokemon.types.map((type) => type?.type?.name))
-      .build()
-      .snapshot();
+      .withHeight(pokemonDTO.height)
+      .withWeight(pokemonDTO.weight)
+      .withAvatar(pokemonDTO.sprites.front_default)
+      .withTypes(pokemonDTO.types.map((type) => type?.type?.name))
+      .build();
   }
 }

@@ -1,12 +1,19 @@
-<div class="card">
+<div class="card d-flex flex-column justify-content-between">
   <img
-    class="card-img-top"
+    class="caughtPokemonImg"
+    *ngIf="isCaughtPokemon"
+    alt="Pokémon capturé !"
+    src="https://img.icons8.com/fluency/48/000000/pokeball.png"
+  />
+  <h5 class="card-title">{{ pokemon.name }}</h5>
+  <img
+    class="card-img-top avatar"
     src="{{ pokemon.avatar }}"
     alt="{{ pokemon.name }}"
   />
-  <div class="card-body">
-    <h5 class="card-title">{{ pokemon.name }}</h5>
-    <p class="card-text">{{ pokemon.description }}</p>
+
+  <p class="card-text">{{ pokemon.description }}</p>
+  <div class="d-flex justify-content-between">
     <p>
       <span *ngFor="let pokemonType of currentPokemonTypes">
         <i-bs

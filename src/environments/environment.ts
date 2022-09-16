@@ -7,8 +7,9 @@ import { SOURCES } from 'src/config/sources';
 export const environment = {
   production: false,
   pokemonSource: SOURCES.restPokeApi,
+  pokemonCaughtSource: SOURCES.mongo,
   pokemonTypesSource: SOURCES.inmemory,
-  missionSource: SOURCES.rest,
+  missionSource: SOURCES.mongo,
 };
 
 /*

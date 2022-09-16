@@ -10,7 +10,7 @@ import { MissionStub } from '../tests/mission.stub';
 export class MissionDIFactory {
   static missionLoader(http: HttpClient): MissionLoader {
     switch (environment.missionSource) {
-      case SOURCES.rest:
+      case SOURCES.mongo:
         return new MongoMissionLoader(http);
       default:
         const mission1: MissionSnapshot = new MissionStub()

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { PokemonSnapshotType } from 'src/app/domain/pokemon/entity/pokemon-snapshot';
+import { Pokemon } from '../../../entity/pokemon';
 
 @Component({
   selector: 'pokemon-selected',
@@ -7,9 +7,8 @@ import { PokemonSnapshotType } from 'src/app/domain/pokemon/entity/pokemon-snaps
   styleUrls: ['./pokemon-selected.component.scss'],
 })
 export class PokemonSelectedComponent {
-  @Input() pokemon!: PokemonSnapshotType;
-  @Output() removePokemon: EventEmitter<PokemonSnapshotType> =
-    new EventEmitter();
+  @Input() pokemon!: Pokemon;
+  @Output() removePokemon: EventEmitter<Pokemon> = new EventEmitter();
 
   onRemovePokemonBtnClick() {
     this.removePokemon.emit(this.pokemon);

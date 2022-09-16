@@ -6,22 +6,24 @@ import { RouterModule } from '@angular/router';
 import { PokemonRoutes } from '../../configuration/pokemon.routes';
 
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { PokemonHandler } from '../../usecases/pokemon.handler';
 import { PokemonListingComponent } from './pokemon-listing/pokemon-listing.component';
 import { PokemonListingItemComponent } from './pokemon-listing/pokemon-listing-item/pokemon-listing-item.component';
 import { PokemonDetailsComponent } from './pokemon-details/pokemon-details.component';
-import { PokemonDIProvider } from '../../configuration/pokemonDI.provider';
 import { PokemonDIFactory } from '../../configuration/pokemonDI.factory';
 import { IGetPokemonsTypes } from '../../usecases/IGetPokemonsTypes';
 import { PokemonTypesDIFactory } from '../../configuration/pokemonTypesDI.factory';
 import { PokemonTypesDropdownComponent } from './pokemon-types-dropdown/pokemon-types-dropdown.component';
 import { PokemonSelectedComponent } from './pokemon-selected/pokemon-selected.component';
-import { PokemonPokedexComponent } from './pokemon-pokedex/pokemon-pokedex.component';
-import { PokemonsCaughtComponent } from './pokemons-caught/pokemons-caught.component';
 
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { bootstrapIcons } from 'src/app/core/configuration/bootstrap-icons';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PokemonDIProvider } from '../../configuration/pokemonDI.provider';
+import { ISearchAPokemonByNumber } from '../../usecases/ISearchAPokemonByNumber';
+import { ISearchAllPokemons } from '../../usecases/ISearchAllPokemons';
+import { IGetCaughtPokemons } from 'src/app/domain/caughtPokemon/usecases/IGetCaughtPokemons';
+import { CaughtPokemonDIFactory } from 'src/app/domain/caughtPokemon/configuration/pokemonDI.factory';
+import { PokemonCaughtDIProvider } from 'src/app/domain/caughtPokemon/configuration/pokemonDI.provider';
 
 // Select some icons (use an object, not an array)
 const icons = bootstrapIcons;
@@ -45,25 +47,33 @@ const icons = bootstrapIcons;
     PokemonDetailsComponent,
     PokemonTypesDropdownComponent,
     PokemonSelectedComponent,
-    PokemonPokedexComponent,
-    PokemonsCaughtComponent,
   ],
-  exports: [
-    PokemonSelectedComponent,
-    PokemonPokedexComponent,
-    PokemonsCaughtComponent,
-  ],
+  exports: [PokemonSelectedComponent, PokemonListingComponent],
   providers: [
     {
-      provide: PokemonDIProvider.pokemonHandler,
+      provide: PokemonDIProvider.iSearchAPokemonByNumber,
       useFactory: (http: HttpClient) =>
-        new PokemonHandler(PokemonDIFactory.pokemonLoader(http)),
+        new ISearchAPokemonByNumber(PokemonDIFactory.pokemonLoader(http)),
+      deps: [HttpClient],
+    },
+    {
+      provide: PokemonDIProvider.iSearchAllPokemons,
+      useFactory: (http: HttpClient) =>
+        new ISearchAllPokemons(PokemonDIFactory.pokemonLoader(http)),
       deps: [HttpClient],
     },
     {
       provide: PokemonDIProvider.iGetPokemonTypes,
       useFactory: () =>
         new IGetPokemonsTypes(PokemonTypesDIFactory.pokemonTypesLoader()),
+    },
+    {
+      provide: PokemonCaughtDIProvider.iGetCaughtPokemons,
+      useFactory: (http: HttpClient) =>
+        new IGetCaughtPokemons(
+          CaughtPokemonDIFactory.pokemonCaughtLoader(http)
+        ),
+      deps: [HttpClient],
     },
   ],
 })

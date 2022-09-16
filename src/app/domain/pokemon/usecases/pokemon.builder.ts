@@ -45,14 +45,14 @@ export class PokemonBuilder {
   }
 
   build(): Pokemon {
-    return new Pokemon(
-      this._number,
-      this._name,
-      this._description,
-      this._weight,
-      this._height,
-      this._avatar,
-      this._types
-    );
+    return {
+      number: this._number,
+      name: this._name,
+      description: this._description,
+      weight: this._weight,
+      height: this._height,
+      avatar: this._avatar,
+      types: this._types,
+    };
   }
 }

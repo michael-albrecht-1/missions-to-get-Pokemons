@@ -1,5 +1,5 @@
 export enum SOURCES {
   'inmemory',
-  'rest',
+  'mongo',
   'restPokeApi',
 }

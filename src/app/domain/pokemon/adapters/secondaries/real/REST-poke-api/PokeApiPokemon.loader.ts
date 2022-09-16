@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { combineLatest, map, Observable, of, switchMap, tap } from 'rxjs';
-import { PokemonSnapshotType } from 'src/app/domain/pokemon/entity/pokemon-snapshot';
+import { Pokemon } from 'src/app/domain/pokemon/entity/pokemon';
 import { PokemonSearchParams } from 'src/app/domain/pokemon/loaders/PokemonSearchParams';
 import { PokemonLoader } from '../../../../loaders/PokemonLoader';
 import { PokemonMapper } from './pokemon.mapper';
@@ -21,13 +21,11 @@ type PokeApiResponse = {
 export class PokeApiPokemonLoader implements PokemonLoader {
   constructor(private http: HttpClient) {}
 
-  all(
-    pokemonSearchParams?: PokemonSearchParams
-  ): Observable<PokemonSnapshotType[]> {
+  all(pokemonSearchParams?: PokemonSearchParams): Observable<Pokemon[]> {
     const stringPokemons = localStorage.getItem('pokemons');
     if (stringPokemons) {
-      const pokemons: PokemonSnapshotType[] = JSON.parse(stringPokemons);
-      const filtredPokemons: PokemonSnapshotType[] = this.#filterPokemons(
+      const pokemons: Pokemon[] = JSON.parse(stringPokemons);
+      const filtredPokemons: Pokemon[] = this.#filterPokemons(
         pokemons,
         pokemonSearchParams
       );
@@ -47,29 +45,29 @@ export class PokeApiPokemonLoader implements PokemonLoader {
             return combineLatest(pokemons);
           }
         ),
-        map<PokemonDTO[], PokemonSnapshotType[]>((pokemons) =>
+        map<PokemonDTO[], Pokemon[]>((pokemons) =>
           pokemons.map(PokemonMapper.mapToPokemon)
         ),
         tap(this.#savePokemonsInStorage),
-        map<PokemonSnapshotType[], PokemonSnapshotType[]>((pokemons) =>
+        map<Pokemon[], Pokemon[]>((pokemons) =>
           this.#filterPokemons(pokemons, pokemonSearchParams)
         )
       );
   }
 
-  get(number: string): Observable<PokemonSnapshotType> {
+  get(number: string): Observable<Pokemon> {
     const stringPokemons = localStorage.getItem('pokemons');
     if (stringPokemons) {
       return of(
         JSON.parse(stringPokemons).find(
-          (pokemon: PokemonSnapshotType) => pokemon.number === number
+          (pokemon: Pokemon) => pokemon.number === number
         )
       );
     }
 
     return this.http
       .get<PokemonDTO>(`https://pokeapi.co/api/v2/pokemon/${number}`)
-      .pipe(map<PokemonDTO, PokemonSnapshotType>(PokemonMapper.mapToPokemon));
+      .pipe(map<PokemonDTO, Pokemon>(PokemonMapper.mapToPokemon));
   }
 
   #getByLink = (
@@ -78,20 +76,20 @@ export class PokeApiPokemonLoader implements PokemonLoader {
     return this.http.get<PokemonDTO>(pokemonNameAndLink.url);
   };
 
-  #savePokemonsInStorage = (pokemons: PokemonSnapshotType[]) => {
+  #savePokemonsInStorage = (pokemons: Pokemon[]) => {
     localStorage.setItem('pokemons', JSON.stringify(pokemons));
   };
 
   #filterPokemons = (
-    pokemons: PokemonSnapshotType[],
+    pokemons: Pokemon[],
     pokemonSearchParams?: PokemonSearchParams
-  ): PokemonSnapshotType[] => {
+  ): Pokemon[] => {
     if (!pokemonSearchParams?.types?.length) {
       return pokemons;
     }
     const pokemonFilteredType = pokemonSearchParams.types[0];
     return pokemons.filter(
-      (pokemon: PokemonSnapshotType) =>
+      (pokemon: Pokemon) =>
         !pokemon.types.every((t) => t !== pokemonFilteredType)
     );
   };

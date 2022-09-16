@@ -1,7 +1,8 @@
 .card {
-  // width: 300px;
   flex: none;
+  padding: 2rem;
   margin-top: 10px;
+  position: relative;
 
   .card-title:first-letter {
     text-transform: uppercase;
@@ -10,9 +11,19 @@
   &-text {
     height: 4rem;
   }
+
   img {
     height: 8rem;
     object-fit: contain;
     margin-top: 2rem;
+  }
+
+  .caughtPokemonImg {
+    margin: 0;
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    height: 48px;
+    width: 48px;
   }
 }

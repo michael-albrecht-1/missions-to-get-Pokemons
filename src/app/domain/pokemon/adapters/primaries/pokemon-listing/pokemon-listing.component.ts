@@ -1,6 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { PokemonSnapshotType } from '../../../entity/pokemon-snapshot';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { first, map } from 'rxjs';
+import { CaughtPokemon } from 'src/app/domain/caughtPokemon/entity/caughtPokemon';
+import { IGetCaughtPokemons } from 'src/app/domain/caughtPokemon/usecases/IGetCaughtPokemons';
+import { Pokemon } from '../../../entity/pokemon';
 import { PokemonSearchParams } from '../../../loaders/PokemonSearchParams';
+import { ISearchAllPokemons } from '../../../usecases/ISearchAllPokemons';
 
 @Component({
   selector: 'pokemon-listing',
@@ -8,17 +12,46 @@ import { PokemonSearchParams } from '../../../loaders/PokemonSearchParams';
   styleUrls: ['./pokemon-listing.component.scss'],
 })
 export class PokemonListingComponent {
-  @Input() pokemons: PokemonSnapshotType[] = [];
+  @Input() title: string = 'Pokedex';
   @Input() isParent: boolean = false;
-  @Output() addPokemon: EventEmitter<PokemonSnapshotType> = new EventEmitter();
+  @Output() addPokemon: EventEmitter<Pokemon> = new EventEmitter();
 
-  filteredPokemons: PokemonSnapshotType[] = [];
+  #pokemons: Pokemon[] = [];
+  public filteredPokemons: Pokemon[] = [];
+  public caughtPokemons: CaughtPokemon[] = [];
+
+  constructor(
+    @Inject('ISearchAllPokemons')
+    private iSearchAllPokemons: ISearchAllPokemons,
+    @Inject('IGetCaughtPokemons') private iGetCaughtPokemons: IGetCaughtPokemons
+  ) {}
+
+  ngOnInit(): void {
+    this.iGetCaughtPokemons
+      .execute()
+      .pipe(
+        first(),
+        map((caughtPokemons: CaughtPokemon[]) => {
+          this.caughtPokemons = caughtPokemons;
+          return caughtPokemons;
+        })
+      )
+      .subscribe();
+
+    this.iSearchAllPokemons
+      .execute()
+      .pipe(
+        first(),
+        map((pokemons: Pokemon[]) => (this.#pokemons = pokemons))
+      )
+      .subscribe();
+  }
 
   onSelectPokemonType = (pokemonType: string) => {
     const pokemonSearchParams: PokemonSearchParams = { types: [pokemonType] };
 
     this.filteredPokemons = this.#filterPokemons(
-      this.pokemons,
+      this.#pokemons,
       pokemonSearchParams
     );
   };
@@ -28,15 +61,15 @@ export class PokemonListingComponent {
   }
 
   #filterPokemons = (
-    pokemons: PokemonSnapshotType[],
+    pokemons: Pokemon[],
     pokemonSearchParams?: PokemonSearchParams
-  ): PokemonSnapshotType[] => {
+  ): Pokemon[] => {
     if (!pokemonSearchParams?.types?.length) {
       return pokemons;
     }
     const pokemonFilteredType = pokemonSearchParams.types[0];
     return pokemons.filter(
-      (pokemon: PokemonSnapshotType) =>
+      (pokemon: Pokemon) =>
         !pokemon.types.every((t) => t !== pokemonFilteredType)
     );
   };

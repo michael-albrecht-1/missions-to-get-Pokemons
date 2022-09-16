@@ -7,7 +7,8 @@ import {
   Output,
 } from '@angular/core';
 import { map } from 'rxjs';
-import { PokemonSnapshotType } from 'src/app/domain/pokemon/entity/pokemon-snapshot';
+import { CaughtPokemon } from 'src/app/domain/caughtPokemon/entity/caughtPokemon';
+import { Pokemon } from 'src/app/domain/pokemon/entity/pokemon';
 import { PokemonType } from 'src/app/domain/pokemon/entity/pokemon-type';
 import { IGetPokemonsTypes } from 'src/app/domain/pokemon/usecases/IGetPokemonsTypes';
 
@@ -17,11 +18,14 @@ import { IGetPokemonsTypes } from 'src/app/domain/pokemon/usecases/IGetPokemonsT
   styleUrls: ['./pokemon-listing-item.component.scss'],
 })
 export class PokemonListingItemComponent implements OnInit {
-  @Input() pokemon!: PokemonSnapshotType;
+  @Input() pokemon!: Pokemon;
   @Input() isParent: boolean = false;
-  @Output() addPokemon: EventEmitter<PokemonSnapshotType> = new EventEmitter();
+  @Input() caughtPokemons: CaughtPokemon[] = [];
+
+  @Output() addPokemon: EventEmitter<Pokemon> = new EventEmitter();
 
   public currentPokemonTypes: PokemonType[] = [];
+  public isCaughtPokemon!: boolean;
 
   constructor(
     @Inject('IGetPokemonTypes') private iGetPokemonsTypes: IGetPokemonsTypes
@@ -32,6 +36,8 @@ export class PokemonListingItemComponent implements OnInit {
       .execute()
       .pipe(map(this.#initCurrentPokemonTypes))
       .subscribe();
+
+    this.isCaughtPokemon = this.#initIsCaughtPokemon();
   }
 
   public onAddPokemonBtnClick() {
@@ -57,5 +63,13 @@ export class PokemonListingItemComponent implements OnInit {
     pokemonTypes: PokemonType[]
   ): PokemonType | undefined => {
     return pokemonTypes?.find((pokemonType) => pokemonType.name === typeName);
+  };
+
+  #initIsCaughtPokemon = (): boolean => {
+    const foundPokemon = this.caughtPokemons.find(
+      (caughtPokemon: CaughtPokemon) =>
+        caughtPokemon.number === this.pokemon.number
+    );
+    return foundPokemon ? true : false;
   };
 }

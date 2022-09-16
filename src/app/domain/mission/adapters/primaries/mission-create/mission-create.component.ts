@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { catchError, EMPTY, map, tap } from 'rxjs';
-import { PokemonSnapshotType } from 'src/app/domain/pokemon/entity/pokemon-snapshot';
+import { catchError, EMPTY, map } from 'rxjs';
+import { Pokemon } from 'src/app/domain/pokemon/entity/pokemon';
 import { MissionReward } from '../../../shared/MissionReward';
 import { ICreateAMission } from '../../../usecases/ICreateAMission';
 
@@ -19,7 +19,7 @@ export class MissionCreateComponent implements OnInit {
   form!: FormGroup;
   alertClass: AlertClass | undefined;
   alertMessage: string | undefined;
-  selectedPokemons: PokemonSnapshotType[] = [];
+  selectedPokemons: Pokemon[] = [];
 
   constructor(
     @Inject('ICreateAMission') private iCreateAMission: ICreateAMission,
@@ -34,7 +34,7 @@ export class MissionCreateComponent implements OnInit {
     this.form.valueChanges.subscribe((v) => console.warn(v));
   }
 
-  onAddPokemon(selectedPokemon: PokemonSnapshotType) {
+  onAddPokemon(selectedPokemon: Pokemon) {
     if (this.#pokemonAlreadySelected(selectedPokemon)) {
       return;
     }
@@ -42,10 +42,9 @@ export class MissionCreateComponent implements OnInit {
     this.selectedPokemons = [selectedPokemon, ...this.selectedPokemons];
   }
 
-  onRemovePokemon(selectedPokemon: PokemonSnapshotType) {
+  onRemovePokemon(selectedPokemon: Pokemon) {
     const pokemonIndex = this.selectedPokemons.findIndex(
-      (pokemon: PokemonSnapshotType) =>
-        pokemon.number === selectedPokemon.number
+      (pokemon: Pokemon) => pokemon.number === selectedPokemon.number
     );
 
     if (pokemonIndex === null) {
@@ -59,7 +58,7 @@ export class MissionCreateComponent implements OnInit {
     const { name, description } = this.form.value;
 
     const rewards: MissionReward[] = this.selectedPokemons?.map(
-      (pokemon: PokemonSnapshotType) => ({
+      (pokemon: Pokemon) => ({
         name: pokemon.name,
         number: pokemon.number,
       })
@@ -84,7 +83,7 @@ export class MissionCreateComponent implements OnInit {
       .subscribe();
   };
 
-  #pokemonAlreadySelected(selectedPokemon: PokemonSnapshotType): boolean {
+  #pokemonAlreadySelected(selectedPokemon: Pokemon): boolean {
     const foundPokemon = this.selectedPokemons.find(
       (pokemon) => pokemon.number === selectedPokemon.number
     );
