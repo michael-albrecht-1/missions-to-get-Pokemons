@@ -4,9 +4,28 @@
       <h1 class="display-4">{{ title }}</h1>
       <hr class="my-4" />
 
-      <app-pokemon-types-dropdown
-        (onSelectType)="onSelectPokemonType($event)"
-      ></app-pokemon-types-dropdown>
+      <form [formGroup]="form" *ngIf="form" class="container">
+        <div class="row">
+          <div class="col-12">
+            <app-pokemon-types-dropdown
+              formControlName="pokemonType"
+            ></app-pokemon-types-dropdown>
+          </div>
+          <div class="col-12">
+            <div class="form-check form-switch ms-3">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="flexSwitchCheckDefault"
+              />
+              <label class="form-check-label" for="flexSwitchCheckDefault"
+                >Mes pokemons</label
+              >
+            </div>
+          </div>
+        </div>
+      </form>
 
       <div class="row">
         <pokemon-listing-item

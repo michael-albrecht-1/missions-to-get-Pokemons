@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { PokemonRoutes } from '../../configuration/pokemon.routes';
 
@@ -32,6 +32,7 @@ const icons = bootstrapIcons;
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule,
     RouterModule.forChild(PokemonRoutes),
     HttpClientModule,

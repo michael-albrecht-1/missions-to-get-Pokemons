@@ -1,4 +1,4 @@
-<div class="dropdown">
+<div class="dropdown" *ngIf="this.selectedType">
   <button
     class="dropdown-toggle btn btn-secondary"
     type="button"
@@ -6,7 +6,7 @@
     aria-expanded="false"
   >
     <i-bs
-      *ngIf="selectedType.logo"
+      *ngIf="selectedType?.logo"
       [ngStyle]="{ color: selectedType.color }"
       [name]="selectedType.logo"
     ></i-bs>

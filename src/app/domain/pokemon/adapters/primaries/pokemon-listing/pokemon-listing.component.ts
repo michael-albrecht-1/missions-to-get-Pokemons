@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { first, map } from 'rxjs';
 import { CaughtPokemon } from 'src/app/domain/caughtPokemon/entity/caughtPokemon';
 import { IGetCaughtPokemons } from 'src/app/domain/caughtPokemon/usecases/IGetCaughtPokemons';
@@ -16,17 +17,30 @@ export class PokemonListingComponent {
   @Input() isParent: boolean = false;
   @Output() addPokemon: EventEmitter<Pokemon> = new EventEmitter();
 
-  #pokemons: Pokemon[] = [];
   public filteredPokemons: Pokemon[] = [];
   public caughtPokemons: CaughtPokemon[] = [];
+  public form: FormGroup = this.#initForm();
+
+  #pokemons: Pokemon[] = [];
 
   constructor(
     @Inject('ISearchAllPokemons')
     private iSearchAllPokemons: ISearchAllPokemons,
-    @Inject('IGetCaughtPokemons') private iGetCaughtPokemons: IGetCaughtPokemons
+    @Inject('IGetCaughtPokemons')
+    private iGetCaughtPokemons: IGetCaughtPokemons,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    this.form.valueChanges
+      .pipe(
+        map((formValue) => {
+          console.warn(formValue);
+          this.onSelectPokemonType(formValue.pokemonType);
+        })
+      )
+      .subscribe();
+
     this.iGetCaughtPokemons
       .execute()
       .pipe(
@@ -58,6 +72,13 @@ export class PokemonListingComponent {
 
   onAddPokemon(event: any) {
     this.addPokemon.emit(event);
+  }
+
+  #initForm() {
+    return this.fb.group({
+      pokemonType: [],
+      isCaughtPokemon: [true, { nonNullable: true }],
+    });
   }
 
   #filterPokemons = (
