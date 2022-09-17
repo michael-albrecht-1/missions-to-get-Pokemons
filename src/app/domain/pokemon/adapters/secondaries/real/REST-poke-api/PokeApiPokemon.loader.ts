@@ -21,15 +21,12 @@ type PokeApiResponse = {
 export class PokeApiPokemonLoader implements PokemonLoader {
   constructor(private http: HttpClient) {}
 
-  all(pokemonSearchParams?: PokemonSearchParams): Observable<Pokemon[]> {
+  all(): Observable<Pokemon[]> {
     const stringPokemons = localStorage.getItem('pokemons');
     if (stringPokemons) {
       const pokemons: Pokemon[] = JSON.parse(stringPokemons);
-      const filtredPokemons: Pokemon[] = this.#filterPokemons(
-        pokemons,
-        pokemonSearchParams
-      );
-      return of(filtredPokemons);
+
+      return of(pokemons);
     }
 
     return this.http
@@ -48,10 +45,7 @@ export class PokeApiPokemonLoader implements PokemonLoader {
         map<PokemonDTO[], Pokemon[]>((pokemons) =>
           pokemons.map(PokemonMapper.mapToPokemon)
         ),
-        tap(this.#savePokemonsInStorage),
-        map<Pokemon[], Pokemon[]>((pokemons) =>
-          this.#filterPokemons(pokemons, pokemonSearchParams)
-        )
+        tap(this.#savePokemonsInStorage)
       );
   }
 

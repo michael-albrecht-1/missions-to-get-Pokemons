@@ -1,10 +1,9 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { first, map } from 'rxjs';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { first, map, switchMap, tap } from 'rxjs';
 import { CaughtPokemon } from 'src/app/domain/caughtPokemon/entity/caughtPokemon';
 import { IGetCaughtPokemons } from 'src/app/domain/caughtPokemon/usecases/IGetCaughtPokemons';
 import { Pokemon } from '../../../entity/pokemon';
-import { PokemonSearchParams } from '../../../loaders/PokemonSearchParams';
 import { ISearchAllPokemons } from '../../../usecases/ISearchAllPokemons';
 
 @Component({
@@ -35,63 +34,91 @@ export class PokemonListingComponent {
     this.form.valueChanges
       .pipe(
         map((formValue) => {
-          console.warn(formValue);
-          this.onSelectPokemonType(formValue.pokemonType);
+          const filtredPokemonsByTypes = this.#filterPokemonsByType(
+            this.#pokemons,
+            formValue.pokemonType
+          );
+
+          const filtredPokemonsByTypesAndCaught = this.#filterPokemonsByCaught(
+            filtredPokemonsByTypes,
+            formValue.filterCaughtPokemons
+          );
+
+          this.filteredPokemons = filtredPokemonsByTypesAndCaught;
         })
       )
       .subscribe();
 
-    this.iGetCaughtPokemons
-      .execute()
+    this.#getPokemonCaught$()
       .pipe(
-        first(),
-        map((caughtPokemons: CaughtPokemon[]) => {
-          this.caughtPokemons = caughtPokemons;
-          return caughtPokemons;
-        })
+        switchMap(this.#getAllPokemons$),
+        tap(() => this.form.controls['filterCaughtPokemons'].setValue(true))
       )
-      .subscribe();
 
-    this.iSearchAllPokemons
-      .execute()
-      .pipe(
-        first(),
-        map((pokemons: Pokemon[]) => (this.#pokemons = pokemons))
-      )
       .subscribe();
   }
-
-  onSelectPokemonType = (pokemonType: string) => {
-    const pokemonSearchParams: PokemonSearchParams = { types: [pokemonType] };
-
-    this.filteredPokemons = this.#filterPokemons(
-      this.#pokemons,
-      pokemonSearchParams
-    );
-  };
 
   onAddPokemon(event: any) {
     this.addPokemon.emit(event);
   }
 
+  #getPokemonCaught$ = () => {
+    return this.iGetCaughtPokemons.execute().pipe(
+      first(),
+      map(
+        (caughtPokemons: CaughtPokemon[]) =>
+          (this.caughtPokemons = caughtPokemons)
+      )
+    );
+  };
+
+  #getAllPokemons$ = () => {
+    return this.iSearchAllPokemons.execute().pipe(
+      first(),
+      map((pokemons: Pokemon[]) => (this.#pokemons = pokemons))
+    );
+  };
+
   #initForm() {
     return this.fb.group({
       pokemonType: [],
-      isCaughtPokemon: [true, { nonNullable: true }],
+      filterCaughtPokemons: [true, { nonNullable: true }],
     });
   }
 
-  #filterPokemons = (
+  #filterPokemonsByCaught(
     pokemons: Pokemon[],
-    pokemonSearchParams?: PokemonSearchParams
-  ): Pokemon[] => {
-    if (!pokemonSearchParams?.types?.length) {
+    filterCaughtPokemon: boolean
+  ): Pokemon[] {
+    if (!filterCaughtPokemon) {
       return pokemons;
     }
-    const pokemonFilteredType = pokemonSearchParams.types[0];
-    return pokemons.filter(
-      (pokemon: Pokemon) =>
-        !pokemon.types.every((t) => t !== pokemonFilteredType)
+
+    return pokemons.filter((pokemon: Pokemon): boolean =>
+      this.#filterCaughtPokemons(pokemon)
+    );
+  }
+
+  #filterCaughtPokemons = (pokemon: Pokemon): boolean => {
+    const caughtPokemon = this.caughtPokemons.find(
+      (caughtPokemon: CaughtPokemon) => caughtPokemon.number === pokemon.number
+    );
+
+    return caughtPokemon ? true : false;
+  };
+
+  #filterPokemonsByType = (
+    pokemons: Pokemon[],
+    pokemonType: string
+  ): Pokemon[] => {
+    if (!pokemonType) {
+      return pokemons;
+    }
+    return pokemons.filter((pokemon: Pokemon): boolean =>
+      this.#filterPokemonByType(pokemon, pokemonType)
     );
   };
+
+  #filterPokemonByType = (pokemon: Pokemon, pokemonType: string): boolean =>
+    !pokemon.types.every((t) => t !== pokemonType);
 }

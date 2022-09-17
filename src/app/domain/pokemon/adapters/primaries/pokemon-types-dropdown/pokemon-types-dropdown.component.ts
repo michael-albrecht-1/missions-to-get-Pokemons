@@ -7,7 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { map, tap } from 'rxjs';
+import { first, map } from 'rxjs';
 import { PokemonType } from '../../../entity/pokemon-type';
 import { IGetPokemonsTypes } from '../../../usecases/IGetPokemonsTypes';
 
@@ -26,7 +26,7 @@ import { IGetPokemonsTypes } from '../../../usecases/IGetPokemonsTypes';
 export class PokemonTypesDropdownComponent
   implements OnInit, ControlValueAccessor
 {
-  selectedType!: PokemonType;
+  selectedType: PokemonType | undefined;
   @Output() onSelectType: EventEmitter<string> = new EventEmitter();
 
   pokemonTypes: PokemonType[] = [];
@@ -39,21 +39,13 @@ export class PokemonTypesDropdownComponent
     this.iGetPokemonTypes
       .execute()
       .pipe(
-        map((types: PokemonType[]) => (this.pokemonTypes = types)),
-        map(this.#generateRandomSelectedType),
-        tap(this.handleSelectType)
+        first(),
+        map((types: PokemonType[]) => (this.pokemonTypes = types))
       )
       .subscribe();
   }
 
-  #generateRandomSelectedType = (): PokemonType => {
-    const randomType = Math.floor(Math.random() * this.pokemonTypes.length);
-    return this.pokemonTypes[randomType];
-  };
-
   handleSelectType = (type: PokemonType) => {
-    console.warn(type);
-
     this.selectedType = type;
     this.onChange(type.name);
   };
@@ -64,12 +56,10 @@ export class PokemonTypesDropdownComponent
 
   public writeValue(pokemonTypeName: string): void {
     this.selectedType =
-      this.pokemonTypes.find((p) => p.name === pokemonTypeName) ||
-      this.pokemonTypes[0];
+      this.pokemonTypes.find((p) => p.name === pokemonTypeName) || undefined;
   }
 
   public onChange(pokemonTypeName: string): void {
-    console.warn('onChange', pokemonTypeName);
     this.changed(pokemonTypeName);
   }
 

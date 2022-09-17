@@ -17,8 +17,8 @@ enum AlertClass {
 })
 export class MissionCreateComponent implements OnInit {
   form!: FormGroup;
-  alertClass: AlertClass | undefined;
-  alertMessage: string | undefined;
+  alertClass!: AlertClass;
+  alertMessage!: string;
   selectedPokemons: Pokemon[] = [];
 
   constructor(
@@ -31,7 +31,6 @@ export class MissionCreateComponent implements OnInit {
       name: ['', [Validators.required]],
       description: [''],
     });
-    this.form.valueChanges.subscribe((v) => console.warn(v));
   }
 
   onAddPokemon(selectedPokemon: Pokemon) {

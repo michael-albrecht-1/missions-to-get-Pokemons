@@ -44,8 +44,10 @@
   </div>
 </div>
 
-<pokemon-listing
-  [isParent]="true"
-  title="Choisir une récompense"
-  (addPokemon)="onAddPokemon($event)"
-></pokemon-listing>
+<div class="container mt-4">
+  <pokemon-listing
+    [isParent]="true"
+    title="Choisir une récompense"
+    (addPokemon)="onAddPokemon($event)"
+  ></pokemon-listing>
+</div>

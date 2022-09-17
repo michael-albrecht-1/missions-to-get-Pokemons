@@ -1,4 +1,4 @@
-<div class="dropdown" *ngIf="this.selectedType">
+<div class="dropdown">
   <button
     class="dropdown-toggle btn btn-secondary"
     type="button"
@@ -6,17 +6,17 @@
     aria-expanded="false"
   >
     <i-bs
-      *ngIf="selectedType?.logo"
+      *ngIf="selectedType && selectedType?.logo"
       [ngStyle]="{ color: selectedType.color }"
       [name]="selectedType.logo"
     ></i-bs>
-    {{ selectedType.name }}
+    {{ selectedType ? selectedType.name : "choisis un type" }}
   </button>
   <ul class="dropdown-menu dropdown-menu-dark">
     <li
       *ngFor="let type of pokemonTypes"
       (click)="handleSelectType(type)"
-      [ngClass]="{ active: type.name === selectedType.name }"
+      [ngClass]="{ active: type.name === selectedType?.name }"
     >
       <i-bs
         *ngIf="type.logo"
