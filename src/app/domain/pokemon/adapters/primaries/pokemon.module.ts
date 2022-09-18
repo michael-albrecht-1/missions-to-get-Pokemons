@@ -24,6 +24,7 @@ import { ISearchAllPokemons } from '../../usecases/ISearchAllPokemons';
 import { IGetCaughtPokemons } from 'src/app/domain/caughtPokemon/usecases/IGetCaughtPokemons';
 import { CaughtPokemonDIFactory } from 'src/app/domain/caughtPokemon/configuration/pokemonDI.factory';
 import { PokemonCaughtDIProvider } from 'src/app/domain/caughtPokemon/configuration/pokemonDI.provider';
+import { PokemonDetailMiniatureComponent } from './pokemon-detail-miniature/pokemon-detail-miniature.component';
 
 // Select some icons (use an object, not an array)
 const icons = bootstrapIcons;
@@ -48,8 +49,13 @@ const icons = bootstrapIcons;
     PokemonDetailsComponent,
     PokemonTypesDropdownComponent,
     PokemonSelectedComponent,
+    PokemonDetailMiniatureComponent,
   ],
-  exports: [PokemonSelectedComponent, PokemonListingComponent],
+  exports: [
+    PokemonSelectedComponent,
+    PokemonListingComponent,
+    PokemonDetailMiniatureComponent,
+  ],
   providers: [
     {
       provide: PokemonDIProvider.iSearchAPokemonByNumber,

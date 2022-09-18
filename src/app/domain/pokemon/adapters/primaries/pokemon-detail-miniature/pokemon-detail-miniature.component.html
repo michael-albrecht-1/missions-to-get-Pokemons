@@ -1,0 +1,35 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <div class="container" *ngIf="pokemon$ | async as pokemon">
+      <div class="row">
+        <aside class="col-6">
+          <img src="{{ pokemon.avatar }}" alt="{{ pokemon.name }}" />
+        </aside>
+        <section class="col-6">
+          <h3>
+            {{ pokemon.name }}
+            <span class="badge badge-secondary float-right"
+              >N° {{ pokemon.number }}</span
+            >
+          </h3>
+          <hr class="my-2" />
+          <p>Height: {{ pokemon.height }} m</p>
+          <p>Weight: {{ pokemon.weight }} kg</p>
+          <p>
+            <span
+              *ngFor="
+                let type of pokemon.types;
+                let first = first;
+                let last = last
+              "
+            >
+              <span *ngIf="pokemon.types.length > 1 && last"> / </span>
+              <span>{{ type }}</span>
+            </span>
+          </p>
+          <p>{{ pokemon.description }}</p>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
