@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { first, map, Observable } from 'rxjs';
 import { Pokemon } from '../../../entity/pokemon';
 import { ISearchAPokemonByNumber } from '../../../usecases/ISearchAPokemonByNumber';
 
@@ -9,7 +9,7 @@ import { ISearchAPokemonByNumber } from '../../../usecases/ISearchAPokemonByNumb
   styleUrls: ['./pokemon-detail-miniature.component.scss'],
 })
 export class PokemonDetailMiniatureComponent implements OnInit {
-  pokemon$: Observable<Pokemon> | undefined;
+  pokemon: Pokemon | undefined;
   @Input() pokemonNumber!: string;
 
   constructor(
@@ -18,8 +18,12 @@ export class PokemonDetailMiniatureComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.pokemon$ = this.iSearchAPokemonByNumber.execute(
-      this.pokemonNumber || ''
-    );
+    this.iSearchAPokemonByNumber
+      .execute(this.pokemonNumber || '')
+      .pipe(
+        first(),
+        map((pokemon: Pokemon) => (this.pokemon = pokemon))
+      )
+      .subscribe();
   }
 }

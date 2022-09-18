@@ -5,7 +5,7 @@
     alt="Pokémon capturé !"
     src="https://img.icons8.com/fluency/48/000000/pokeball.png"
   />
-  <h5 class="card-title">{{ pokemon.name }}</h5>
+  <h5 class="card-title">{{ pokemon.name }} n°{{ pokemon.number }}</h5>
   <img
     class="card-img-top avatar"
     src="{{ pokemon.avatar }}"
@@ -24,13 +24,13 @@
       </span>
     </p>
     <a
-      *ngIf="!isParent"
+      *ngIf="!isAddToMissionActive"
       [routerLink]="['/pokedex', pokemon.number]"
       class="btn btn-primary"
       >Details</a
     >
     <button
-      *ngIf="isParent"
+      *ngIf="isAddToMissionActive"
       class="btn btn-primary"
       (click)="onAddPokemonBtnClick()"
     >

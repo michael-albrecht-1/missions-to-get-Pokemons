@@ -19,7 +19,7 @@ import { IGetPokemonsTypes } from 'src/app/domain/pokemon/usecases/IGetPokemonsT
 })
 export class PokemonListingItemComponent implements OnInit {
   @Input() pokemon!: Pokemon;
-  @Input() isParent: boolean = false;
+  @Input() isAddToMissionActive: boolean = false;
   @Input() caughtPokemons: CaughtPokemon[] = [];
 
   @Output() addPokemon: EventEmitter<Pokemon> = new EventEmitter();

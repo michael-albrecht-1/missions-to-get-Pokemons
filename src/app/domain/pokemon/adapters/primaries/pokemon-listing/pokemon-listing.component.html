@@ -27,11 +27,11 @@
     <div class="container h-100 overflow-auto">
       <div class="row">
         <pokemon-listing-item
-          class="col-12 col-md-6 col-xl-4"
+          class="col-12 col-md-6 col-xl-4 mb-4"
           *ngFor="let pokemon of filteredPokemons"
           [pokemon]="pokemon"
           [caughtPokemons]="caughtPokemons"
-          [isParent]="isParent"
+          [isAddToMissionActive]="isAddToMissionActive"
           (addPokemon)="onAddPokemon($event)"
         >
         </pokemon-listing-item>

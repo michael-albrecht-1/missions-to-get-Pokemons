@@ -13,7 +13,7 @@ import { ISearchAllPokemons } from '../../../usecases/ISearchAllPokemons';
 })
 export class PokemonListingComponent {
   @Input() title: string = 'Pokedex';
-  @Input() isParent: boolean = false;
+  @Input() isAddToMissionActive: boolean = false;
   @Output() addPokemon: EventEmitter<Pokemon> = new EventEmitter();
 
   public filteredPokemons: Pokemon[] = [];

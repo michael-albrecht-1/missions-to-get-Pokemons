@@ -1,21 +1,37 @@
-<ul class="list-group">
-  <li class="list-group-item" *ngFor="let mission of missions">
-    <h3>{{ mission.name }}</h3>
-    <h4>{{ mission.description }}</h4>
-    <pokemon-detail-miniature
-      *ngIf="mission.rewards[0]"
-      [pokemonNumber]="mission.rewards[0].number"
-      >{{ mission.rewards[0].name }}</pokemon-detail-miniature
-    >
-    <p>
-      {{ mission.status }} le {{ mission.dateCreation | date: "dd MMMM yyyy" }}
-    </p>
-    <button
-      *ngIf="mission.status === missionStatuscreated"
-      class="btn btn-primary"
-      (click)="onCompleteMissionBtnClick(mission)"
-    >
-      Valider la mission
-    </button>
-  </li>
-</ul>
+<div class="missions">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-lg-6" *ngFor="let mission of missions">
+        <div class="d-flex mb-4">
+          <pokemon-detail-miniature
+            class="me-3"
+            *ngIf="mission.rewards[0]"
+            [pokemonNumber]="mission.rewards[0].number"
+            >{{ mission.rewards[0].name }}</pokemon-detail-miniature
+          >
+          <div class="detail h-100">
+            <div class="flex-column justify-content-between h-100">
+              <div class="top">
+                <h4>{{ mission.name }}</h4>
+                <h5>{{ mission.description }}</h5>
+              </div>
+              <div class="foot">
+                <p>
+                  {{ mission.status }} le
+                  {{ mission.dateCreation | date: "dd MMMM yyyy" }}
+                </p>
+                <button
+                  *ngIf="mission.status === missionStatuscreated"
+                  class="btn btn-primary"
+                  (click)="onCompleteMissionBtnClick(mission)"
+                >
+                  Valider la mission
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
