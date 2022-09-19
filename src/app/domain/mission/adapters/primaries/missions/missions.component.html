@@ -1,24 +1,24 @@
 <div class="missions">
   <div class="container">
     <div class="row">
-      <div class="col-12 col-lg-6" *ngFor="let mission of missions">
-        <div class="d-flex mb-4">
+      <div class="card col-12 col-lg-6" *ngFor="let mission of missions">
+        <div class="d-flex align-items-stretch mb-4">
           <pokemon-detail-miniature
             class="me-3"
             *ngIf="mission.rewards[0]"
             [pokemonNumber]="mission.rewards[0].number"
             >{{ mission.rewards[0].name }}</pokemon-detail-miniature
           >
-          <div class="detail h-100">
-            <div class="flex-column justify-content-between h-100">
+          <div class="detail p-4">
+            <div class="d-flex flex-column justify-content-between h-100">
               <div class="top">
                 <h4>{{ mission.name }}</h4>
-                <h5>{{ mission.description }}</h5>
+                <p>{{ mission.description }}</p>
               </div>
               <div class="foot">
                 <p>
                   {{ mission.status }} le
-                  {{ mission.dateCreation | date: "dd MMMM yyyy" }}
+                  {{ mission.dateCreation | date: "dd MMMM yyyy HH:mm" }}
                 </p>
                 <button
                   *ngIf="mission.status === missionStatuscreated"

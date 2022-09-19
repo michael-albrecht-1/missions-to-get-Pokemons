@@ -1,4 +1,7 @@
-<div class="card d-flex flex-column justify-content-between">
+<div
+  class="card d-flex flex-column justify-content-between"
+  [ngClass]="{ card: isCard }"
+>
   <img
     class="caughtPokemonImg"
     *ngIf="isCaughtPokemon"

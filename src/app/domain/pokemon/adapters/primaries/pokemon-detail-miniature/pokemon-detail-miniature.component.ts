@@ -1,6 +1,7 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { first, map, Observable } from 'rxjs';
 import { Pokemon } from '../../../entity/pokemon';
+import { PokemonType } from '../../../entity/pokemon-type';
 import { ISearchAPokemonByNumber } from '../../../usecases/ISearchAPokemonByNumber';
 
 @Component({
@@ -9,8 +10,10 @@ import { ISearchAPokemonByNumber } from '../../../usecases/ISearchAPokemonByNumb
   styleUrls: ['./pokemon-detail-miniature.component.scss'],
 })
 export class PokemonDetailMiniatureComponent implements OnInit {
-  pokemon: Pokemon | undefined;
   @Input() pokemonNumber!: string;
+
+  pokemon: Pokemon | undefined;
+  public currentPokemonTypes: PokemonType[] = [];
 
   constructor(
     @Inject('ISearchAPokemonByNumber')

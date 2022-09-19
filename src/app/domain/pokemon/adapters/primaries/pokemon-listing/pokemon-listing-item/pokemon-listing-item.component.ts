@@ -21,6 +21,7 @@ export class PokemonListingItemComponent implements OnInit {
   @Input() pokemon!: Pokemon;
   @Input() isAddToMissionActive: boolean = false;
   @Input() caughtPokemons: CaughtPokemon[] = [];
+  @Input() isCard: boolean = true;
 
   @Output() addPokemon: EventEmitter<Pokemon> = new EventEmitter();
 
