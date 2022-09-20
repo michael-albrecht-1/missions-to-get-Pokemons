@@ -1,5 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { first, map, Observable } from 'rxjs';
+import { CaughtPokemon } from 'src/app/domain/caughtPokemon/entity/caughtPokemon';
 import { Pokemon } from '../../../entity/pokemon';
 import { PokemonType } from '../../../entity/pokemon-type';
 import { ISearchAPokemonByNumber } from '../../../usecases/ISearchAPokemonByNumber';

@@ -1,7 +1,13 @@
-.card {
-  flex: none;
-  padding: 2rem;
-  position: relative;
+.card,
+.pokemonItem {
+  min-width: 10rem;
+
+  .badge {
+    background-color: var(--yellow) !important;
+  }
+  .text-bg-warning {
+    color: var(--black) !important;
+  }
 
   .card-title:first-letter {
     text-transform: uppercase;
@@ -19,10 +25,11 @@
 
   .caughtPokemonImg {
     margin: 0;
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
     height: 48px;
     width: 48px;
   }
+}
+
+.card {
+  padding: 2rem;
 }
