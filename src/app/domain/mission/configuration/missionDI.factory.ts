@@ -4,7 +4,7 @@ import { MissionSnapshot } from '../entity/mission.snapshot';
 import { MissionLoader } from '../loaders/mission.loader';
 import { InMemoryMissionLoader } from '../adapters/secondaries/inmemory/inmemoryMission.loader';
 import { MongoMissionLoader } from '../adapters/secondaries/real/mongoMission.loader';
-import { SOURCES } from 'src/config/sources';
+import { SOURCES } from 'config/sources';
 import { MissionStub } from '../tests/mission.stub';
 
 export class MissionDIFactory {

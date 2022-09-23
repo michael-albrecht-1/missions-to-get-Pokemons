@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Usecase } from 'src/app/base/usecase.interface';
+import { Usecase } from 'src/app/core/configuration/usecase.interface';
 import { CaughtPokemon } from '../entity/caughtPokemon';
 import { CaughtPokemonLoader } from '../loaders/caughtPokemon.loader';
 

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { SOURCES } from 'src/config/sources';
+import { SOURCES } from 'config/sources';
 import { environment } from 'src/environments/environment';
 import { InMemoryCaughtPokemonsLoader } from '../adapters/secondaries/inmemory/inMemoryCaughtPokemons.loader';
 import { CaughtPokemonMongoLoader } from '../adapters/secondaries/real/REST-mongo/caughtPokemonMongo.loader';

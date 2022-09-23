@@ -1,4 +1,4 @@
-import { SOURCES } from 'src/config/sources';
+import { SOURCES } from 'config/sources';
 
 export const environment = {
   production: false,

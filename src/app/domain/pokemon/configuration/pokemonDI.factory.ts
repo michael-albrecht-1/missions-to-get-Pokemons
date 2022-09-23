@@ -4,7 +4,7 @@ import { PokemonLoader } from '../loaders/PokemonLoader';
 import { InMemoryPokemonLoader } from '../adapters/secondaries/inmemory/inmemoryPokemon.loader';
 import { environment } from 'src/environments/environment';
 import { PokeApiPokemonLoader } from '../adapters/secondaries/real/REST-poke-api/PokeApiPokemon.loader';
-import { SOURCES } from 'src/config/sources';
+import { SOURCES } from 'config/sources';
 import { Pokemon } from '../entity/pokemon';
 
 export class PokemonDIFactory {

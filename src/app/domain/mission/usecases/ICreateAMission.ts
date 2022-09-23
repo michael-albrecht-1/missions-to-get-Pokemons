@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Usecase } from 'src/app/base/usecase.interface';
+import { Usecase } from 'src/app/core/configuration/usecase.interface';
 import { Mission } from '../entity/mission';
 import { MissionSnapshot } from '../entity/mission.snapshot';
 import { MissionLoader } from '../loaders/mission.loader';
