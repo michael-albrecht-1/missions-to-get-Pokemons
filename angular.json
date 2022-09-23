@@ -40,8 +40,8 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/missionstogetpokemons",
-            "index": "src/index.html",
-            "main": "src/main.ts",
+            "index": "src/index.angular.html",
+            "main": "src/main.angular.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
