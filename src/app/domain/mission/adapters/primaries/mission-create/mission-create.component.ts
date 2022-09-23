@@ -8,6 +8,7 @@ import { ICreateAMission } from '../../../usecases/ICreateAMission';
 enum AlertClass {
   danger = 'alert-danger',
   success = 'alert-success',
+  info = 'alert-info',
 }
 
 @Component({
@@ -17,8 +18,9 @@ enum AlertClass {
 })
 export class MissionCreateComponent implements OnInit {
   form!: FormGroup;
-  alertClass!: AlertClass;
-  alertMessage!: string;
+  alertClass: AlertClass = AlertClass.info;
+  alertMessage: string =
+    'Créée une mission et choisis un pokemon en récompense !';
   selectedPokemons: Pokemon[] = [];
 
   constructor(

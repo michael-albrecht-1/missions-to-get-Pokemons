@@ -82,3 +82,8 @@ em {
   color: var(--myellow);
   font-style: normal;
 }
+
+.form-check-input:checked {
+  background-color: var(--glaucous);
+  border-color: var(--blue);
+}

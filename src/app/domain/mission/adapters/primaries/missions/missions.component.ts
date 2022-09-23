@@ -1,5 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { catchError, EMPTY, first, map, Observable, switchMap } from 'rxjs';
+import {
+  catchError,
+  EMPTY,
+  first,
+  map,
+  Observable,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { MissionSnapshot } from '../../../entity/mission.snapshot';
 import { MissionStatus } from '../../../shared/MissionStatus';
 import { ICompleteAMission } from '../../../usecases/ICompleteAMission';
@@ -36,7 +44,9 @@ export class MissionsComponent implements OnInit {
     this.iCompleteAMission
       .execute(mission)
       .pipe(
+        first(),
         map(this.#updateMissions),
+        tap(console.warn),
         catchError((_e) => {
           console.error('mission completion failed');
           return EMPTY;
@@ -46,6 +56,8 @@ export class MissionsComponent implements OnInit {
   }
 
   #updateMissions = (mission: MissionSnapshot): MissionSnapshot[] => {
+    console.warn(mission);
+
     return (this.missions = this.missions.map((m) =>
       m.uuid === mission.uuid ? mission : m
     ));

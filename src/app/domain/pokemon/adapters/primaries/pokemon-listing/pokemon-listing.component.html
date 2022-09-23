@@ -1,41 +1,38 @@
 <div class="pokemonListing">
-  <div class="d-flex">
-    <form [formGroup]="form" *ngIf="form" class="w-25">
-      <div class="row">
-        <div class="col-12 mb-3">
-          <app-pokemon-types-dropdown
-            formControlName="pokemonType"
-          ></app-pokemon-types-dropdown>
-        </div>
-        <div class="col-12">
-          <div class="form-check form-switch">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              role="switch"
-              id="flexSwitchCheckDefault"
-              formControlName="filterCaughtPokemons"
-            />
-            <label class="form-check-label" for="flexSwitchCheckDefault"
-              >Pokemons capturés</label
-            >
-          </div>
-        </div>
-      </div>
-    </form>
+  <form
+    [formGroup]="form"
+    *ngIf="form"
+    class="container d-flex align-items-center"
+  >
+    <app-pokemon-types-dropdown
+      formControlName="pokemonType"
+    ></app-pokemon-types-dropdown>
 
-    <div class="container h-100 overflow-auto">
-      <div class="row">
-        <pokemon-listing-item
-          class="col-12 col-md-6 col-xl-4 mb-4"
-          *ngFor="let pokemon of filteredPokemons"
-          [pokemon]="pokemon"
-          [caughtPokemons]="caughtPokemons"
-          [isAddToMissionActive]="isAddToMissionActive"
-          (addPokemon)="onAddPokemon($event)"
-        >
-        </pokemon-listing-item>
-      </div>
+    <div class="form-check form-switch">
+      <input
+        class="form-check-input ms-3"
+        type="checkbox"
+        role="switch"
+        id="flexSwitchCheckDefault"
+        formControlName="filterCaughtPokemons"
+      />
+      <label class="form-check-label ms-2" for="flexSwitchCheckDefault"
+        >Pokemons capturés</label
+      >
+    </div>
+  </form>
+
+  <div class="container mt-4">
+    <div class="row">
+      <pokemon-listing-item
+        class="col-12 col-md-6 col-xl-4 mb-4"
+        *ngFor="let pokemon of filteredPokemons"
+        [pokemon]="pokemon"
+        [caughtPokemons]="caughtPokemons"
+        [isAddToMissionActive]="isAddToMissionActive"
+        (addPokemon)="onAddPokemon($event)"
+      >
+      </pokemon-listing-item>
     </div>
   </div>
 </div>
