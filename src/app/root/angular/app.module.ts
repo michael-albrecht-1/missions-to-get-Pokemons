@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MainLayoutModule } from './core/angular/modules/main-layout/main-layout.module';
+import { MainLayoutModule } from 'src/app/core/angular/modules/main-layout/main-layout.module';
 
 @NgModule({
   declarations: [AppComponent],
