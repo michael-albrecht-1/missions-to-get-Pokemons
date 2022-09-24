@@ -16,7 +16,7 @@ import { PokemonTypesDropdownComponent } from './pokemon-types-dropdown/pokemon-
 import { PokemonSelectedComponent } from './pokemon-selected/pokemon-selected.component';
 
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
-import { bootstrapIcons } from 'src/app/core/configuration/bootstrap-icons';
+import { bootstrapIcons } from 'src/app/core/angular/configuration/bootstrap-icons';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PokemonDIProvider } from '../../configuration/pokemonDI.provider';
 import { ISearchAPokemonByNumber } from '../../usecases/ISearchAPokemonByNumber';

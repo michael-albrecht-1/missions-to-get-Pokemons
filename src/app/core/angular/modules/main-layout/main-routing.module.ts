@@ -11,16 +11,16 @@ const routes: Routes = [
   {
     path: 'pokedex',
     loadChildren: () =>
-      import('../../domain/pokemon/adapters/primaries/pokemon.module').then(
-        (m) => m.PokemonModule
-      ),
+      import(
+        '../../../../domain/pokemon/adapters/primaries/pokemon.module'
+      ).then((m) => m.PokemonModule),
   },
   {
     path: 'missions',
     loadChildren: () =>
-      import('../../domain/mission/adapters/primaries/mission.module').then(
-        (m) => m.MissionModule
-      ),
+      import(
+        '../../../../domain/mission/adapters/primaries/mission.module'
+      ).then((m) => m.MissionModule),
   },
   { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
 ];
