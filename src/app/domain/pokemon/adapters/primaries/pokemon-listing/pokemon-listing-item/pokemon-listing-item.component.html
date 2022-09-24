@@ -19,7 +19,7 @@
 
   <img
     class="card-img-top avatar"
-    src="{{ pokemon.avatar }}"
+    [src]="getImgSrc(pokemon.number)"
     alt="{{ pokemon.name }}"
   />
 

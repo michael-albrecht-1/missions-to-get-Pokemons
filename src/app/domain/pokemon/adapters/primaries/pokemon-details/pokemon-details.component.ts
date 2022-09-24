@@ -22,4 +22,8 @@ export class PokemonDetailsComponent implements OnInit {
       this.route.snapshot.paramMap.get('number') || ''
     );
   }
+
+  public getImgSrc(pokemonNumber: string): string {
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemonNumber}.svg`;
+  }
 }

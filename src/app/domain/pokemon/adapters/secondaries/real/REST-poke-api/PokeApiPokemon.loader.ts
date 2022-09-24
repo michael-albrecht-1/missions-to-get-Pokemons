@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { combineLatest, map, Observable, of, switchMap, tap } from 'rxjs';
 import { Pokemon } from 'src/app/domain/pokemon/entity/pokemon';
-import { PokemonSearchParams } from 'src/app/domain/pokemon/loaders/PokemonSearchParams';
 import { PokemonLoader } from '../../../../loaders/PokemonLoader';
 import { PokemonMapper } from './pokemon.mapper';
 import { PokemonDTO } from './PokemonDTO';
@@ -72,19 +71,5 @@ export class PokeApiPokemonLoader implements PokemonLoader {
 
   #savePokemonsInStorage = (pokemons: Pokemon[]) => {
     localStorage.setItem('pokemons', JSON.stringify(pokemons));
-  };
-
-  #filterPokemons = (
-    pokemons: Pokemon[],
-    pokemonSearchParams?: PokemonSearchParams
-  ): Pokemon[] => {
-    if (!pokemonSearchParams?.types?.length) {
-      return pokemons;
-    }
-    const pokemonFilteredType = pokemonSearchParams.types[0];
-    return pokemons.filter(
-      (pokemon: Pokemon) =>
-        !pokemon.types.every((t) => t !== pokemonFilteredType)
-    );
   };
 }

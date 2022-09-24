@@ -45,6 +45,10 @@ export class PokemonListingItemComponent implements OnInit {
     this.addPokemon.emit(this.pokemon);
   }
 
+  public getImgSrc(pokemonNumber: string): string {
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemonNumber}.svg`;
+  }
+
   #initCurrentPokemonTypes = (pokemonTypes: PokemonType[]): PokemonType[] => {
     this.pokemon.types.forEach((typeName: string): void => {
       const pokemonType = this.#findTypeLogo(typeName, pokemonTypes);

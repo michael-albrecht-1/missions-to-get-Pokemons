@@ -12,7 +12,7 @@
     <div class="container" *ngIf="pokemon$ | async as pokemon">
       <div class="row">
         <aside class="col-6">
-          <img src="{{ pokemon.avatar }}" alt="{{ pokemon.name }}" />
+          <img [src]="getImgSrc(pokemon.number)" alt="{{ pokemon.name }}" />
         </aside>
         <section class="col-6">
           <h3>
