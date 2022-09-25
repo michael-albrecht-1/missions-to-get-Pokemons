@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { MissionSnapshot } from '../../../entity/mission.snapshot';
 import { MissionLoader } from '../../../loaders/mission.loader';
 import { MongoMissionMapper } from './mission.mapper';
 import { MongoMissionDTO } from './mongoMissionDTO';
 
 export class MongoMissionLoader implements MissionLoader {
-  #baseUrl: string = 'http://localhost:5500';
+  #baseUrl: string = environment.mongoURL;
 
   constructor(private http: HttpClient) {}
 

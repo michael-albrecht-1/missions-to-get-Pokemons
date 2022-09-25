@@ -4,7 +4,7 @@
       {{ alertMessage }}
     </p>
     <div class="mb-3">
-      <label for="name" class="form-label">Nom</label>
+      <label for="name" class="form-label">Name</label>
       <input
         formControlName="name"
         type="text"
@@ -29,7 +29,7 @@
         [disabled]="form.invalid || selectedPokemons.length === 0"
         (click)="onSubmit()"
       >
-        Créer
+        Create
       </button>
     </div>
   </form>

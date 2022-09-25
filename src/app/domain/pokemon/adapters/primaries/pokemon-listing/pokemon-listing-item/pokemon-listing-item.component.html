@@ -39,14 +39,14 @@
       *ngIf="!isAddToMissionActive"
       [routerLink]="['/pokedex', pokemon.number]"
       class="btn btn-primary"
-      >Details</a
+      >more</a
     >
     <button
       *ngIf="isAddToMissionActive"
       class="btn btn-primary"
       (click)="onAddPokemonBtnClick()"
     >
-      Ajouter a la mission
+      Add reward
     </button>
   </div>
 </div>
