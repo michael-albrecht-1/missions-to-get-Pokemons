@@ -20,7 +20,8 @@ export class PokemonListingComponent {
   public caughtPokemons: CaughtPokemon[] = [];
   public form: FormGroup = this.#initForm();
 
-  #pokemons: Pokemon[] = [];
+  public pokemons: Pokemon[] = [];
+  public fiteredTypeCaughtPokemons!: number;
 
   constructor(
     @Inject('ISearchAllPokemons')
@@ -35,7 +36,7 @@ export class PokemonListingComponent {
       .pipe(
         map((formValue) => {
           const filtredPokemonsByTypes = this.#filterPokemonsByType(
-            this.#pokemons,
+            this.pokemons,
             formValue.pokemonType
           );
 
@@ -44,7 +45,18 @@ export class PokemonListingComponent {
             formValue.filterCaughtPokemons
           );
 
-          this.filteredPokemons = filtredPokemonsByTypesAndCaught;
+          return (this.filteredPokemons = filtredPokemonsByTypesAndCaught);
+        }),
+        map((filteredPokemons: Pokemon[]) => {
+          return (this.fiteredTypeCaughtPokemons = filteredPokemons.filter(
+            (pokemon: Pokemon) => {
+              const caughtPokemon = this.caughtPokemons.find(
+                (caughtPokemon: CaughtPokemon) =>
+                  caughtPokemon.number === pokemon.number
+              );
+              return caughtPokemon ? true : false;
+            }
+          ).length);
         })
       )
       .subscribe();
@@ -75,7 +87,7 @@ export class PokemonListingComponent {
   #getAllPokemons$ = () => {
     return this.iSearchAllPokemons.execute().pipe(
       first(),
-      map((pokemons: Pokemon[]) => (this.#pokemons = pokemons))
+      map((pokemons: Pokemon[]) => (this.pokemons = pokemons))
     );
   };
 

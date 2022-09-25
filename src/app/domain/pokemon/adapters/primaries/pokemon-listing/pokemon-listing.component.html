@@ -17,12 +17,35 @@
         formControlName="filterCaughtPokemons"
       />
       <label class="form-check-label ms-2" for="flexSwitchCheckDefault"
-        >Pokemons capturés</label
+        >Display caught pokemons</label
       >
     </div>
   </form>
 
   <div class="container mt-4">
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="">
+          <strong
+            >{{ fiteredTypeCaughtPokemons }} / {{ pokemons.length }}</strong
+          >
+          {{ form.get("pokemonType")?.value || "" }} caught Pokemons
+        </div>
+        <div class="progress">
+          <div
+            class="progress-bar"
+            role="progressbar"
+            aria-label="Basic example"
+            [ngStyle]="{
+              width: (fiteredTypeCaughtPokemons * 100) / pokemons.length + '%'
+            }"
+            [attr.aria-valuenow]="fiteredTypeCaughtPokemons"
+            aria-valuemin="0"
+            [attr.aria-valuemax]="pokemons.length"
+          ></div>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <pokemon-listing-item
         class="col-12 col-md-6 col-xl-4 mb-4"

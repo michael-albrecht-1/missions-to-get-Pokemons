@@ -78,12 +78,19 @@ i-bs {
   margin-right: 0.5rem;
 }
 
-em {
-  color: var(--myellow);
-  font-style: normal;
-}
-
 .form-check-input:checked {
   background-color: var(--glaucous);
   border-color: var(--blue);
+}
+
+.progress-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  color: var(--bs-progress-bar-color);
+  text-align: center;
+  white-space: nowrap;
+  background-color: var(--blue);
+  transition: var(--bs-progress-bar-transition);
 }
