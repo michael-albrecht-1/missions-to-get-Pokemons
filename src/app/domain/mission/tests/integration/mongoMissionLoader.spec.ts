@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { MongoMissionMapper } from '../../adapters/secondaries/real/mission.mapper';
 import { MongoMissionLoader } from '../../adapters/secondaries/real/mongoMission.loader';
-import { MongoMissionDTO } from '../../adapters/secondaries/real/mongoMissionDTO';
+import { MongoMissionDTO } from '../../adapters/secondaries/real/mongoMission.DTO';
 import { MissionSnapshot } from '../../entity/mission.snapshot';
 import { MissionLoader } from '../../loaders/mission.loader';
 import { MissionStatus } from '../../shared/MissionStatus';
