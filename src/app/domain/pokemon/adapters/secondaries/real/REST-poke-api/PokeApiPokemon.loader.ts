@@ -30,7 +30,7 @@ export class PokeApiPokemonLoader implements PokemonLoader {
 
     return this.http
       .get<PokeApiResponse>(
-        'https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0'
+        'https://pokeapi.co/api/v2/pokemon?limit=649&offset=0'
       )
       .pipe(
         map<PokeApiResponse, PokemonNameAndLink[]>((res) => res.results),
