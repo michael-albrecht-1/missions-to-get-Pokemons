@@ -1,15 +1,11 @@
 {
   "hosting": {
     "public": "dist/missions-to-get-pokemons",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
         "source": "**",
-        "destination": "/index.html"
+        "destination": "/index.angular.html"
       }
     ]
   }
