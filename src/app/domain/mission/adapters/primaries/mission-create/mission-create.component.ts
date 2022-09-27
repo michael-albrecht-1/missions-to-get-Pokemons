@@ -9,6 +9,7 @@ enum AlertClass {
   danger = 'alert-danger',
   success = 'alert-success',
   info = 'alert-info',
+  warn = 'alert-warning',
 }
 
 @Component({
@@ -18,7 +19,7 @@ enum AlertClass {
 })
 export class MissionCreateComponent implements OnInit {
   form!: FormGroup;
-  alertClass: AlertClass = AlertClass.info;
+  alertClass: AlertClass = AlertClass.warn;
   alertMessage: string =
     'Créée une mission et choisis un pokemon en récompense !';
   selectedPokemons: Pokemon[] = [];

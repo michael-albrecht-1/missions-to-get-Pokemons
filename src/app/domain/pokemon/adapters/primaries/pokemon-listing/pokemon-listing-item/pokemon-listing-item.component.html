@@ -5,28 +5,28 @@
   <div
     class="pokemonItem-header d-flex justify-content-between w-100 align-items-center"
   >
-    <span class="badge text-bg-warning">#{{ pokemon.number }}</span>
-    <h5 class="card-title">
-      {{ pokemon.name }}
-    </h5>
-    <img
-      class="caughtPokemonImg"
-      *ngIf="isCaughtPokemon"
-      alt="Pokémon capturé !"
-      src="https://img.icons8.com/fluency/48/000000/pokeball.png"
-    />
+    <span class="badge text-bg-warning fs-6">#{{ pokemon.number }}</span>
+    <div class="fs-4">
+      {{ pokemon.name | titlecase }}
+    </div>
+    <div class="caughtPokemonImg" *ngIf="isCard">
+      <img
+        *ngIf="isCaughtPokemon"
+        class="caughtPokemonImg"
+        alt="Pokémon capturé !"
+        src="https://img.icons8.com/fluency/48/000000/pokeball.png"
+      />
+    </div>
   </div>
 
   <img
-    class="card-img-top avatar"
+    class="avatar my-3"
     [src]="getImgSrc(pokemon.number)"
     alt="{{ pokemon.name }}"
   />
 
-  <p class="card-text">{{ pokemon.description }}</p>
-
   <div class="d-flex justify-content-between align-items-center w-100">
-    <p>
+    <div>
       <span *ngFor="let pokemonType of currentPokemonTypes">
         <i-bs
           *ngIf="pokemonType.logo"
@@ -34,7 +34,7 @@
           [name]="pokemonType.logo"
         ></i-bs>
       </span>
-    </p>
+    </div>
     <a
       *ngIf="!isAddToMissionActive"
       [routerLink]="['/pokedex', pokemon.number]"

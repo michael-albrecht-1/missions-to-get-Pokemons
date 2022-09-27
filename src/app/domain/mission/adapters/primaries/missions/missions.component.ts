@@ -8,7 +8,6 @@ import { ISearchMissions } from '../../../usecases/ISearchMissions';
 @Component({
   selector: 'app-missions',
   templateUrl: './missions.component.html',
-  styleUrls: ['./missions.component.scss'],
 })
 export class MissionsComponent implements OnInit {
   public missions!: MissionSnapshot[];

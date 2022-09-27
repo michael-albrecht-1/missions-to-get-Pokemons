@@ -1,20 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Importing Bootstrap SCSS file. */
+@import url("https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap");
 @import "~bootstrap/scss/bootstrap";
 
 :root {
   --black: #2d2a32;
   --yellow: #ddd92a;
-  --myellow: #eae151;
-  --blue: #8ea4d2;
-  --glaucous: #6279b8;
+  --myellow: #bbb561;
+  --blue: #ddd92a;
+  // --blue: #8ea4d2;
+  --glaucous: #ddd92a;
+  // --glaucous: #6279b8;
 }
 
 body {
   background-color: var(--black);
   color: var(--blue);
   padding: 2rem;
+
+  font-family: "Kalam", cursive;
+  font-weight: 400;
+}
+
+small {
+  color: var(--myellow);
+  font-size: 0.7rem;
 }
 
 .card {

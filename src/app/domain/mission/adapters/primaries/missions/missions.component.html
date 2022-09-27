@@ -2,10 +2,10 @@
   <div class="container">
     <div class="row">
       <div
-        class="col-12 col-lg-6 col-xl-4 p-2"
+        class="col-12 col-md-6 col-xl-4 p-2"
         *ngFor="let mission of missions"
       >
-        <div class="card h-100">
+        <div class="card">
           <div class="d-flex align-items-stretch p-4">
             <pokemon-detail-miniature
               *ngIf="mission.rewards[0]"
@@ -18,8 +18,10 @@
             <div class="detail w-100">
               <div class="d-flex flex-column justify-content-between h-100">
                 <div class="top">
-                  <h5 class="lh-1">{{ mission.name }}</h5>
-                  <p *ngIf="mission.description">{{ mission.description }}</p>
+                  <div class="lh-1 fs-5 mt-1">{{ mission.name }}</div>
+                  <div *ngIf="mission.description">
+                    {{ mission.description }}
+                  </div>
                   <small>
                     {{ mission.dateCreation | date: "dd/MM/yyyy HH:mm" }}
                   </small>
