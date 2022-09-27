@@ -5,7 +5,7 @@
   <div class="card">
     <img
       class="card-img-top"
-      src="{{ pokemon.avatar }}"
+      [src]="getImgSrc(pokemon.number)"
       alt="{{ pokemon.name }}"
     />
     <div class="card-body">

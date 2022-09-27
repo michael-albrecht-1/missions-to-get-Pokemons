@@ -10,7 +10,11 @@ export class PokemonSelectedComponent {
   @Input() pokemon!: Pokemon;
   @Output() removePokemon: EventEmitter<Pokemon> = new EventEmitter();
 
-  onRemovePokemonBtnClick() {
+  public onRemovePokemonBtnClick() {
     this.removePokemon.emit(this.pokemon);
+  }
+
+  public getImgSrc(pokemonNumber: string): string {
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemonNumber}.svg`;
   }
 }
