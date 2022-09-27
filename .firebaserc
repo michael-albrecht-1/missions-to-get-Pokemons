@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "missions2getpokemons": {
+      "hosting": {
+        "missionstogetpokemons": [
+          "missions2getpokemons"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "missions2getpokemons"
+  }
+}

@@ -45,8 +45,13 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["config/angular/styles.scss"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "config/angular/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -108,9 +113,24 @@
             "tsConfig": "config/tsconfig.spec.json",
             "karmaConfig": "config/karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["config/angular/styles.scss"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "config/angular/styles.scss"
+            ],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "missionstogetpokemons:build:production",
+            "firebaseProject": "missions2getpokemons",
+            "firebaseHostingSite": "missions2getpokemons"
           }
         }
       }
