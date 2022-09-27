@@ -9,7 +9,6 @@ import { ISearchAllPokemons } from '../../../usecases/ISearchAllPokemons';
 @Component({
   selector: 'pokemon-listing',
   templateUrl: './pokemon-listing.component.html',
-  styleUrls: ['./pokemon-listing.component.scss'],
 })
 export class PokemonListingComponent {
   @Input() title: string = 'Pokedex';

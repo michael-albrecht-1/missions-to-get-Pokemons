@@ -89,9 +89,15 @@ i-bs {
   margin-right: 0.5rem;
 }
 
-.form-check-input:checked {
-  background-color: var(--glaucous);
+.form-check-input,
+.form-check-input {
   border-color: var(--blue);
+  height: 1.2rem;
+  width: 2.5rem !important;
+
+  &:checked {
+    background-color: var(--glaucous);
+  }
 }
 
 .progress-bar {
