@@ -8,8 +8,11 @@ import { MissionLoader } from '../../loaders/mission.loader';
 import { MissionStatus } from '../../shared/MissionStatus';
 import { MissionStub } from '../mission.stub';
 import { MongoMissionDTOMock } from './MongoMissionDTOMock';
+import { environment } from 'src/environments/environment';
 
 describe('Integration | MongoMissionLoader', () => {
+  const baseUrl: string = environment.mongoURL;
+
   it('post a mission', (done) => {
     const fakeHttpClient = { post: () => of() } as unknown as HttpClient;
     const fakeMongoResponse: MongoMissionDTO = MongoMissionDTOMock;
@@ -26,7 +29,7 @@ describe('Integration | MongoMissionLoader', () => {
       expect(mission.name).toEqual(mission.name);
       expect(mission.description).toEqual(mission.description);
       expect(fakeHttpClient.post).toHaveBeenCalledWith(
-        `http://localhost:5500/missions`,
+        `${baseUrl}/missions`,
         expectedMission
       );
       done();
@@ -55,7 +58,7 @@ describe('Integration | MongoMissionLoader', () => {
       expect(missionApiResponse.name).toEqual(missionResponse.name);
       expect(missionApiResponse.status).toEqual(missionResponse.status);
       expect(fakeHttpClient.patch).toHaveBeenCalledWith(
-        `http://localhost:5500/missions/complete/${mission.uuid}`,
+        `${baseUrl}/missions/complete/${mission.uuid}`,
         mission
       );
       done();

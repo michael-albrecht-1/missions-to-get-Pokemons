@@ -43,7 +43,7 @@ describe('Integration | RestPokeApiLoader fetches', () => {
     spyOn(fakeHttpClient, 'get').and.callFake(function (
       arg: string
     ): Observable<any> {
-      if (arg === 'https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0') {
+      if (arg === 'https://pokeapi.co/api/v2/pokemon?limit=649&offset=0') {
         return of({ results: fakePokemonResponsePokemonsLinks });
       }
 
