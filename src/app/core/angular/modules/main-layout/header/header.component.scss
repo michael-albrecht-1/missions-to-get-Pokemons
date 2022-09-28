@@ -1,6 +1,9 @@
 .header {
   .bg-light {
-    background-color: var(--glaucous) !important;
+    background-color: var(--primary) !important;
+  }
+  a {
+    font-size: 1.2rem;
   }
 
   .navbar {

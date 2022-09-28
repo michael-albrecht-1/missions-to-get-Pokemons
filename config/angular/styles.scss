@@ -6,17 +6,12 @@
 
 :root {
   --black: #1a1423;
-  --yellow: #ddd92a;
-  --myellow: #bbb561;
-  --blue: #1a1423;
-  // --blue: #8ea4d2;
-  --glaucous: #1a1423;
-  // --glaucous: #6279b8;
+  --primary: #f4d35e;
 }
 
 body {
   background-color: var(--black);
-  color: var(--blue);
+  color: var(--primary);
   padding: 2rem;
 
   font-family: "Kalam", cursive;
@@ -30,7 +25,7 @@ small {
 
 .card {
   background-color: var(--black);
-  border: 1px solid var(--blue);
+  border: 1px solid var(--primary);
 }
 
 .btn {
@@ -43,36 +38,36 @@ small {
 }
 
 .btn-primary {
-  background-color: var(--blue);
+  background-color: var(--primary);
   border: none;
   color: var(--black);
   &:hover,
   &:focus,
   &:active,
   &:disabled {
-    background-color: var(--glaucous);
-    border-color: var(--blue);
+    background-color: var(--primary);
+    border-color: var(--primary);
 
     color: var(--black);
-    box-shadow: var(--blue);
+    box-shadow: var(--primary);
   }
 }
 
 .btn-secondary {
   background-color: transparent;
-  border: var(--blue) solid 2px;
-  color: var(--blue);
+  border: var(--primary) solid 2px;
+  color: var(--primary);
   &:hover,
   &:focus,
   &:active,
   &:disabled {
     background-color: transparent;
-    box-shadow: var(--blue);
+    box-shadow: var(--primary);
   }
 }
 
 .form-select {
-  background-color: var(--blue);
+  background-color: var(--primary);
   border: none;
   color: var(--black);
 }
@@ -80,8 +75,8 @@ small {
 .list-group {
   &-item {
     background-color: var(--black);
-    border-color: var(--blue);
-    color: var(--blue);
+    border-color: var(--primary);
+    color: var(--primary);
   }
 }
 
@@ -91,12 +86,13 @@ i-bs {
 
 .form-check-input,
 .form-check-input {
-  border-color: var(--blue);
+  border-color: var(--primary);
   height: 1.2rem;
   width: 2.5rem !important;
 
   &:checked {
-    background-color: var(--glaucous);
+    border-color: var(--primary);
+    background-color: var(--primary);
   }
 }
 
@@ -108,6 +104,6 @@ i-bs {
   color: var(--bs-progress-bar-color);
   text-align: center;
   white-space: nowrap;
-  background-color: var(--blue);
+  background-color: var(--primary);
   transition: var(--bs-progress-bar-transition);
 }
