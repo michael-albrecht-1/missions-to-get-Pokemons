@@ -11,7 +11,7 @@ import { ISearchMissions } from '../../../usecases/ISearchMissions';
 })
 export class MissionsComponent implements OnInit {
   public missions!: MissionSnapshot[];
-  public missionStatuscreated = MissionStatus.created;
+  public missionStatuscreated: MissionStatus = 'created';
 
   constructor(
     @Inject('ISearchMissions') private iSearchMissions: ISearchMissions,

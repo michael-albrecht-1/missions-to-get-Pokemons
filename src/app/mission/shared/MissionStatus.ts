@@ -1,5 +1,1 @@
-export enum MissionStatus {
-  created = 'created',
-  done = 'done',
-  expired = 'expired',
-}
+export type MissionStatus = 'created' | 'done' | 'expired';

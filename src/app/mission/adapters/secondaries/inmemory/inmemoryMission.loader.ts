@@ -43,7 +43,7 @@ export class InMemoryMissionLoader implements MissionLoader {
         }
         return of({
           ...foundMission,
-          status: MissionStatus.done,
+          status: 'done',
         });
       })
     );

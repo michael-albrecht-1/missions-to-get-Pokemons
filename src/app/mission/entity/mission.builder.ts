@@ -1,5 +1,4 @@
 import { MissionReward } from '../shared/MissionReward';
-import { MissionStatus } from '../shared/MissionStatus';
 import { Mission } from './mission';
 
 export class MissionBuilder {
