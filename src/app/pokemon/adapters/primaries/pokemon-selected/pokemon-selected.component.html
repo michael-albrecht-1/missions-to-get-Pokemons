@@ -5,11 +5,11 @@
   <div class="card">
     <img
       class="card-img-top"
-      [src]="getImgSrc(pokemon.number)"
-      alt="{{ pokemon.name }}"
+      [src]="getImgSrc(pokemon.snapshot().number)"
+      alt="{{ pokemon.snapshot().name }}"
     />
     <div class="card-body">
-      <h5 class="card-title">{{ pokemon.name }}</h5>
+      <h5 class="card-title">{{ pokemon.snapshot().name }}</h5>
     </div>
   </div>
 </div>

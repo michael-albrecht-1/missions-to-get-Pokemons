@@ -1,4 +1,4 @@
-import { Pokemon } from '../entity/pokemon';
+import { Pokemon } from '../domain/entity/pokemon';
 
 export class PokemonBuilder {
   protected _number!: string;
@@ -45,7 +45,7 @@ export class PokemonBuilder {
   }
 
   build(): Pokemon {
-    return {
+    return new Pokemon({
       number: this._number,
       name: this._name,
       description: this._description,
@@ -53,6 +53,6 @@ export class PokemonBuilder {
       height: this._height,
       avatar: this._avatar,
       types: this._types,
-    };
+    });
   }
 }

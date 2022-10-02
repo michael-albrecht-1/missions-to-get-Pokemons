@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { PokeApiPokemonLoader } from '../../adapters/secondaries/real/REST-poke-api/PokeApiPokemon.loader';
 import { PokemonDTO } from '../../adapters/secondaries/real/REST-poke-api/PokemonDTO';
-import { PokemonLoader } from '../../loaders/PokemonLoader';
+import { PokemonLoader } from '../../domain/loaders/PokemonLoader';
 import { PokemonBuilder } from '../../usecases/pokemon.builder';
 import { pokeApiPokemonDTOMock } from './mocks/RESTPokeApiPokemonDTOMock';
-import { Pokemon } from '../../entity/pokemon';
+import { Pokemon } from '../../domain/entity/pokemon';
 import { ISearchAllPokemons } from '../../usecases/ISearchAllPokemons';
 import { ISearchAPokemonByNumber } from '../../usecases/ISearchAPokemonByNumber';
 

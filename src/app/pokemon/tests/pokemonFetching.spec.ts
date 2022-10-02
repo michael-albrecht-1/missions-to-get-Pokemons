@@ -1,6 +1,6 @@
 import { InMemoryPokemonLoader } from '../adapters/secondaries/inmemory/inmemoryPokemon.loader';
-import { Pokemon } from '../entity/pokemon';
-import { PokemonLoader } from '../loaders/PokemonLoader';
+import { Pokemon } from '../domain/entity/pokemon';
+import { PokemonLoader } from '../domain/loaders/PokemonLoader';
 import { ISearchAllPokemons } from '../usecases/ISearchAllPokemons';
 import { ISearchAPokemonByNumber } from '../usecases/ISearchAPokemonByNumber';
 import { StubPokemonBuilder } from './stubs/stubPokemonBuilder';

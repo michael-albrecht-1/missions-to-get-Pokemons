@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Pokemon } from '../../../entity/pokemon';
+import { Pokemon } from '../../../domain/entity/pokemon';
 import { ISearchAPokemonByNumber } from '../../../usecases/ISearchAPokemonByNumber';
 
 @Component({

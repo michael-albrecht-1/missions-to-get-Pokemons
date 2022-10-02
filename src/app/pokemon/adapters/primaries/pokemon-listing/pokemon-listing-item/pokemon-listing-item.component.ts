@@ -8,8 +8,8 @@ import {
 } from '@angular/core';
 import { map } from 'rxjs';
 import { CaughtPokemon } from 'src/app/caughtPokemon/entity/caughtPokemon';
-import { Pokemon } from 'src/app/pokemon/entity/pokemon';
-import { PokemonType } from 'src/app/pokemon/entity/pokemon-type';
+import { Pokemon } from 'src/app/pokemon/domain/entity/pokemon';
+import { PokemonType } from 'src/app/pokemon/domain/entity/pokemon-type';
 import { IGetPokemonsTypes } from 'src/app/pokemon/usecases/IGetPokemonsTypes';
 
 @Component({
@@ -50,7 +50,7 @@ export class PokemonListingItemComponent implements OnInit {
   }
 
   #initCurrentPokemonTypes = (pokemonTypes: PokemonType[]): PokemonType[] => {
-    this.pokemon.types.forEach((typeName: string): void => {
+    this.pokemon.snapshot().types.forEach((typeName: string): void => {
       const pokemonType = this.#findTypeLogo(typeName, pokemonTypes);
 
       if (!pokemonType) {
@@ -73,7 +73,7 @@ export class PokemonListingItemComponent implements OnInit {
   #initIsCaughtPokemon = (): boolean => {
     const foundPokemon = this.caughtPokemons.find(
       (caughtPokemon: CaughtPokemon) =>
-        caughtPokemon.number === this.pokemon.number
+        caughtPokemon.number === this.pokemon.snapshot().number
     );
     return foundPokemon ? true : false;
   };

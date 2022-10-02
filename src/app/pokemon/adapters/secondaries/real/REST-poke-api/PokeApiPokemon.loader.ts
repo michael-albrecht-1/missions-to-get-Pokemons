@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { combineLatest, map, Observable, of, switchMap, tap } from 'rxjs';
-import { Pokemon } from 'src/app/pokemon/entity/pokemon';
-import { PokemonLoader } from '../../../../loaders/PokemonLoader';
+import { Pokemon } from 'src/app/pokemon/domain/entity/pokemon';
+import { PokemonSnapshot } from 'src/app/pokemon/domain/entity/pokemon.snapshot';
+import { PokemonLoader } from '../../../../domain/loaders/PokemonLoader';
 import { PokemonMapper } from './pokemon.mapper';
 import { PokemonDTO } from './PokemonDTO';
 
@@ -21,10 +22,8 @@ export class PokeApiPokemonLoader implements PokemonLoader {
   constructor(private http: HttpClient) {}
 
   all(): Observable<Pokemon[]> {
-    const stringPokemons = localStorage.getItem('pokemons');
-    if (stringPokemons) {
-      const pokemons: Pokemon[] = JSON.parse(stringPokemons);
-
+    const pokemons = this.#getPokemonsFromStorage();
+    if (pokemons) {
       return of(pokemons);
     }
 
@@ -49,13 +48,15 @@ export class PokeApiPokemonLoader implements PokemonLoader {
   }
 
   get(number: string): Observable<Pokemon> {
-    const stringPokemons = localStorage.getItem('pokemons');
-    if (stringPokemons) {
-      return of(
-        JSON.parse(stringPokemons).find(
-          (pokemon: Pokemon) => pokemon.number === number
-        )
+    const pokemons = this.#getPokemonsFromStorage();
+    if (pokemons) {
+      const pokemon = pokemons.find(
+        (pokemon: Pokemon) => pokemon.snapshot().number === number
       );
+
+      if (pokemon) {
+        return of(pokemon);
+      }
     }
 
     return this.http
@@ -70,6 +71,22 @@ export class PokeApiPokemonLoader implements PokemonLoader {
   };
 
   #savePokemonsInStorage = (pokemons: Pokemon[]) => {
-    localStorage.setItem('pokemons', JSON.stringify(pokemons));
+    const pokemonsSnapshots = pokemons.map((p) => p.snapshot());
+    localStorage.setItem(
+      'pokemonsSnapshots',
+      JSON.stringify(pokemonsSnapshots)
+    );
+  };
+
+  #getPokemonsFromStorage = (): Pokemon[] | null => {
+    const stringPokemonsSnapshots = localStorage.getItem('pokemonsSnapshots');
+    if (!stringPokemonsSnapshots) {
+      return null;
+    }
+
+    const pokemonsSnapshots: PokemonSnapshot[] = JSON.parse(
+      stringPokemonsSnapshots
+    );
+    return pokemonsSnapshots.map((p): Pokemon => new Pokemon(p));
   };
 }

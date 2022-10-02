@@ -8,31 +8,34 @@
   <div class="container" *ngIf="pokemon$ | async as pokemon">
     <div class="row">
       <aside class="col-12 col-sm-6 mb-3">
-        <img [src]="getImgSrc(pokemon.number)" alt="{{ pokemon.name }}" />
+        <img
+          [src]="getImgSrc(pokemon.snapshot().number)"
+          alt="{{ pokemon.snapshot().name }}"
+        />
       </aside>
       <section class="col-12 col-sm-6 mb-3">
         <h3>
-          {{ pokemon.name }}
+          {{ pokemon.snapshot().name }}
           <span class="badge badge-secondary float-right"
-            >N° {{ pokemon.number }}</span
+            >N° {{ pokemon.snapshot().number }}</span
           >
         </h3>
         <hr class="my-2" />
-        <p>Height: {{ pokemon.height }} m</p>
-        <p>Weight: {{ pokemon.weight }} kg</p>
+        <p>Height: {{ pokemon.snapshot().height }} m</p>
+        <p>Weight: {{ pokemon.snapshot().weight }} kg</p>
         <p>
           <span
             *ngFor="
-              let type of pokemon.types;
+              let type of pokemon.snapshot().types;
               let first = first;
               let last = last
             "
           >
-            <span *ngIf="pokemon.types.length > 1 && last"> / </span>
+            <span *ngIf="pokemon.snapshot().types.length > 1 && last"> / </span>
             <span>{{ type }}</span>
           </span>
         </p>
-        <p>{{ pokemon.description }}</p>
+        <p>{{ pokemon.snapshot().description }}</p>
       </section>
     </div>
   </div>

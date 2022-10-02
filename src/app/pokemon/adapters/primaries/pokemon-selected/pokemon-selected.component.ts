@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Pokemon } from '../../../entity/pokemon';
+import { Pokemon } from '../../../domain/entity/pokemon';
 
 @Component({
   selector: 'pokemon-selected',

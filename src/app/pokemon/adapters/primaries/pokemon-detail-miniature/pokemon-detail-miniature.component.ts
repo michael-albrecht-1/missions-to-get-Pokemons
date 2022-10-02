@@ -1,7 +1,7 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { first, map } from 'rxjs';
-import { Pokemon } from '../../../entity/pokemon';
-import { PokemonType } from '../../../entity/pokemon-type';
+import { Pokemon } from '../../../domain/entity/pokemon';
+import { PokemonType } from '../../../domain/entity/pokemon-type';
 import { ISearchAPokemonByNumber } from '../../../usecases/ISearchAPokemonByNumber';
 
 @Component({

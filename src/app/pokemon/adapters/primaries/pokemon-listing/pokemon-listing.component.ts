@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { first, map, switchMap, tap } from 'rxjs';
 import { CaughtPokemon } from 'src/app/caughtPokemon/entity/caughtPokemon';
 import { IGetCaughtPokemons } from 'src/app/caughtPokemon/usecases/IGetCaughtPokemons';
-import { Pokemon } from '../../../entity/pokemon';
+import { Pokemon } from '../../../domain/entity/pokemon';
 import { ISearchAllPokemons } from '../../../usecases/ISearchAllPokemons';
 
 @Component({
@@ -51,7 +51,7 @@ export class PokemonListingComponent {
             (pokemon: Pokemon) => {
               const caughtPokemon = this.caughtPokemons.find(
                 (caughtPokemon: CaughtPokemon) =>
-                  caughtPokemon.number === pokemon.number
+                  caughtPokemon.number === pokemon.snapshot().number
               );
               return caughtPokemon ? true : false;
             }
@@ -112,7 +112,8 @@ export class PokemonListingComponent {
 
   #filterCaughtPokemons = (pokemon: Pokemon): boolean => {
     const caughtPokemon = this.caughtPokemons.find(
-      (caughtPokemon: CaughtPokemon) => caughtPokemon.number === pokemon.number
+      (caughtPokemon: CaughtPokemon) =>
+        caughtPokemon.number === pokemon.snapshot().number
     );
 
     return caughtPokemon ? true : false;
@@ -126,10 +127,7 @@ export class PokemonListingComponent {
       return pokemons;
     }
     return pokemons.filter((pokemon: Pokemon): boolean =>
-      this.#filterPokemonByType(pokemon, pokemonType)
+      pokemon.hasType(pokemonType)
     );
   };
-
-  #filterPokemonByType = (pokemon: Pokemon, pokemonType: string): boolean =>
-    !pokemon.types.every((t) => t !== pokemonType);
 }

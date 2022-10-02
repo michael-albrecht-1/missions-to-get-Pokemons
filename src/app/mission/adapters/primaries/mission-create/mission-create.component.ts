@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { catchError, EMPTY, map } from 'rxjs';
-import { Pokemon } from 'src/app/pokemon/entity/pokemon';
+import { Pokemon } from 'src/app/pokemon/domain/entity/pokemon';
 import { MissionReward } from '../../../shared/MissionReward';
 import { ICreateAMission } from '../../../usecases/ICreateAMission';
 
@@ -46,7 +46,8 @@ export class MissionCreateComponent implements OnInit {
 
   onRemovePokemon(selectedPokemon: Pokemon) {
     const pokemonIndex = this.selectedPokemons.findIndex(
-      (pokemon: Pokemon) => pokemon.number === selectedPokemon.number
+      (pokemon: Pokemon) =>
+        pokemon.snapshot().number === selectedPokemon.snapshot().number
     );
 
     if (pokemonIndex === null) {
@@ -61,8 +62,8 @@ export class MissionCreateComponent implements OnInit {
 
     const rewards: MissionReward[] = this.selectedPokemons?.map(
       (pokemon: Pokemon) => ({
-        name: pokemon.name,
-        number: pokemon.number,
+        name: pokemon.snapshot().name,
+        number: pokemon.snapshot().number,
       })
     );
 
@@ -87,7 +88,8 @@ export class MissionCreateComponent implements OnInit {
 
   #pokemonAlreadySelected(selectedPokemon: Pokemon): boolean {
     const foundPokemon = this.selectedPokemons.find(
-      (pokemon) => pokemon.number === selectedPokemon.number
+      (pokemon) =>
+        pokemon.snapshot().number === selectedPokemon.snapshot().number
     );
     return !!foundPokemon ? true : false;
   }

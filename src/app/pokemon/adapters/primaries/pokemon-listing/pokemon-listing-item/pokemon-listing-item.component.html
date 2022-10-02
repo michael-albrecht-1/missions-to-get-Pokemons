@@ -5,9 +5,11 @@
   <div
     class="pokemonItem-header d-flex justify-content-between w-100 align-items-center"
   >
-    <span class="badge text-bg-warning fs-6 pt-2">#{{ pokemon.number }}</span>
+    <span class="badge text-bg-warning fs-6 pt-2"
+      >#{{ pokemon.snapshot().number }}</span
+    >
     <div class="fs-4">
-      {{ pokemon.name | titlecase }}
+      {{ pokemon.snapshot().name | titlecase }}
     </div>
     <div class="caughtPokemonImg" *ngIf="isCard">
       <img
@@ -21,8 +23,8 @@
 
   <img
     class="avatar my-3"
-    [src]="getImgSrc(pokemon.number)"
-    alt="{{ pokemon.name }}"
+    [src]="getImgSrc(pokemon.snapshot().number)"
+    alt="{{ pokemon.snapshot().name }}"
   />
 
   <div class="d-flex justify-content-between align-items-center w-100">
@@ -37,7 +39,7 @@
     </div>
     <a
       *ngIf="!isAddToMissionActive"
-      [routerLink]="['/pokedex', pokemon.number]"
+      [routerLink]="['/pokedex', pokemon.snapshot().number]"
       class="btn btn-primary"
       >more</a
     >

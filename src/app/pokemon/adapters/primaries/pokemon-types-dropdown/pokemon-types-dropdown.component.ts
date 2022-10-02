@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { first, map } from 'rxjs';
-import { PokemonType } from '../../../entity/pokemon-type';
+import { PokemonType } from '../../../domain/entity/pokemon-type';
 import { IGetPokemonsTypes } from '../../../usecases/IGetPokemonsTypes';
 
 @Component({

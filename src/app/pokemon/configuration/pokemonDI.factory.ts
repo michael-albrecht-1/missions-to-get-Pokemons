@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { PokemonBuilder } from '../usecases/pokemon.builder';
-import { PokemonLoader } from '../loaders/PokemonLoader';
+import { PokemonLoader } from '../domain/loaders/PokemonLoader';
 import { InMemoryPokemonLoader } from '../adapters/secondaries/inmemory/inmemoryPokemon.loader';
 import { environment } from 'src/environments/environment';
 import { PokeApiPokemonLoader } from '../adapters/secondaries/real/REST-poke-api/PokeApiPokemon.loader';
 import { SOURCES } from 'config/sources';
-import { Pokemon } from '../entity/pokemon';
+import { Pokemon } from '../domain/entity/pokemon';
 
 export class PokemonDIFactory {
   static pokemonLoader(http: HttpClient): PokemonLoader {

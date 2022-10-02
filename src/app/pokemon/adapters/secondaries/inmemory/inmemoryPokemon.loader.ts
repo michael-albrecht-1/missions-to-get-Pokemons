@@ -1,6 +1,6 @@
 import { BehaviorSubject, map, Observable, Subject, tap } from 'rxjs';
-import { Pokemon } from '../../../entity/pokemon';
-import { PokemonLoader } from '../../../loaders/PokemonLoader';
+import { Pokemon } from '../../../domain/entity/pokemon';
+import { PokemonLoader } from '../../../domain/loaders/PokemonLoader';
 
 export class InMemoryPokemonLoader implements PokemonLoader {
   #pokemons$: Subject<Pokemon[]> = new BehaviorSubject(this.pokemons);
@@ -15,7 +15,9 @@ export class InMemoryPokemonLoader implements PokemonLoader {
     return this.#pokemons$.pipe(
       map(
         (pokemons: Pokemon[]): Pokemon =>
-          pokemons.filter((pokemon: Pokemon) => pokemon.number === number)[0]
+          pokemons.filter(
+            (pokemon: Pokemon) => pokemon.snapshot().number === number
+          )[0]
       )
     );
   }

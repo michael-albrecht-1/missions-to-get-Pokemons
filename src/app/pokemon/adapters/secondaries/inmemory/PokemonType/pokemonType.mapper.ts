@@ -1,5 +1,5 @@
 import { IconName } from 'ngx-bootstrap-icons';
-import { PokemonType } from 'src/app/pokemon/entity/pokemon-type';
+import { PokemonType } from 'src/app/pokemon/domain/entity/pokemon-type';
 import { PokemonTypeInMemoryDTO } from './PokemonTypeInMemoryDTO';
 
 export class PokemonTypeMapper {

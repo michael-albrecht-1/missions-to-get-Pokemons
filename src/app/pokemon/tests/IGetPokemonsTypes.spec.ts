@@ -1,8 +1,8 @@
 import { InMemoryPokemonTypeLoader } from '../adapters/secondaries/inmemory/PokemonType/inmemoryPokemonType.loader';
 import { PokemonTypeMapper } from '../adapters/secondaries/inmemory/PokemonType/pokemonType.mapper';
 import { PokemonTypesDataFromPokeApi } from '../adapters/secondaries/inmemory/PokemonType/pokemonTypesDataFromPokeApi';
-import { PokemonType } from '../entity/pokemon-type';
-import { PokemonTypesLoader } from '../loaders/PokemonTypesLoader';
+import { PokemonType } from '../domain/entity/pokemon-type';
+import { PokemonTypesLoader } from '../domain/loaders/PokemonTypesLoader';
 import { IGetPokemonsTypes } from '../usecases/IGetPokemonsTypes';
 import { StubPokemonBuilder } from './stubs/stubPokemonBuilder';
 

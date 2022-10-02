@@ -1,4 +1,4 @@
-import { Pokemon } from 'src/app/pokemon/entity/pokemon';
+import { Pokemon } from 'src/app/pokemon/domain/entity/pokemon';
 import { PokemonBuilder } from 'src/app/pokemon/usecases/pokemon.builder';
 import { PokemonDTO } from './PokemonDTO';
 

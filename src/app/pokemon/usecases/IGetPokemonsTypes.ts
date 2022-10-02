@@ -1,6 +1,6 @@
 import { Observable, of } from 'rxjs';
-import { PokemonType } from '../entity/pokemon-type';
-import { PokemonTypesLoader } from '../loaders/PokemonTypesLoader';
+import { PokemonType } from '../domain/entity/pokemon-type';
+import { PokemonTypesLoader } from '../domain/loaders/PokemonTypesLoader';
 
 export class IGetPokemonsTypes {
   constructor(private source: PokemonTypesLoader) {}
