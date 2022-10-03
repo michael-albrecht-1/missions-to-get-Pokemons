@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { first, map, switchMap, tap } from 'rxjs';
-import { CaughtPokemon } from 'src/app/caughtPokemon/entity/caughtPokemon';
+import { CaughtPokemon } from 'src/app/caughtPokemon/domain/entity/caughtPokemon';
 import { IGetCaughtPokemons } from 'src/app/caughtPokemon/usecases/IGetCaughtPokemons';
 import { Pokemon } from '../../../domain/entity/pokemon';
 import { ISearchAllPokemons } from '../../../usecases/ISearchAllPokemons';
@@ -51,7 +51,7 @@ export class PokemonListingComponent {
             (pokemon: Pokemon) => {
               const caughtPokemon = this.caughtPokemons.find(
                 (caughtPokemon: CaughtPokemon) =>
-                  caughtPokemon.number === pokemon.snapshot().number
+                  caughtPokemon.snapshot().number === pokemon.snapshot().number
               );
               return caughtPokemon ? true : false;
             }
@@ -113,7 +113,7 @@ export class PokemonListingComponent {
   #filterCaughtPokemons = (pokemon: Pokemon): boolean => {
     const caughtPokemon = this.caughtPokemons.find(
       (caughtPokemon: CaughtPokemon) =>
-        caughtPokemon.number === pokemon.snapshot().number
+        caughtPokemon.snapshot().number === pokemon.snapshot().number
     );
 
     return caughtPokemon ? true : false;

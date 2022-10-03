@@ -3,7 +3,7 @@ import { SOURCES } from 'config/sources';
 import { environment } from 'src/environments/environment';
 import { InMemoryCaughtPokemonsLoader } from '../adapters/secondaries/inmemory/inMemoryCaughtPokemons.loader';
 import { CaughtPokemonMongoLoader } from '../adapters/secondaries/real/REST-mongo/caughtPokemonMongo.loader';
-import { CaughtPokemon } from '../entity/caughtPokemon';
+import { CaughtPokemon } from '../domain/entity/caughtPokemon';
 
 export class CaughtPokemonDIFactory {
   static pokemonCaughtLoader(
@@ -13,9 +13,15 @@ export class CaughtPokemonDIFactory {
       case SOURCES.mongo:
         return new CaughtPokemonMongoLoader(http);
       default:
-        const ronflex: CaughtPokemon = { number: '42', name: 'ronflex' };
-        const togepi: CaughtPokemon = { number: '43', name: 'togepi' };
-        return new InMemoryCaughtPokemonsLoader([ronflex, togepi]);
+        const Snorlax: CaughtPokemon = new CaughtPokemon({
+          number: '143',
+          name: 'Snorlax',
+        });
+        const Zangoose: CaughtPokemon = new CaughtPokemon({
+          number: '335',
+          name: 'Zangoose',
+        });
+        return new InMemoryCaughtPokemonsLoader([Snorlax, Zangoose]);
     }
   }
 }

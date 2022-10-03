@@ -7,7 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { map } from 'rxjs';
-import { CaughtPokemon } from 'src/app/caughtPokemon/entity/caughtPokemon';
+import { CaughtPokemon } from 'src/app/caughtPokemon/domain/entity/caughtPokemon';
 import { Pokemon } from 'src/app/pokemon/domain/entity/pokemon';
 import { PokemonType } from 'src/app/pokemon/domain/entity/pokemon-type';
 import { IGetPokemonsTypes } from 'src/app/pokemon/usecases/IGetPokemonsTypes';
@@ -73,7 +73,7 @@ export class PokemonListingItemComponent implements OnInit {
   #initIsCaughtPokemon = (): boolean => {
     const foundPokemon = this.caughtPokemons.find(
       (caughtPokemon: CaughtPokemon) =>
-        caughtPokemon.number === this.pokemon.snapshot().number
+        caughtPokemon.snapshot().number === this.pokemon.snapshot().number
     );
     return foundPokemon ? true : false;
   };

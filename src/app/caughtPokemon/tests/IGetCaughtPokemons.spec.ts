@@ -1,7 +1,7 @@
 import { InMemoryCaughtPokemonsLoader } from '../adapters/secondaries/inmemory/inMemoryCaughtPokemons.loader';
-import { CaughtPokemon } from '../entity/caughtPokemon';
+import { CaughtPokemon } from '../domain/entity/caughtPokemon';
 
-import { CaughtPokemonLoader } from '../loaders/caughtPokemon.loader';
+import { CaughtPokemonLoader } from '../domain/loaders/caughtPokemon.loader';
 
 import { IGetCaughtPokemons } from '../usecases/IGetCaughtPokemons';
 

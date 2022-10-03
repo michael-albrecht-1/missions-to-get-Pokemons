@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { MissionSnapshot } from '../entity/mission.snapshot';
-import { MissionLoader } from '../loaders/mission.loader';
+import { MissionSnapshot } from '../domain/entity/mission.snapshot';
+import { MissionLoader } from '../domain/loaders/mission.loader';
 import { InMemoryMissionLoader } from '../adapters/secondaries/inmemory/inmemoryMission.loader';
 import { MongoMissionLoader } from '../adapters/secondaries/real/mongoMission.loader';
 import { SOURCES } from 'config/sources';

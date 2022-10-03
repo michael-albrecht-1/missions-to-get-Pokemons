@@ -85,12 +85,16 @@ describe('Pokemon handler fetches', () => {
   }
 
   function verifyOnePokemon(pokemon: Pokemon, expected: Pokemon) {
-    expect(pokemon.number).toEqual(expected.number);
-    expect(pokemon.name).toEqual(expected.name);
-    expect(pokemon.description).toEqual(expected.description);
-    expect(pokemon.weight).toEqual(expected.weight);
-    expect(pokemon.height).toEqual(expected.height);
-    expect(pokemon.avatar).toEqual(expected.avatar);
-    expect(pokemon.types?.length).toEqual(expected.types?.length);
+    expect(pokemon.snapshot().number).toEqual(expected.snapshot().number);
+    expect(pokemon.snapshot().name).toEqual(expected.snapshot().name);
+    expect(pokemon.snapshot().description).toEqual(
+      expected.snapshot().description
+    );
+    expect(pokemon.snapshot().weight).toEqual(expected.snapshot().weight);
+    expect(pokemon.snapshot().height).toEqual(expected.snapshot().height);
+    expect(pokemon.snapshot().avatar).toEqual(expected.snapshot().avatar);
+    expect(pokemon.snapshot().types?.length).toEqual(
+      expected.snapshot().types?.length
+    );
   }
 });

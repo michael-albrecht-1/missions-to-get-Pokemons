@@ -7,8 +7,8 @@ import {
   Subject,
   switchMap,
 } from 'rxjs';
-import { MissionSnapshot } from '../../../entity/mission.snapshot';
-import { MissionLoader } from '../../../loaders/mission.loader';
+import { MissionSnapshot } from '../../../domain/entity/mission.snapshot';
+import { MissionLoader } from '../../../domain/loaders/mission.loader';
 import { MissionStatus } from '../../../shared/MissionStatus';
 import { MissionNotFoundError } from './missionNotFound.error';
 

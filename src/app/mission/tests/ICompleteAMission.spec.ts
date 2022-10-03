@@ -1,7 +1,6 @@
 import { InMemoryMissionLoader } from '../adapters/secondaries/inmemory/inmemoryMission.loader';
-import { MissionSnapshot } from '../entity/mission.snapshot';
-import { MissionLoader } from '../loaders/mission.loader';
-import { MissionStatus } from '../shared/MissionStatus';
+import { MissionSnapshot } from '../domain/entity/mission.snapshot';
+import { MissionLoader } from '../domain/loaders/mission.loader';
 import { ICompleteAMission } from '../usecases/ICompleteAMission';
 import { MissionStub } from './mission.stub';
 
@@ -10,7 +9,7 @@ describe('As a parent, I complete a mission', () => {
     const missionStub = new MissionStub().build().snapshot();
     const expectResult: MissionSnapshot = {
       ...missionStub,
-      status: MissionStatus.done,
+      status: 'done',
     };
 
     const missionSource: MissionLoader = new InMemoryMissionLoader([

@@ -1,5 +1,5 @@
 import { Uuid } from '../../shared/value-object/uuid';
-import { MissionBuilder } from '../entity/mission.builder';
+import { MissionBuilder } from '../domain/entity/mission.builder';
 import { MissionReward } from '../shared/MissionReward';
 import { MissionStatus } from '../shared/MissionStatus';
 

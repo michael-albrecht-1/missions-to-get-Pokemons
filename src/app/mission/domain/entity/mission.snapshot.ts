@@ -1,5 +1,5 @@
-import { MissionReward } from '../shared/MissionReward';
-import { MissionStatus } from '../shared/MissionStatus';
+import { MissionReward } from '../../shared/MissionReward';
+import { MissionStatus } from '../../shared/MissionStatus';
 
 export interface MissionSnapshot {
   readonly uuid: string;

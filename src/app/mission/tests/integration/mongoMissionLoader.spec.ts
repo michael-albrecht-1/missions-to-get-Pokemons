@@ -3,9 +3,8 @@ import { of } from 'rxjs';
 import { MongoMissionMapper } from '../../adapters/secondaries/real/mission.mapper';
 import { MongoMissionLoader } from '../../adapters/secondaries/real/mongoMission.loader';
 import { MongoMissionDTO } from '../../adapters/secondaries/real/mongoMission.DTO';
-import { MissionSnapshot } from '../../entity/mission.snapshot';
-import { MissionLoader } from '../../loaders/mission.loader';
-import { MissionStatus } from '../../shared/MissionStatus';
+import { MissionSnapshot } from '../../domain/entity/mission.snapshot';
+import { MissionLoader } from '../../domain/loaders/mission.loader';
 import { MissionStub } from '../mission.stub';
 import { MongoMissionDTOMock } from './MongoMissionDTOMock';
 import { environment } from 'src/environments/environment';
@@ -40,14 +39,14 @@ describe('Integration | MongoMissionLoader', () => {
     const mission: MissionSnapshot = new MissionStub().build().snapshot();
     const missionResponse: MissionSnapshot = {
       ...mission,
-      status: MissionStatus.done,
+      status: 'done',
     };
 
     const fakeHttpClient = { patch: () => of() } as unknown as HttpClient;
 
     const fakeMongoResponse: MongoMissionDTO = {
       ...MongoMissionMapper.mapToMissionDTO(missionResponse),
-      status: MissionStatus.done,
+      status: 'done',
     };
 
     const missionLoader: MissionLoader = new MongoMissionLoader(fakeHttpClient);

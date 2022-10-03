@@ -1,5 +1,5 @@
 import { InMemoryMissionLoader } from '../adapters/secondaries/inmemory/inmemoryMission.loader';
-import { MissionSnapshot } from '../entity/mission.snapshot';
+import { MissionSnapshot } from '../domain/entity/mission.snapshot';
 import { ISearchMissions } from '../usecases/ISearchMissions';
 import { MissionStub } from './mission.stub';
 

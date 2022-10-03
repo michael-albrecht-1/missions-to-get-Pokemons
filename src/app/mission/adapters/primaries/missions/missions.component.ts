@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { catchError, EMPTY, first, map, tap } from 'rxjs';
-import { MissionSnapshot } from '../../../entity/mission.snapshot';
+import { MissionSnapshot } from '../../../domain/entity/mission.snapshot';
 import { MissionStatus } from '../../../shared/MissionStatus';
 import { ICompleteAMission } from '../../../usecases/ICompleteAMission';
 import { ISearchMissions } from '../../../usecases/ISearchMissions';

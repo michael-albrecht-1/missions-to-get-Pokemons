@@ -13,7 +13,7 @@ export const environment = {
   production: false,
   pokemonSource: SOURCES.restPokeApi,
   pokemonCaughtSource: SOURCES.mongo,
-  pokemonTypesSource: SOURCES.inmemory,
+  pokemonTypesSource: SOURCES.mongo,
   missionSource: SOURCES.mongo,
 
   mongoURL: mongoURL.mongoVercel,

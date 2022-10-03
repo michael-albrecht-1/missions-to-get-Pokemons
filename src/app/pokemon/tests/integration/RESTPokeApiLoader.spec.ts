@@ -22,15 +22,9 @@ describe('Integration | RestPokeApiLoader fetches', () => {
     ];
     const fakePokemonResponsePokemons: PokemonDTO = pokeApiPokemonDTOMock;
 
-    const expectedPokemon: Pokemon = new PokemonBuilder()
-      .withNumber(fakePokemonResponsePokemons.id.toString())
-      .withName(fakePokemonResponsePokemons.name)
-      .withDescription('')
-      .withHeight(fakePokemonResponsePokemons.height)
-      .withWeight(fakePokemonResponsePokemons.weight)
-      .withAvatar(fakePokemonResponsePokemons.sprites.front_default)
-      .withTypes(fakePokemonResponsePokemons.types)
-      .build();
+    const expectedPokemon: Pokemon = getExpectedPokemon(
+      fakePokemonResponsePokemons
+    );
 
     const pokemonLoader: PokemonLoader = new PokeApiPokemonLoader(
       fakeHttpClient
@@ -51,7 +45,8 @@ describe('Integration | RestPokeApiLoader fetches', () => {
     });
 
     iSearchAllPokemons.execute().subscribe((pokemons: Pokemon[]) => {
-      expect(pokemons).toEqual([expectedPokemon]);
+      expect(pokemons.length).toEqual(1);
+      expect(pokemons[0].snapshot()).toEqual(expectedPokemon.snapshot());
       expect(fakeHttpClient.get).toHaveBeenCalledTimes(2);
       done();
     });
@@ -60,18 +55,10 @@ describe('Integration | RestPokeApiLoader fetches', () => {
   it('The detail of one pokemon', (done) => {
     const fakeHttpClient = { get: () => of() } as unknown as HttpClient;
     const fakePokemonResponsePokemons: PokemonDTO = pokeApiPokemonDTOMock;
-    // const fakeLocalStorageGetPokemons = {}
 
-    const expectedPokemon: Pokemon = new PokemonBuilder()
-      .withNumber(fakePokemonResponsePokemons.id.toString())
-      .withName(fakePokemonResponsePokemons.name)
-      .withDescription('')
-      .withHeight(fakePokemonResponsePokemons.height)
-      .withWeight(fakePokemonResponsePokemons.weight)
-      .withAvatar(fakePokemonResponsePokemons.sprites.front_default)
-      .withTypes(fakePokemonResponsePokemons.types)
-      .build();
-
+    const expectedPokemon: Pokemon = getExpectedPokemon(
+      fakePokemonResponsePokemons
+    );
     const pokemonLoader: PokemonLoader = new PokeApiPokemonLoader(
       fakeHttpClient
     );
@@ -85,7 +72,7 @@ describe('Integration | RestPokeApiLoader fetches', () => {
     );
 
     iSearchAPokemonByNumber.execute('1').subscribe((pokemon: Pokemon) => {
-      expect(pokemon).toEqual(expectedPokemon);
+      expect(pokemon.snapshot()).toEqual(expectedPokemon.snapshot());
       expect(fakeHttpClient.get).toHaveBeenCalledWith(
         `https://pokeapi.co/api/v2/pokemon/1`
       );
@@ -93,3 +80,15 @@ describe('Integration | RestPokeApiLoader fetches', () => {
     });
   });
 });
+
+function getExpectedPokemon(pokemonDTO: PokemonDTO) {
+  return new PokemonBuilder()
+    .withNumber(pokemonDTO.id.toString())
+    .withName(pokemonDTO.name)
+    .withDescription('')
+    .withHeight(pokemonDTO.height)
+    .withWeight(pokemonDTO.weight)
+    .withAvatar(pokemonDTO.sprites.front_default)
+    .withTypes(pokemonDTO.types)
+    .build();
+}

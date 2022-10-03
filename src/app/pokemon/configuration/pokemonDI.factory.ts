@@ -37,7 +37,20 @@ export class PokemonDIFactory {
           .withWeight(100)
           .withAvatar('http://via.placeholder.com/475px475')
           .build();
-        return new InMemoryPokemonLoader([pickachu, salameche, mewtwo]);
+        const Snorlax: Pokemon = new PokemonBuilder()
+          .withNumber('143')
+          .withName('Snorlax')
+          .withDescription('Lorem Ipsum of Snorlax')
+          .withHeight(3)
+          .withWeight(400)
+          .withAvatar('http://via.placeholder.com/475px475')
+          .build();
+        return new InMemoryPokemonLoader([
+          pickachu,
+          salameche,
+          mewtwo,
+          Snorlax,
+        ]);
     }
   }
 }

@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { CaughtPokemonMongoLoader } from '../../adapters/secondaries/real/REST-mongo/caughtPokemonMongo.loader';
 import { CaughtPokemonMongoMapper } from '../../adapters/secondaries/real/REST-mongo/caughtPokemonMongo.mapper';
-import { CaughtPokemon } from '../../entity/caughtPokemon';
-import { CaughtPokemonLoader } from '../../loaders/caughtPokemon.loader';
+import { CaughtPokemon } from '../../domain/entity/caughtPokemon';
+import { CaughtPokemonLoader } from '../../domain/loaders/caughtPokemon.loader';
 import { IGetCaughtPokemons } from '../../usecases/IGetCaughtPokemons';
 
 describe('Integration | CaughtPokemonLoader (Mongo) fetches', () => {

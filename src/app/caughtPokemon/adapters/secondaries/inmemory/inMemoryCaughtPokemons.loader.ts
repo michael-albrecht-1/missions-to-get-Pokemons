@@ -1,5 +1,5 @@
 import { Observable, of } from 'rxjs';
-import { CaughtPokemonLoader } from '../../../loaders/caughtPokemon.loader';
+import { CaughtPokemonLoader } from '../../../domain/loaders/caughtPokemon.loader';
 
 export class InMemoryCaughtPokemonsLoader implements CaughtPokemonLoader {
   constructor(private caughtPokemons: any[]) {}
