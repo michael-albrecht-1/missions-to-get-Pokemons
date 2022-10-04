@@ -28,7 +28,7 @@ export class Pokemon {
   }
 
   public hasType = (pokemonType: string): boolean => {
-    return !this.#types.every((t) => t !== pokemonType);
+    return this.#types.includes(pokemonType);
   };
 
   public snapshot = (): PokemonSnapshot => ({
