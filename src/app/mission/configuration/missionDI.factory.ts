@@ -15,10 +15,12 @@ export class MissionDIFactory {
       default:
         const mission1: MissionSnapshot = new MissionStub()
           .withName('Faire des cookies !')
+          .withRewards([{ name: 'Snorlax', number: '143' }])
           .build()
           .snapshot();
         const mission2: MissionSnapshot = new MissionStub()
           .withName('Faire une pizza !')
+          .withRewards([{ name: 'Mewtwo', number: '150' }])
           .build()
           .snapshot();
         return new InMemoryMissionLoader([mission1, mission2]);
