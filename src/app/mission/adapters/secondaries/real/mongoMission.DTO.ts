@@ -6,6 +6,6 @@ export interface MongoMissionDTO {
   title: string;
   description: string;
   rewards: MissionReward[];
-  status?: MissionStatus;
+  status: MissionStatus;
   dateCreation?: Date;
 }

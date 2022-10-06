@@ -8,9 +8,11 @@
         <div class="card">
           <div class="d-flex align-items-stretch p-4">
             <pokemon-detail-miniature
-              *ngIf="mission.rewards[0]"
-              [pokemonNumber]="mission.rewards[0].number"
-              >{{ mission.rewards[0].name }}</pokemon-detail-miniature
+              *ngIf="mission.snapshot().rewards[0]"
+              [pokemonNumber]="mission.snapshot().rewards[0].number"
+              >{{
+                mission.snapshot().rewards[0].name
+              }}</pokemon-detail-miniature
             >
 
             <div class="vr mx-4"></div>
@@ -18,23 +20,27 @@
             <div class="detail w-100">
               <div class="d-flex flex-column justify-content-between h-100">
                 <div class="top">
-                  <div class="lh-1 fs-5 mt-1">{{ mission.name }}</div>
-                  <div *ngIf="mission.description">
-                    {{ mission.description }}
+                  <div class="lh-1 fs-5 mt-1">
+                    {{ mission.snapshot().name }}
+                  </div>
+                  <div *ngIf="mission.snapshot().description">
+                    {{ mission.snapshot().description }}
                   </div>
                   <small>
-                    {{ mission.dateCreation | date: "dd/MM/yyyy HH:mm" }}
+                    {{
+                      mission.snapshot().dateCreation | date: "dd/MM/yyyy HH:mm"
+                    }}
                   </small>
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
                   <img
                     class="caughtPokemonImg"
-                    *ngIf="mission.status === 'done'"
+                    *ngIf="mission.snapshot().status === 'done'"
                     alt="Pokémon capturé !"
                     src="https://img.icons8.com/fluency/48/000000/pokeball.png"
                   />
                   <button
-                    *ngIf="mission.status === missionStatuscreated"
+                    *ngIf="mission.snapshot().status === missionStatuscreated"
                     class="btn btn-primary"
                     (click)="onCompleteMissionBtnClick(mission)"
                   >

@@ -7,43 +7,41 @@ import {
   Subject,
   switchMap,
 } from 'rxjs';
+import { Mission } from 'src/app/mission/domain/entity/mission';
+import { MissionBuilder } from 'src/app/mission/domain/mission.builder';
 import { MissionSnapshot } from '../../../domain/entity/mission.snapshot';
 import { MissionLoader } from '../../../usecases/loaders/mission.loader';
 import { MissionNotFoundError } from './missionNotFound.error';
 
 export class InMemoryMissionLoader implements MissionLoader {
-  #missions$: Subject<MissionSnapshot[]> = new BehaviorSubject(this.missions);
+  #missions$: Subject<Mission[]> = new BehaviorSubject(this.missions);
 
-  constructor(private missions: MissionSnapshot[]) {
+  constructor(private missions: Mission[]) {
     this.#missions$.next(missions);
   }
 
-  post(mission: MissionSnapshot): Observable<MissionSnapshot> {
+  post(mission: Mission): Observable<Mission> {
     this.#missions$.pipe(
-      map((missions: MissionSnapshot[]) =>
-        this.#missions$.next([mission, ...missions])
-      )
+      map((missions: Mission[]) => this.#missions$.next([mission, ...missions]))
     );
     return of(mission);
   }
 
-  search(): Observable<MissionSnapshot[]> {
+  search(): Observable<Mission[]> {
     return this.#missions$;
   }
 
-  complete(mission: MissionSnapshot): Observable<MissionSnapshot> {
+  complete(mission: Mission): Observable<Mission> {
     return this.#missions$.pipe(
-      switchMap((missions: MissionSnapshot[]): Observable<MissionSnapshot> => {
+      switchMap((missions: Mission[]): Observable<Mission> => {
         const foundMission = missions?.find(
-          (missionMemory) => missionMemory.uuid === mission.uuid
+          (missionMemory) =>
+            missionMemory.snapshot().uuid === mission.snapshot().uuid
         );
         if (!foundMission) {
-          throw new MissionNotFoundError(mission.uuid);
+          throw new MissionNotFoundError(mission.snapshot().uuid);
         }
-        return of({
-          ...foundMission,
-          status: 'done',
-        });
+        return of(foundMission);
       })
     );
   }

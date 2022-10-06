@@ -17,7 +17,15 @@ export class Pokemon {
     height,
     avatar,
     types,
-  }: PokemonSnapshot) {
+  }: {
+    number: string;
+    name: string;
+    description: string;
+    weight: number;
+    height: number;
+    avatar: string;
+    types: string[];
+  }) {
     this.#number = number;
     this.#name = name;
     this.#description = description;

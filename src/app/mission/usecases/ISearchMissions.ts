@@ -1,12 +1,12 @@
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Usecase } from 'src/app/shared/usecase.interface';
-import { MissionSnapshot } from '../domain/entity/mission.snapshot';
+import { Mission } from '../domain/entity/mission';
 import { MissionLoader } from './loaders/mission.loader';
 
-export class ISearchMissions implements Usecase<Observable<MissionSnapshot[]>> {
+export class ISearchMissions implements Usecase<Observable<Mission[]>> {
   constructor(private missionSource: MissionLoader) {}
 
-  execute(): Observable<MissionSnapshot[]> {
+  execute(): Observable<Mission[]> {
     return this.missionSource.search();
   }
 }

@@ -10,4 +10,9 @@ export class MissionStub extends MissionBuilder {
   protected override _rewards: MissionReward[] = [
     { name: 'ronflex', number: '42' },
   ];
+  protected override _status: MissionStatus = 'created';
+
+  constructor(status?: MissionStatus) {
+    super();
+  }
 }

@@ -5,5 +5,6 @@ export const MongoMissionDTOMock: MongoMissionDTO = {
   uuid: Uuid.random().toString(),
   title: 'title',
   description: 'description',
-  rewards: [],
+  rewards: [{ name: 'ronflex', number: '42' }],
+  status: 'created',
 };

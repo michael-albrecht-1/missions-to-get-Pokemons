@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { catchError, EMPTY, first, map, tap } from 'rxjs';
+import { Mission } from 'src/app/mission/domain/entity/mission';
 import { MissionSnapshot } from '../../../domain/entity/mission.snapshot';
 import { MissionStatus } from '../../../shared/MissionStatus';
 import { ICompleteAMission } from '../../../usecases/ICompleteAMission';
@@ -10,7 +11,7 @@ import { ISearchMissions } from '../../../usecases/ISearchMissions';
   templateUrl: './missions.component.html',
 })
 export class MissionsComponent implements OnInit {
-  public missions!: MissionSnapshot[];
+  public missions!: Mission[];
   public missionStatuscreated: MissionStatus = 'created';
 
   constructor(
@@ -23,15 +24,12 @@ export class MissionsComponent implements OnInit {
       .execute()
       .pipe(
         first(),
-        map(
-          (missions: MissionSnapshot[]): MissionSnapshot[] =>
-            (this.missions = missions)
-        )
+        map((missions: Mission[]): Mission[] => (this.missions = missions))
       )
       .subscribe();
   }
 
-  onCompleteMissionBtnClick(mission: MissionSnapshot) {
+  onCompleteMissionBtnClick(mission: Mission) {
     this.iCompleteAMission
       .execute(mission)
       .pipe(
@@ -46,11 +44,9 @@ export class MissionsComponent implements OnInit {
       .subscribe();
   }
 
-  #updateMissions = (mission: MissionSnapshot): MissionSnapshot[] => {
-    console.warn(mission);
-
+  #updateMissions = (mission: Mission): Mission[] => {
     return (this.missions = this.missions.map((m) =>
-      m.uuid === mission.uuid ? mission : m
+      m.snapshot().uuid === mission.snapshot().uuid ? mission : m
     ));
   };
 }

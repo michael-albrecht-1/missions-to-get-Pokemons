@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs';
-import { MissionSnapshot } from '../../domain/entity/mission.snapshot';
+import { Mission } from '../../domain/entity/mission';
 
 export interface MissionLoader {
-  post(mission: MissionSnapshot): Observable<MissionSnapshot>;
-  search(): Observable<MissionSnapshot[]>;
-  complete(mission: MissionSnapshot): Observable<MissionSnapshot>;
+  post(mission: Mission): Observable<Mission>;
+  search(): Observable<Mission[]>;
+  complete(mission: Mission): Observable<Mission>;
 }

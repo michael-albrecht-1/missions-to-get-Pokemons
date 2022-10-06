@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { combineLatest, map, Observable, of, switchMap, tap } from 'rxjs';
 import { Pokemon } from 'src/app/pokemon/domain/entity/pokemon';
-import { PokemonSnapshot } from 'src/app/pokemon/domain/entity/pokemon.snapshot';
-import { PokemonLoader } from '../../../../usecases/loaders/PokemonLoader';
+import { PokemonLoader } from 'src/app/pokemon/usecases/loaders/PokemonLoader';
 import { PokemonMapper } from './pokemon.mapper';
 import { PokemonDTO } from './PokemonDTO';
 
@@ -84,9 +83,7 @@ export class PokeApiPokemonLoader implements PokemonLoader {
       return null;
     }
 
-    const pokemonsSnapshots: PokemonSnapshot[] = JSON.parse(
-      stringPokemonsSnapshots
-    );
-    return pokemonsSnapshots.map((p): Pokemon => new Pokemon(p));
+    const pokemonsSnapshots = JSON.parse(stringPokemonsSnapshots);
+    return pokemonsSnapshots.map((p: any): Pokemon => new Pokemon(p));
   };
 }

@@ -4,21 +4,42 @@ import { MissionStatus } from '../../shared/MissionStatus';
 import { MissionSnapshot } from './mission.snapshot';
 
 export class Mission {
-  #uuid: string = Uuid.random().toString();
+  #uuid!: string;
   #name!: string;
   #description!: string;
   #rewards!: MissionReward[];
+  #status!: MissionStatus;
+  #dateCreation?: Date;
 
-  constructor(_name: string, _description: string, _rewards: MissionReward[]) {
-    if (!_rewards.length) {
+  constructor({
+    uuid,
+    name,
+    description,
+    rewards,
+    status,
+    dateCreation,
+  }: {
+    uuid?: string;
+    name: string;
+    description: string;
+    rewards: MissionReward[];
+    status: MissionStatus;
+    dateCreation?: Date;
+  }) {
+    if (!rewards.length) {
       throw new Error('Mission creation failed, there is no reward');
     }
-    if (!_name) {
+    if (!name) {
       throw new Error('Mission creation failed, name is missing');
     }
-    this.#name = _name;
-    this.#description = _description;
-    this.#rewards = _rewards;
+
+    this.#uuid = uuid ?? Uuid.random().toString();
+
+    this.#name = name;
+    this.#description = description;
+    this.#rewards = rewards;
+    this.#status = status ?? 'created';
+    this.#dateCreation = dateCreation;
   }
 
   public snapshot(): MissionSnapshot {
@@ -27,6 +48,8 @@ export class Mission {
       name: this.#name,
       description: this.#description,
       rewards: this.#rewards,
+      status: this.#status,
+      dateCreation: this.#dateCreation,
     };
   }
 }

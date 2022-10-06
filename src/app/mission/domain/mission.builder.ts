@@ -1,4 +1,5 @@
 import { MissionReward } from '../shared/MissionReward';
+import { MissionStatus } from '../shared/MissionStatus';
 import { Mission } from './entity/mission';
 
 export class MissionBuilder {
@@ -6,6 +7,7 @@ export class MissionBuilder {
   protected _name!: string;
   protected _description!: string;
   protected _rewards!: MissionReward[];
+  protected _status!: MissionStatus;
 
   withUuid(value: string): MissionBuilder {
     this._uuid = value;
@@ -28,6 +30,11 @@ export class MissionBuilder {
   }
 
   build(): Mission {
-    return new Mission(this._name, this._description, this._rewards);
+    return new Mission({
+      name: this._name,
+      description: this._description,
+      rewards: this._rewards,
+      status: this._status,
+    });
   }
 }

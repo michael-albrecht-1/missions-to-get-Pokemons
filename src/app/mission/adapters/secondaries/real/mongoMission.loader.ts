@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
+import { Mission } from 'src/app/mission/domain/entity/mission';
 import { environment } from 'src/environments/environment';
 import { MissionSnapshot } from '../../../domain/entity/mission.snapshot';
 import { MissionLoader } from '../../../usecases/loaders/mission.loader';
@@ -11,34 +12,30 @@ export class MongoMissionLoader implements MissionLoader {
 
   constructor(private http: HttpClient) {}
 
-  post(mission: MissionSnapshot): Observable<MissionSnapshot> {
+  post(mission: Mission): Observable<Mission> {
     const missionDTO = MongoMissionMapper.mapToMissionDTO(mission);
 
     return this.http
       .post<MongoMissionDTO>(`${this.#baseUrl}/missions`, missionDTO)
-      .pipe(
-        map<MongoMissionDTO, MissionSnapshot>(MongoMissionMapper.mapToMission)
-      );
+      .pipe(map<MongoMissionDTO, Mission>(MongoMissionMapper.mapToMission));
   }
 
-  search(): Observable<MissionSnapshot[]> {
+  search(): Observable<Mission[]> {
     return this.http
       .get<MongoMissionDTO[]>(`${this.#baseUrl}/missions`)
       .pipe(
-        map<MongoMissionDTO[], MissionSnapshot[]>((missionsDTO) =>
+        map<MongoMissionDTO[], Mission[]>((missionsDTO) =>
           missionsDTO.map(MongoMissionMapper.mapToMission)
         )
       );
   }
 
-  complete(mission: MissionSnapshot): Observable<MissionSnapshot> {
+  complete(mission: Mission): Observable<Mission> {
     return this.http
       .patch<MongoMissionDTO>(
-        `${this.#baseUrl}/missions/complete/${mission.uuid}`,
+        `${this.#baseUrl}/missions/complete/${mission.snapshot().uuid}`,
         mission
       )
-      .pipe(
-        map<MongoMissionDTO, MissionSnapshot>(MongoMissionMapper.mapToMission)
-      );
+      .pipe(map<MongoMissionDTO, Mission>(MongoMissionMapper.mapToMission));
   }
 }

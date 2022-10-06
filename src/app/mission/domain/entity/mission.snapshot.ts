@@ -6,6 +6,6 @@ export interface MissionSnapshot {
   readonly name: string;
   readonly description: string;
   readonly rewards: MissionReward[];
-  readonly status?: MissionStatus;
+  readonly status: MissionStatus;
   readonly dateCreation?: Date;
 }
