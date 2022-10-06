@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Mission } from 'src/app/mission/domain/entity/mission';
 import { environment } from 'src/environments/environment';
-import { MissionSnapshot } from '../../../domain/entity/mission.snapshot';
 import { MissionLoader } from '../../../usecases/loaders/mission.loader';
 import { MongoMissionMapper } from './mission.mapper';
 import { MongoMissionDTO } from './mongoMission.DTO';
