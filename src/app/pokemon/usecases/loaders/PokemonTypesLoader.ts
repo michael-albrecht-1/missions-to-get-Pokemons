@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { PokemonType } from '../entity/pokemon-type';
+import { PokemonType } from '../../domain/entity/pokemon-type';
 
 export interface PokemonTypesLoader {
   all(): Observable<PokemonType[]>;

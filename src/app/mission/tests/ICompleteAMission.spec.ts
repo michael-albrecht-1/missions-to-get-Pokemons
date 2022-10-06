@@ -1,6 +1,6 @@
 import { InMemoryMissionLoader } from '../adapters/secondaries/inmemory/inmemoryMission.loader';
 import { MissionSnapshot } from '../domain/entity/mission.snapshot';
-import { MissionLoader } from '../domain/loaders/mission.loader';
+import { MissionLoader } from '../usecases/loaders/mission.loader';
 import { ICompleteAMission } from '../usecases/ICompleteAMission';
 import { MissionStub } from './mission.stub';
 

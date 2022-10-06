@@ -1,4 +1,4 @@
-import { PokemonBuilder } from '../../usecases/pokemon.builder';
+import { PokemonBuilder } from '../../domain/pokemon.builder';
 
 export class StubPokemonBuilder extends PokemonBuilder {
   protected override _number: string = '1';

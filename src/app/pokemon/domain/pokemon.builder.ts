@@ -1,4 +1,4 @@
-import { Pokemon } from '../domain/entity/pokemon';
+import { Pokemon } from './entity/pokemon';
 
 export class PokemonBuilder {
   protected _number!: string;

@@ -1,5 +1,5 @@
 import { Pokemon } from 'src/app/pokemon/domain/entity/pokemon';
-import { PokemonBuilder } from 'src/app/pokemon/usecases/pokemon.builder';
+import { PokemonBuilder } from 'src/app/pokemon/domain/pokemon.builder';
 import { PokemonDTO } from './PokemonDTO';
 
 export class PokemonMapper {

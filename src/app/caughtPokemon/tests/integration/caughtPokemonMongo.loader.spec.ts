@@ -3,7 +3,7 @@ import { of } from 'rxjs';
 import { CaughtPokemonMongoLoader } from '../../adapters/secondaries/real/REST-mongo/caughtPokemonMongo.loader';
 import { CaughtPokemonMongoMapper } from '../../adapters/secondaries/real/REST-mongo/caughtPokemonMongo.mapper';
 import { CaughtPokemon } from '../../domain/entity/caughtPokemon';
-import { CaughtPokemonLoader } from '../../domain/loaders/caughtPokemon.loader';
+import { CaughtPokemonLoader } from '../../usecases/loaders/caughtPokemon.loader';
 import { IGetCaughtPokemons } from '../../usecases/IGetCaughtPokemons';
 
 describe('Integration | CaughtPokemonLoader (Mongo) fetches', () => {
@@ -27,7 +27,9 @@ describe('Integration | CaughtPokemonLoader (Mongo) fetches', () => {
     new IGetCaughtPokemons(caughtPokemonLoader)
       .execute()
       .subscribe((caughtPokemons: CaughtPokemon[]) => {
-        expect(caughtPokemons[0].snapshot()).toEqual(expectedCaughtPokemon.snapshot());
+        expect(caughtPokemons[0].snapshot()).toEqual(
+          expectedCaughtPokemon.snapshot()
+        );
         expect(caughtPokemons.length).toEqual(1);
         expect(fakeHttpClient.get).toHaveBeenCalledTimes(1);
         done();

@@ -1,5 +1,5 @@
-import { MissionReward } from '../../shared/MissionReward';
-import { Mission } from './mission';
+import { MissionReward } from '../shared/MissionReward';
+import { Mission } from './entity/mission';
 
 export class MissionBuilder {
   protected _uuid!: string;

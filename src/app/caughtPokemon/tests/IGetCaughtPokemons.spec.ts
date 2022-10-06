@@ -1,7 +1,7 @@
 import { InMemoryCaughtPokemonsLoader } from '../adapters/secondaries/inmemory/inMemoryCaughtPokemons.loader';
 import { CaughtPokemon } from '../domain/entity/caughtPokemon';
 
-import { CaughtPokemonLoader } from '../domain/loaders/caughtPokemon.loader';
+import { CaughtPokemonLoader } from '../usecases/loaders/caughtPokemon.loader';
 
 import { IGetCaughtPokemons } from '../usecases/IGetCaughtPokemons';
 
@@ -41,11 +41,11 @@ describe('As a user I get caught pokemons', () => {
   });
 
   it('There are 2 pokemons as result.', (done) => {
-    const ronflex: CaughtPokemon =new CaughtPokemon({
+    const ronflex: CaughtPokemon = new CaughtPokemon({
       number: '42',
       name: 'ronflex',
     });
-    const togepi: CaughtPokemon =new CaughtPokemon({
+    const togepi: CaughtPokemon = new CaughtPokemon({
       number: '43',
       name: 'togepi',
     });

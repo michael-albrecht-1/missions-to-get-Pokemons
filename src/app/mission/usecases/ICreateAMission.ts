@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { Usecase } from 'src/app/shared/usecase.interface';
 import { Mission } from '../domain/entity/mission';
 import { MissionSnapshot } from '../domain/entity/mission.snapshot';
-import { MissionLoader } from '../domain/loaders/mission.loader';
+import { MissionLoader } from './loaders/mission.loader';
 import { MissionReward } from '../shared/MissionReward';
 
 export class ICreateAMission implements Usecase<Observable<MissionSnapshot>> {

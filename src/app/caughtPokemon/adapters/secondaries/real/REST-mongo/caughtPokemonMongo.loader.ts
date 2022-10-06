@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { CaughtPokemon } from 'src/app/caughtPokemon/domain/entity/caughtPokemon';
-import { CaughtPokemonLoader } from 'src/app/caughtPokemon/domain/loaders/caughtPokemon.loader';
+import { CaughtPokemonLoader } from 'src/app/caughtPokemon/usecases/loaders/caughtPokemon.loader';
 import { environment } from 'src/environments/environment';
 import { CaughtPokemonMongoDTO } from './caughtPokemonMongo.DTO';
 import { CaughtPokemonMongoMapper } from './caughtPokemonMongo.mapper';

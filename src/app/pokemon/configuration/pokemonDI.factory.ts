@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { PokemonBuilder } from '../usecases/pokemon.builder';
-import { PokemonLoader } from '../domain/loaders/PokemonLoader';
+import { PokemonBuilder } from '../domain/pokemon.builder';
+import { PokemonLoader } from '../usecases/loaders/PokemonLoader';
 import { InMemoryPokemonLoader } from '../adapters/secondaries/inmemory/inmemoryPokemon.loader';
 import { environment } from 'src/environments/environment';
 import { PokeApiPokemonLoader } from '../adapters/secondaries/real/REST-poke-api/PokeApiPokemon.loader';
