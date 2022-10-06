@@ -9,7 +9,6 @@ import {
 } from 'rxjs';
 import { MissionSnapshot } from '../../../domain/entity/mission.snapshot';
 import { MissionLoader } from '../../../domain/loaders/mission.loader';
-import { MissionStatus } from '../../../shared/MissionStatus';
 import { MissionNotFoundError } from './missionNotFound.error';
 
 export class InMemoryMissionLoader implements MissionLoader {

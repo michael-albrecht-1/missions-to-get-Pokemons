@@ -20,7 +20,10 @@ describe('As a user I get caught pokemons', () => {
   });
 
   it('There are 1 pokemons as result.', (done) => {
-    const ronflex: CaughtPokemon = { number: '42', name: 'ronflex' };
+    const ronflex: CaughtPokemon = new CaughtPokemon({
+      number: '42',
+      name: 'ronflex',
+    });
 
     const pokemonsCaughtSource: CaughtPokemonLoader =
       new InMemoryCaughtPokemonsLoader([ronflex]);
@@ -32,15 +35,20 @@ describe('As a user I get caught pokemons', () => {
       .execute()
       .subscribe((caughtPokemons: CaughtPokemon[]) => {
         expect(caughtPokemons.length).toBe(1);
-        expect(caughtPokemons[0].number).toBe(ronflex.number);
-        expect(caughtPokemons[0].name).toBe(ronflex.name);
+        expect(caughtPokemons[0].snapshot()).toEqual(ronflex.snapshot());
         done();
       });
   });
 
   it('There are 2 pokemons as result.', (done) => {
-    const ronflex: CaughtPokemon = { number: '42', name: 'ronflex' };
-    const togepi: CaughtPokemon = { number: '43', name: 'togepi' };
+    const ronflex: CaughtPokemon =new CaughtPokemon({
+      number: '42',
+      name: 'ronflex',
+    });
+    const togepi: CaughtPokemon =new CaughtPokemon({
+      number: '43',
+      name: 'togepi',
+    });
 
     const pokemonsCaughtSource: CaughtPokemonLoader =
       new InMemoryCaughtPokemonsLoader([ronflex, togepi]);
@@ -52,10 +60,8 @@ describe('As a user I get caught pokemons', () => {
       .execute()
       .subscribe((caughtPokemons: CaughtPokemon[]) => {
         expect(caughtPokemons.length).toBe(2);
-        expect(caughtPokemons[0].number).toBe(ronflex.number);
-        expect(caughtPokemons[0].name).toBe(ronflex.name);
-        expect(caughtPokemons[1].number).toBe(togepi.number);
-        expect(caughtPokemons[1].name).toBe(togepi.name);
+        expect(caughtPokemons[0].snapshot()).toEqual(ronflex.snapshot());
+        expect(caughtPokemons[1].snapshot()).toEqual(togepi.snapshot());
         done();
       });
   });

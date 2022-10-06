@@ -10,10 +10,10 @@ describe('Integration | CaughtPokemonLoader (Mongo) fetches', () => {
   it('A pokemon', (done) => {
     const fakeHttpClient = { get: () => of() } as unknown as HttpClient;
 
-    const expectedCaughtPokemon: CaughtPokemon = {
+    const expectedCaughtPokemon: CaughtPokemon = new CaughtPokemon({
       number: '42',
       name: 'ronflex',
-    };
+    });
 
     const fakeMongoResponse = CaughtPokemonMongoMapper.toCaughtPokemonDTO(
       expectedCaughtPokemon
@@ -27,8 +27,7 @@ describe('Integration | CaughtPokemonLoader (Mongo) fetches', () => {
     new IGetCaughtPokemons(caughtPokemonLoader)
       .execute()
       .subscribe((caughtPokemons: CaughtPokemon[]) => {
-        expect(caughtPokemons[0].number).toEqual(expectedCaughtPokemon.number);
-        expect(caughtPokemons[0].name).toEqual(expectedCaughtPokemon.name);
+        expect(caughtPokemons[0].snapshot()).toEqual(expectedCaughtPokemon.snapshot());
         expect(caughtPokemons.length).toEqual(1);
         expect(fakeHttpClient.get).toHaveBeenCalledTimes(1);
         done();
