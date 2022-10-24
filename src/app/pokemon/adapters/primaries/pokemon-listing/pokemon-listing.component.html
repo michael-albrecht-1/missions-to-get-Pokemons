@@ -28,7 +28,7 @@
       <div class="col-12">
         <div class="">
           <strong
-            >{{ fiteredTypeCaughtPokemons }} /
+            >{{ fiteredTypeCaughtPokemonsCount }} /
             {{ filteredPokemons.length }}</strong
           >
           {{ form.get("pokemonType")?.value || "" }} caught Pokemons
@@ -39,10 +39,11 @@
             role="progressbar"
             [ngStyle]="{
               width:
-                (fiteredTypeCaughtPokemons * 100) / filteredPokemons.length +
+                (fiteredTypeCaughtPokemonsCount * 100) /
+                  filteredPokemons.length +
                 '%'
             }"
-            [attr.aria-valuenow]="fiteredTypeCaughtPokemons"
+            [attr.aria-valuenow]="fiteredTypeCaughtPokemonsCount"
             aria-valuemin="0"
             [attr.aria-valuemax]="pokemons.length"
           ></div>
