@@ -12,8 +12,9 @@
     <div class="fs-4">
       {{ pokemon.snapshot().name | titlecase }}
     </div>
-    <div data-testid="caughtPokemon" class="caughtPokemonImg" *ngIf="isCard">
+    <div class="caughtPokemonImg" *ngIf="isCard">
       <img
+        data-testid="caughtPokemon"
         *ngIf="isCaughtPokemon"
         class="caughtPokemonImg"
         alt="Pokémon capturé !"
