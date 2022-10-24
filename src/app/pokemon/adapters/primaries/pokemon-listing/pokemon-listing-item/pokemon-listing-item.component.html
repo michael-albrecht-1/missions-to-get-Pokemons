@@ -1,4 +1,5 @@
 <div
+  data-testid="pokemonCard"
   class="pokemonItem card d-flex flex-column justify-content-between align-items-center w-100"
   [ngClass]="{ card: isCard }"
 >
@@ -11,7 +12,7 @@
     <div class="fs-4">
       {{ pokemon.snapshot().name | titlecase }}
     </div>
-    <div class="caughtPokemonImg" *ngIf="isCard">
+    <div data-testid="caughtPokemon" class="caughtPokemonImg" *ngIf="isCard">
       <img
         *ngIf="isCaughtPokemon"
         class="caughtPokemonImg"

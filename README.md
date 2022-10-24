@@ -1,3 +1,7 @@
+# ToDO
+
+fix premier appel n'affiche pas les pokemons attrapes
+
 # dist/missionstogetpokemons
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.1.
