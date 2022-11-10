@@ -89,6 +89,6 @@ function getExpectedPokemon(pokemonDTO: PokemonDTO) {
     .withHeight(pokemonDTO.height)
     .withWeight(pokemonDTO.weight)
     .withAvatar(pokemonDTO.sprites.front_default)
-    .withTypes(pokemonDTO.types)
+    .withTypes(pokemonDTO.types.map((type) => type?.type?.name))
     .build();
 }

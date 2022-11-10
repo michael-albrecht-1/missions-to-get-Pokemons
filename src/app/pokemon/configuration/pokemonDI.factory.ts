@@ -6,12 +6,15 @@ import { environment } from 'src/environments/environment';
 import { PokeApiPokemonLoader } from '../adapters/secondaries/real/REST-poke-api/PokeApiPokemon.loader';
 import { SOURCES } from 'config/sources';
 import { Pokemon } from '../domain/entity/pokemon';
+import { MongoPokemonLoader } from '../adapters/secondaries/real/mongo-pokemon-loader/mongoPokemon.loader';
 
 export class PokemonDIFactory {
   static pokemonLoader(http: HttpClient): PokemonLoader {
     switch (environment.pokemonSource) {
       case SOURCES.restPokeApi:
         return new PokeApiPokemonLoader(http);
+      case SOURCES.mongo:
+        return new MongoPokemonLoader(http);
       default:
         const pickachu: Pokemon = new PokemonBuilder()
           .withNumber('25')

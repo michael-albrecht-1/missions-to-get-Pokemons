@@ -7,10 +7,10 @@ enum mongoURL {
 
 export const environment = {
   production: false,
-  pokemonSource: SOURCES.restPokeApi,
+  pokemonSource: SOURCES.mongo,
   pokemonCaughtSource: SOURCES.mongo,
   pokemonTypesSource: SOURCES.mongo,
   missionSource: SOURCES.mongo,
 
-  mongoURL: mongoURL.mongoVercel,
+  mongoURL: mongoURL.mongoLocal,
 };

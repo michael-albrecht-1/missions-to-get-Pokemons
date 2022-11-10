@@ -6,7 +6,7 @@ export class Pokemon {
   #description?: string;
   #weight: number;
   #height: number;
-  #avatar: string;
+  #avatar?: string;
   #types: string[];
 
   constructor({

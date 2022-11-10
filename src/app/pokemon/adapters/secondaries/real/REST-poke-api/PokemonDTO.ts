@@ -15,6 +15,11 @@ export interface PokemonDTO {
   readonly species: any;
   readonly sprites: PokemonSpritesDTO;
   readonly stats: any[];
-  readonly types: any[];
+  readonly types: PokemonTypeDTO[];
   readonly past_types: any[];
+}
+
+interface PokemonTypeDTO {
+  slot: number;
+  type: { name: string; url: string };
 }
