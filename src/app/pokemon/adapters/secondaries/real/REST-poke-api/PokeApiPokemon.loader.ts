@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { combineLatest, map, Observable, of, switchMap, tap } from 'rxjs';
 import { Pokemon } from 'src/app/pokemon/domain/entity/pokemon';
 import { PokemonLoader } from 'src/app/pokemon/usecases/loaders/PokemonLoader';
+import { SearchResponse } from 'src/app/shared/mongoSearchResponse.interface';
 import { PokemonMapper } from './pokemon.mapper';
 import { PokemonDTO } from './PokemonDTO';
 
@@ -20,10 +21,15 @@ type PokeApiResponse = {
 export class PokeApiPokemonLoader implements PokemonLoader {
   constructor(private http: HttpClient) {}
 
-  all(): Observable<Pokemon[]> {
+  search(): Observable<SearchResponse<Pokemon[]>> {
     const pokemons = this.#getPokemonsFromStorage();
     if (pokemons) {
-      return of(pokemons);
+      return of({
+        currentPage: 0,
+        nbResults: pokemons.length,
+        lastPage: 0,
+        data: pokemons,
+      });
     }
 
     return this.http
@@ -42,7 +48,13 @@ export class PokeApiPokemonLoader implements PokemonLoader {
         map<PokemonDTO[], Pokemon[]>((pokemons) =>
           pokemons.map(PokemonMapper.mapToPokemon)
         ),
-        tap(this.#savePokemonsInStorage)
+        tap(this.#savePokemonsInStorage),
+        map<Pokemon[], SearchResponse<Pokemon[]>>((pokemons) => ({
+          currentPage: 0,
+          nbResults: pokemons.length,
+          lastPage: 0,
+          data: pokemons,
+        }))
       );
   }
 

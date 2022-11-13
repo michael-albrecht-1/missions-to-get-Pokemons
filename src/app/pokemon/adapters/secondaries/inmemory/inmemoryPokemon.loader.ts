@@ -1,4 +1,5 @@
 import { BehaviorSubject, map, Observable, Subject, tap } from 'rxjs';
+import { SearchResponse } from 'src/app/shared/mongoSearchResponse.interface';
 import { Pokemon } from '../../../domain/entity/pokemon';
 import { PokemonLoader } from '../../../usecases/loaders/PokemonLoader';
 
@@ -7,8 +8,15 @@ export class InMemoryPokemonLoader implements PokemonLoader {
 
   constructor(private pokemons: Pokemon[]) {}
 
-  all(): Observable<Pokemon[]> {
-    return this.#pokemons$;
+  search(): Observable<SearchResponse<Pokemon[]>> {
+    return this.#pokemons$.pipe(
+      map<Pokemon[], SearchResponse<Pokemon[]>>((pokemons) => ({
+        currentPage: 0,
+        nbResults: pokemons.length,
+        lastPage: 0,
+        data: pokemons,
+      }))
+    );
   }
 
   get(number: string): Observable<Pokemon> {

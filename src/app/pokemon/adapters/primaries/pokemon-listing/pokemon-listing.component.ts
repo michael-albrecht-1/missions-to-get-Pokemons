@@ -1,16 +1,25 @@
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  Output,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
   combineLatest,
-  first,
   map,
   startWith,
   Subject,
   takeUntil,
-  tap,
+  fromEvent,
+  switchMap,
 } from 'rxjs';
 import { CaughtPokemon } from 'src/app/caughtPokemon/domain/entity/caughtPokemon';
 import { IGetCaughtPokemons } from 'src/app/caughtPokemon/usecases/IGetCaughtPokemons';
+import { SearchResponse } from 'src/app/shared/mongoSearchResponse.interface';
 import { Pokemon } from '../../../domain/entity/pokemon';
 import { ISearchAllPokemons } from '../../../usecases/ISearchAllPokemons';
 
@@ -23,10 +32,13 @@ export class PokemonListingComponent {
   @Input() isAddToMissionActive: boolean = false;
   @Output() addPokemon: EventEmitter<Pokemon> = new EventEmitter();
 
+  @ViewChild('pokemonList', { static: true })
+  pokemonList!: ElementRef;
+
   public filteredPokemons: Pokemon[] = [];
   public caughtPokemons: CaughtPokemon[] = [];
   public form: FormGroup = this.#initForm();
-
+  #isInfinityScrollActive: boolean = false;
   public pokemons: Pokemon[] = [];
   public fiteredTypeCaughtPokemonsCount!: number;
 
@@ -44,16 +56,21 @@ export class PokemonListingComponent {
     const formChanges$ = this.form.valueChanges.pipe(
       startWith(this.form.value)
     );
-    const allPokemons$ = this.#getAllPokemons$();
+
     const pokemonsCaught$ = this.#getPokemonCaught$();
 
-    combineLatest([formChanges$, allPokemons$, pokemonsCaught$])
+    combineLatest([formChanges$, pokemonsCaught$])
       .pipe(
+        switchMap(this.#searchPokemons$),
         map(() => this.form.value),
         map(this.#setFiltredPokemons),
         map(this.#setFiltredTypeCaughtPokemonsCount),
         takeUntil(this.#destroy$)
       )
+      .subscribe();
+
+    fromEvent(this.pokemonList.nativeElement, 'scroll')
+      .pipe(map(this.#infiniteScroll), takeUntil(this.#destroy$))
       .subscribe();
   }
 
@@ -77,10 +94,19 @@ export class PokemonListingComponent {
       );
   };
 
-  #getAllPokemons$ = () => {
-    return this.iSearchAllPokemons
-      .execute()
-      .pipe(map((pokemons: Pokemon[]) => (this.pokemons = pokemons)));
+  #searchPokemons$ = () => {
+    if (!this.#isInfinityScrollActive) {
+      this.pokemons = [];
+      this.iSearchAllPokemons.page = 0;
+    }
+
+    return this.iSearchAllPokemons.execute(this.form.value).pipe(
+      map((res: SearchResponse<Pokemon[]>) => {
+        return (this.pokemons = this.#isInfinityScrollActive
+          ? [...this.pokemons, ...res.data]
+          : res.data);
+      })
+    );
   };
 
   #initForm(): FormGroup<any> {
@@ -150,5 +176,18 @@ export class PokemonListingComponent {
         return caughtPokemon ? true : false;
       }
     ).length);
+  };
+
+  #infiniteScroll = (event: any) => {
+    const target = event.target;
+    const viewportHeight = target.offsetHeight + target.scrollTop;
+    const scrollEnd = viewportHeight >= target.scrollHeight;
+
+    if (target.scrollTop > 0 && scrollEnd) {
+      this.#isInfinityScrollActive = true;
+
+      this.form.updateValueAndValidity();
+      return console.warn('on est au bottom');
+    }
   };
 }
