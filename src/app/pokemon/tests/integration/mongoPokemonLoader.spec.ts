@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { MongoPokemonDTO } from '../../adapters/secondaries/real/mongo-pokemon-loader/mongoPokemonDTO';
 import { MongoPokemonDTOMock } from './mocks/mongoPokemonDTOMock';
 import { MongoPokemonLoader } from '../../adapters/secondaries/real/mongo-pokemon-loader/mongoPokemon.loader';
+import { SearchResponse } from 'src/app/shared/mongoSearchResponse.interface';
 
 describe('Integration | MongoPokemonsLoader fetches', () => {
   const baseUrl: string = environment.mongoURL;
@@ -16,25 +17,27 @@ describe('Integration | MongoPokemonsLoader fetches', () => {
   it('A list with 1 pokemon', (done) => {
     const fakeHttpClient = { get: () => of() } as unknown as HttpClient;
 
-    const fakePokemonResponsePokemons: MongoPokemonDTO[] = [
-      MongoPokemonDTOMock[0],
-    ];
+    const fakeResponse: SearchResponse<MongoPokemonDTO[]> = {
+      currentPage: 0,
+      nbResults: 1,
+      lastPage: 0,
+      data: [MongoPokemonDTOMock[0]],
+    };
 
-    const expectedPokemons: Pokemon[] =
-      fakePokemonResponsePokemons.map(getExpectedPokemon);
+    const expectedPokemons: Pokemon[] = [MongoPokemonDTOMock[0]].map(
+      getExpectedPokemon
+    );
 
     const pokemonLoader: PokemonLoader = new MongoPokemonLoader(fakeHttpClient);
     const iSearchAllPokemons: ISearchAllPokemons = new ISearchAllPokemons(
       pokemonLoader
     );
 
-    spyOn(fakeHttpClient, 'get').and.returnValue(
-      of(fakePokemonResponsePokemons)
-    );
+    spyOn(fakeHttpClient, 'get').and.returnValue(of(fakeResponse));
 
-    iSearchAllPokemons.execute().subscribe((pokemons: Pokemon[]) => {
-      expect(pokemons.length).toEqual(1);
-      expect(pokemons[0].snapshot()).toEqual(expectedPokemons[0].snapshot());
+    iSearchAllPokemons.execute().subscribe((res: SearchResponse<Pokemon[]>) => {
+      expect(res.data.length).toEqual(1);
+      expect(res.data[0].snapshot()).toEqual(expectedPokemons[0].snapshot());
       expect(fakeHttpClient.get).toHaveBeenCalledTimes(1);
       done();
     });

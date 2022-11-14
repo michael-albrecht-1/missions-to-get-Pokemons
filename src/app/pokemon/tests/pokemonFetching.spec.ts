@@ -4,6 +4,7 @@ import { PokemonLoader } from '../usecases/loaders/PokemonLoader';
 import { ISearchAllPokemons } from '../usecases/ISearchAllPokemons';
 import { ISearchAPokemonByNumber } from '../usecases/ISearchAPokemonByNumber';
 import { StubPokemonBuilder } from './stubs/stubPokemonBuilder';
+import { SearchResponse } from 'src/app/shared/mongoSearchResponse.interface';
 
 describe('Pokemon handler fetches', () => {
   let pikachu: Pokemon;
@@ -17,8 +18,8 @@ describe('Pokemon handler fetches', () => {
       const source = createPokemonSource([]);
       new ISearchAllPokemons(source)
         .execute()
-        .subscribe((pokemons: Pokemon[]) => {
-          expect(pokemons).toEqual([]);
+        .subscribe((res: SearchResponse<Pokemon[]>) => {
+          expect(res.data).toEqual([]);
           done();
         })
         .unsubscribe();
@@ -29,8 +30,8 @@ describe('Pokemon handler fetches', () => {
 
       new ISearchAllPokemons(source)
         .execute()
-        .subscribe((pokemons: Pokemon[]) => {
-          verifyListOfPokemons(pokemons, [pikachu]);
+        .subscribe((res: SearchResponse<Pokemon[]>) => {
+          verifyListOfPokemons(res.data, [pikachu]);
           done();
         })
         .unsubscribe();
@@ -44,8 +45,8 @@ describe('Pokemon handler fetches', () => {
       const source = createPokemonSource([pikachu, salameche]);
       new ISearchAllPokemons(source)
         .execute()
-        .subscribe((pokemons: Pokemon[]) => {
-          verifyListOfPokemons(pokemons, [pikachu, salameche]);
+        .subscribe((res: SearchResponse<Pokemon[]>) => {
+          verifyListOfPokemons(res.data, [pikachu, salameche]);
           done();
         })
         .unsubscribe();

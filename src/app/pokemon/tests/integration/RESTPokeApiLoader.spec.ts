@@ -8,6 +8,7 @@ import { pokeApiPokemonDTOMock } from './mocks/RESTPokeApiPokemonDTOMock';
 import { Pokemon } from '../../domain/entity/pokemon';
 import { ISearchAllPokemons } from '../../usecases/ISearchAllPokemons';
 import { ISearchAPokemonByNumber } from '../../usecases/ISearchAPokemonByNumber';
+import { SearchResponse } from 'src/app/shared/mongoSearchResponse.interface';
 
 type PokemonNameAndLink = {
   name: string;
@@ -44,9 +45,9 @@ describe('Integration | RestPokeApiLoader fetches', () => {
       return of(fakePokemonResponsePokemons);
     });
 
-    iSearchAllPokemons.execute().subscribe((pokemons: Pokemon[]) => {
-      expect(pokemons.length).toEqual(1);
-      expect(pokemons[0].snapshot()).toEqual(expectedPokemon.snapshot());
+    iSearchAllPokemons.execute().subscribe((res: SearchResponse<Pokemon[]>) => {
+      expect(res.data.length).toEqual(1);
+      expect(res.data[0].snapshot()).toEqual(expectedPokemon.snapshot());
       expect(fakeHttpClient.get).toHaveBeenCalledTimes(2);
       done();
     });
