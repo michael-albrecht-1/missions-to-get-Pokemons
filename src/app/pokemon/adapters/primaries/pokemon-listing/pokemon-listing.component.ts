@@ -17,6 +17,7 @@ import {
   fromEvent,
   switchMap,
   Observable,
+  tap,
 } from 'rxjs';
 import { CaughtPokemon } from 'src/app/caughtPokemon/domain/entity/caughtPokemon';
 import { IGetCaughtPokemons } from 'src/app/caughtPokemon/usecases/IGetCaughtPokemons';
@@ -63,6 +64,7 @@ export class PokemonListingComponent {
       .pipe(
         switchMap(this.#searchPokemons$),
         map(this.#setCaughtPokemonsCount),
+        tap(() => (this.#isInfinityScrollActive = false)),
         takeUntil(this.#destroy$)
       )
       .subscribe();
