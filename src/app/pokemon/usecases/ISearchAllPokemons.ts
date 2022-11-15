@@ -13,6 +13,7 @@ export class ISearchAllPokemons extends SearchUsecase<Pokemon> {
   execute(formValue?: any): Observable<SearchResponse<Pokemon[]>> {
     this.params = {
       page: this.page,
+      ...formValue,
     };
 
     return this.pokemonSource

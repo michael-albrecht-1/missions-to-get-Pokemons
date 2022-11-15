@@ -5,7 +5,7 @@
     class="container d-flex align-items-center"
   >
     <app-pokemon-types-dropdown
-      formControlName="pokemonType"
+      formControlName="type"
     ></app-pokemon-types-dropdown>
 
     <div class="form-check form-switch">
@@ -15,7 +15,7 @@
         type="checkbox"
         role="switch"
         id="flexSwitchCheckDefault"
-        formControlName="filterCaughtPokemons"
+        formControlName="caught"
       />
       <label class="form-check-label ms-2 fs-5" for="flexSwitchCheckDefault">
         My pokemons
@@ -27,23 +27,17 @@
     <div class="row mb-4">
       <div class="col-12">
         <div class="">
-          <strong
-            >{{ fiteredTypeCaughtPokemonsCount }} /
-            {{ filteredPokemons.length }}</strong
-          >
-          {{ form.get('pokemonType')?.value || '' }} caught Pokemons
+          <strong>{{ caughtPokemonsCount }} / {{ pokemons.length }}</strong>
+          {{ form.get('type')?.value || '' }} caught Pokemons
         </div>
         <div class="progress">
           <div
             class="progress-bar"
             role="progressbar"
             [ngStyle]="{
-              width:
-                (fiteredTypeCaughtPokemonsCount * 100) /
-                  filteredPokemons.length +
-                '%'
+              width: (caughtPokemonsCount * 100) / pokemons.length + '%'
             }"
-            [attr.aria-valuenow]="fiteredTypeCaughtPokemonsCount"
+            [attr.aria-valuenow]="caughtPokemonsCount"
             aria-valuemin="0"
             [attr.aria-valuemax]="pokemons.length"
           ></div>
@@ -53,12 +47,12 @@
     <div
       class="row"
       #pokemonList
-      [style.overflow]="'scroll'"
-      [style.height.px]="'400'"
+      [style.overflowY]="'scroll'"
+      [style.height.px]="'646'"
     >
       <pokemon-listing-item
         class="col-12 col-md-6 col-xl-4 mb-4"
-        *ngFor="let pokemon of filteredPokemons"
+        *ngFor="let pokemon of pokemons"
         [pokemon]="pokemon"
         [caughtPokemons]="caughtPokemons"
         [isAddToMissionActive]="isAddToMissionActive"

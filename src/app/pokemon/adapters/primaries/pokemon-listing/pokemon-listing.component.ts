@@ -16,6 +16,7 @@ import {
   takeUntil,
   fromEvent,
   switchMap,
+  Observable,
 } from 'rxjs';
 import { CaughtPokemon } from 'src/app/caughtPokemon/domain/entity/caughtPokemon';
 import { IGetCaughtPokemons } from 'src/app/caughtPokemon/usecases/IGetCaughtPokemons';
@@ -35,12 +36,11 @@ export class PokemonListingComponent {
   @ViewChild('pokemonList', { static: true })
   pokemonList!: ElementRef;
 
-  public filteredPokemons: Pokemon[] = [];
   public caughtPokemons: CaughtPokemon[] = [];
   public form: FormGroup = this.#initForm();
   #isInfinityScrollActive: boolean = false;
   public pokemons: Pokemon[] = [];
-  public fiteredTypeCaughtPokemonsCount!: number;
+  public caughtPokemonsCount!: number;
 
   #destroy$ = new Subject<void>();
 
@@ -62,9 +62,7 @@ export class PokemonListingComponent {
     combineLatest([formChanges$, pokemonsCaught$])
       .pipe(
         switchMap(this.#searchPokemons$),
-        map(() => this.form.value),
-        map(this.#setFiltredPokemons),
-        map(this.#setFiltredTypeCaughtPokemonsCount),
+        map(this.#setCaughtPokemonsCount),
         takeUntil(this.#destroy$)
       )
       .subscribe();
@@ -94,7 +92,7 @@ export class PokemonListingComponent {
       );
   };
 
-  #searchPokemons$ = () => {
+  #searchPokemons$ = (): Observable<Pokemon[]> => {
     if (!this.#isInfinityScrollActive) {
       this.pokemons = [];
       this.iSearchAllPokemons.page = 0;
@@ -111,74 +109,22 @@ export class PokemonListingComponent {
 
   #initForm(): FormGroup<any> {
     return this.fb.group({
-      pokemonType: [],
-      filterCaughtPokemons: [true, { nonNullable: true }],
+      type: [],
+      caught: [true, { nonNullable: true }],
     });
   }
 
-  #setFiltredPokemons = (formValue: any): Pokemon[] => {
-    const filtredPokemonsByTypes = this.#filterPokemonsByType(
-      this.pokemons,
-      formValue.pokemonType
-    );
-
-    const filtredPokemonsByTypesAndCaught = this.#filterPokemonsByCaught(
-      filtredPokemonsByTypes,
-      formValue.filterCaughtPokemons
-    );
-
-    return (this.filteredPokemons = filtredPokemonsByTypesAndCaught);
+  #setCaughtPokemonsCount = (pokemons: Pokemon[]): number => {
+    return (this.caughtPokemonsCount = pokemons.filter((pokemon: Pokemon) => {
+      const caughtPokemon = this.caughtPokemons.find(
+        (caughtPokemon: CaughtPokemon) =>
+          caughtPokemon.snapshot().number === pokemon.snapshot().number
+      );
+      return caughtPokemon ? true : false;
+    }).length);
   };
 
-  #filterPokemonsByCaught(
-    pokemons: Pokemon[],
-    filterCaughtPokemon: boolean
-  ): Pokemon[] {
-    if (!filterCaughtPokemon) {
-      return pokemons;
-    }
-
-    return pokemons.filter((pokemon: Pokemon): boolean =>
-      this.#filterCaughtPokemons(pokemon)
-    );
-  }
-
-  #filterCaughtPokemons = (pokemon: Pokemon): boolean => {
-    const caughtPokemon = this.caughtPokemons.find(
-      (caughtPokemon: CaughtPokemon) =>
-        caughtPokemon.snapshot().number === pokemon.snapshot().number
-    );
-
-    return caughtPokemon ? true : false;
-  };
-
-  #filterPokemonsByType = (
-    pokemons: Pokemon[],
-    pokemonType: string
-  ): Pokemon[] => {
-    if (!pokemonType) {
-      return pokemons;
-    }
-    return pokemons.filter((pokemon: Pokemon): boolean =>
-      pokemon.hasType(pokemonType)
-    );
-  };
-
-  #setFiltredTypeCaughtPokemonsCount = (
-    filteredPokemons: Pokemon[]
-  ): number => {
-    return (this.fiteredTypeCaughtPokemonsCount = filteredPokemons.filter(
-      (pokemon: Pokemon) => {
-        const caughtPokemon = this.caughtPokemons.find(
-          (caughtPokemon: CaughtPokemon) =>
-            caughtPokemon.snapshot().number === pokemon.snapshot().number
-        );
-        return caughtPokemon ? true : false;
-      }
-    ).length);
-  };
-
-  #infiniteScroll = (event: any) => {
+  #infiniteScroll = (event: any): void => {
     const target = event.target;
     const viewportHeight = target.offsetHeight + target.scrollTop;
     const scrollEnd = viewportHeight >= target.scrollHeight;
@@ -187,7 +133,6 @@ export class PokemonListingComponent {
       this.#isInfinityScrollActive = true;
 
       this.form.updateValueAndValidity();
-      return console.warn('on est au bottom');
     }
   };
 }
