@@ -28,6 +28,7 @@ import { ISearchAllPokemons } from '../../../usecases/ISearchAllPokemons';
 @Component({
   selector: 'pokemon-listing',
   templateUrl: './pokemon-listing.component.html',
+  styleUrls: ['./pokemon-listing.component.scss'],
 })
 export class PokemonListingComponent {
   @Input() title: string = 'Pokedex';
@@ -58,9 +59,7 @@ export class PokemonListingComponent {
       startWith(this.form.value)
     );
 
-    const pokemonsCaught$ = this.#getPokemonCaught$();
-
-    combineLatest([formChanges$, pokemonsCaught$])
+    combineLatest([formChanges$])
       .pipe(
         switchMap(this.#searchPokemons$),
         map(this.#setCaughtPokemonsCount),
@@ -83,18 +82,9 @@ export class PokemonListingComponent {
     this.addPokemon.emit(event);
   }
 
-  #getPokemonCaught$ = () => {
-    return this.iGetCaughtPokemons
-      .execute()
-      .pipe(
-        map(
-          (caughtPokemons: CaughtPokemon[]) =>
-            (this.caughtPokemons = caughtPokemons)
-        )
-      );
-  };
-
   #searchPokemons$ = (): Observable<Pokemon[]> => {
+    console.warn('search');
+
     if (!this.#isInfinityScrollActive) {
       this.pokemons = [];
       this.iSearchAllPokemons.page = 0;
@@ -112,7 +102,7 @@ export class PokemonListingComponent {
   #initForm(): FormGroup<any> {
     return this.fb.group({
       type: [],
-      caught: [true, { nonNullable: true }],
+      caught: [true as boolean],
     });
   }
 

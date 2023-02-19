@@ -1,0 +1,6 @@
+.pokemonListing {
+  &-list {
+    height: calc(100vh - 15rem);
+    overflow-y: scroll;
+  }
+}
