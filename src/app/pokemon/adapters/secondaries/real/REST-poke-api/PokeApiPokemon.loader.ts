@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { ObservableRESTClient } from 'config/clients/observable.RESTClient';
 import { combineLatest, map, Observable, of, switchMap, tap } from 'rxjs';
-import { Pokemon } from 'src/app/pokemon/domain/entity/pokemon';
+import { Pokemon } from '../../../../domain/entity/pokemon';
 import { PokemonLoader } from 'src/app/pokemon/usecases/loaders/PokemonLoader';
 import { PokemonMapper } from './pokemon.mapper';
 import { PokemonDTO } from './PokemonDTO';
@@ -18,7 +18,7 @@ type PokeApiResponse = {
 };
 
 export class PokeApiPokemonLoader implements PokemonLoader {
-  constructor(private http: HttpClient) {}
+  constructor(private http: ObservableRESTClient) {}
 
   all(): Observable<Pokemon[]> {
     const pokemons = this.#getPokemonsFromStorage();
